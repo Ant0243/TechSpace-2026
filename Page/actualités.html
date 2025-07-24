@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TechSpace - Actualités Cybersécurité | Veille Temps Réel</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+    * { font-family: 'Inter', sans-serif; }
+
+    .gradient-bg {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 20%, #1d4ed8 40%, #2563eb 60%, #3b82f6 80%, #60a5fa 100%);
+      animation: gradientShift 15s ease infinite;
+    }
+
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.8s ease forwards;
+    }
+
+    .fade-in-delay-1 { animation-delay: 0.2s; }
+    .fade-in-delay-2 { animation-delay: 0.4s; }
+    .fade-in-delay-3 { animation-delay: 0.6s; }
+    .fade-in-delay-4 { animation-delay: 0.8s; }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .news-card {
+      background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+      border: 1px solid #475569;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .news-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .news-card:hover::before {
+      left: 100%;
+    }
+
+    .news-card:hover {
+      border-color: #3b82f6;
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
+    }
+
+    .breaking-news {
+      animation: pulse 2s infinite;
+      border-color: #ef4444 !important;
+    }
+
+    .breaking-news:hover {
+      border-color: #dc2626 !important;
+      box-shadow: 0 20px 40px rgba(239, 68, 68, 0.3);
+    }
+
+    .category-badge {
+      background: linear-gradient(45deg, #3b82f6, #2563eb);
+      animation: badgeGlow 3s ease infinite;
+    }
+
+    @keyframes badgeGlow {
+      0%, 100% { box-shadow: 0 0 10px rgba(59, 130, 246, 0.3); }
+      50% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.6); }
+    }
+
+    .loading-skeleton {
+      background: linear-gradient(90deg, #334155 25%, #475569 50%, #334155 75%);
+      background-size: 200% 100%;
+      animation: loading 1.5s infinite;
+    }
+
+    @keyframes loading {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    .alert-banner {
+      background: linear-gradient(45deg, #dc2626, #ef4444);
+      animation: alertPulse 2s ease infinite;
+    }
+
+    @keyframes alertPulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.8; }
+    }
+
+    .live-indicator {
+      animation: livePulse 1.5s ease infinite;
+    }
+
+    @keyframes livePulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(1.1); }
+    }
+
+    .filter-button {
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+
+    .filter-button.active {
+      background: linear-gradient(45deg, #3b82f6, #2563eb);
+      border-color: #60a5fa;
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+    }
+
+    .filter-button:hover {
+      border-color: #3b82f6;
+      transform: translateY(-2px);
+    }
+
+    .stats-card {
+      background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+      border: 1px solid #475569;
+      transition: all 0.3s ease;
+    }
+
+    .stats-card:hover {
+      border-color: #10b981;
+      transform: translateY(-3px);
+      box-shadow: 0 15px 30px rgba(16, 185, 129, 0.2);
+    }
+  </style>
+</head>
+<body class="gradient-bg text-white min-h-screen">
+<!-- Navigation -->
+<nav class="fixed w-full z-50 bg-slate-900/95 backdrop-blur-lg border-b border-slate-700">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+      <div class="flex items-center space-x-3">
+        <div class="rounded-lg p-2">
+          <svg width="40" height="40" viewBox="0 0 40 40" class="text-blue-400">
+            <circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.3"/>
+            <circle cx="20" cy="20" r="14" fill="none" stroke="currentColor" stroke-width="2"/>
+            <path d="M20 6 L14 10 L14 20 Q14 24 20 26 Q26 24 26 20 L26 10 Z" fill="url(#logoGradient)" stroke="currentColor" stroke-width="1.5"/>
+            <circle cx="20" cy="16" r="2" fill="currentColor"/>
+            <defs>
+              <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:0.8" />
+                <stop offset="100%" style="stop-color:#1e40af;stop-opacity:0.9" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div>
+          <span class="text-2xl font-bold text-blue-400">TechSpace</span>
+          <div class="text-xs text-orange-400 font-bold">ACTUALITÉS</div>
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-6">
+        <a href="../index.html" class="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-lg font-medium transition-all duration-300 hover:scale-105">🏠 Accueil</a>
+        <div class="flex items-center space-x-2 bg-green-600/20 px-3 py-1 rounded-full">
+          <div class="w-2 h-2 bg-green-400 rounded-full live-indicator"></div>
+          <span class="text-green-400 text-sm font-bold">EN DIRECT</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Alerte Breaking News -->
+<div id="breakingAlert" class="alert-banner fixed top-16 w-full z-40 py-3 text-center text-white font-bold hidden">
+  <div class="flex items-center justify-center space-x-3">
+    <span class="text-xl">🚨</span>
+    <span id="breakingText">ALERTE SÉCURITÉ</span>
+    <button onclick="hideBreakingAlert()" class="ml-4 text-white/80 hover:text-white">✕</button>
+  </div>
+</div>
+
+<!-- Header -->
+<section class="pt-32 pb-12 relative overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12 fade-in">
+      <h1 class="text-6xl font-extrabold mb-6">
+        <span class="text-5xl">📰</span>
+        <span class="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                        Actualités Cybersécurité
+                    </span>
+      </h1>
+      <p class="text-xl text-gray-300 mb-8">
+        Veille temps réel • Analyses d'experts • Alertes sécurité
+      </p>
+
+      <!-- Stats en temps réel -->
+      <div class="grid md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+        <div class="stats-card p-4 rounded-xl text-center">
+          <div class="text-2xl font-bold text-red-400" id="threatsToday">0</div>
+          <div class="text-gray-300 text-sm">Menaces Détectées</div>
+        </div>
+        <div class="stats-card p-4 rounded-xl text-center">
+          <div class="text-2xl font-bold text-blue-400" id="articlesCount">0</div>
+          <div class="text-gray-300 text-sm">Articles Publiés</div>
+        </div>
+        <div class="stats-card p-4 rounded-xl text-center">
+          <div class="text-2xl font-bold text-green-400" id="patchesReleased">0</div>
+          <div class="text-gray-300 text-sm">Correctifs Sortis</div>
+        </div>
+        <div class="stats-card p-4 rounded-xl text-center">
+          <div class="text-2xl font-bold text-purple-400" id="lastUpdate">--:--</div>
+          <div class="text-gray-300 text-sm">Dernière MAJ</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Filtres -->
+<section class="pb-8">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-wrap justify-center gap-4 fade-in fade-in-delay-1">
+      <button class="filter-button active px-6 py-3 rounded-xl font-medium bg-slate-700 text-white" onclick="filterNews('all')">
+        🌐 Toutes les actualités
+      </button>
+      <button class="filter-button px-6 py-3 rounded-xl font-medium bg-slate-700 text-white" onclick="filterNews('alerts')">
+        🚨 Alertes Sécurité
+      </button>
+      <button class="filter-button px-6 py-3 rounded-xl font-medium bg-slate-700 text-white" onclick="filterNews('vulnerabilities')">
+        🔓 Vulnérabilités
+      </button>
+      <button class="filter-button px-6 py-3 rounded-xl font-medium bg-slate-700 text-white" onclick="filterNews('patches')">
+        🛠️ Correctifs
+      </button>
+      <button class="filter-button px-6 py-3 rounded-xl font-medium bg-slate-700 text-white" onclick="filterNews('analysis')">
+        📊 Analyses
+      </button>
+      <button class="filter-button px-6 py-3 rounded-xl font-medium bg-slate-700 text-white" onclick="filterNews('ai')">
+        🤖 IA & Sécurité
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- Actualités Principales -->
+<section class="pb-12">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Loading State -->
+    <div id="loadingState" class="grid lg:grid-cols-3 gap-8">
+      <div class="loading-skeleton h-64 rounded-xl"></div>
+      <div class="loading-skeleton h-64 rounded-xl"></div>
+      <div class="loading-skeleton h-64 rounded-xl"></div>
+    </div>
+
+    <!-- Actualités -->
+    <div id="newsContainer" class="grid lg:grid-cols-3 gap-8 hidden">
+      <!-- Les actualités seront générées ici par JavaScript -->
+    </div>
+  </div>
+</section>
+
+<!-- Section Analyses Approfondies -->
+<section class="py-12 bg-slate-900/50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-4xl font-bold text-center mb-12 fade-in">
+      <span class="text-3xl">📊</span> Analyses Approfondies
+    </h2>
+
+    <div id="analysisContainer" class="grid lg:grid-cols-2 gap-8">
+      <!-- Les analyses seront générées ici -->
+    </div>
+  </div>
+</section>
+
+<!-- Veille Technologique -->
+<section class="py-12">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-4xl font-bold text-center mb-12 fade-in">
+      <span class="text-3xl">🔬</span> Veille Technologique
+    </h2>
+
+    <div class="grid lg:grid-cols-4 gap-6">
+      <div class="news-card p-6 rounded-xl fade-in">
+        <div class="flex items-center space-x-3 mb-4">
+          <span class="text-2xl">🤖</span>
+          <div>
+            <h3 class="font-bold text-blue-400">IA Défensive</h3>
+            <p class="text-xs text-gray-400">Tendance émergente</p>
+          </div>
+        </div>
+        <p class="text-gray-300 text-sm mb-4">
+          Les systèmes d'IA défensive évoluent pour contrer les attaques automatisées.
+        </p>
+        <div class="text-green-400 text-sm font-bold">📈 +127% d'adoption</div>
+      </div>
+
+      <div class="news-card p-6 rounded-xl fade-in fade-in-delay-1">
+        <div class="flex items-center space-x-3 mb-4">
+          <span class="text-2xl">🔐</span>
+          <div>
+            <h3 class="font-bold text-purple-400">Cryptographie Post-Quantique</h3>
+            <p class="text-xs text-gray-400">Préparation future</p>
+          </div>
+        </div>
+        <p class="text-gray-300 text-sm mb-4">
+          Migration vers des algorithmes résistants aux ordinateurs quantiques.
+        </p>
+        <div class="text-orange-400 text-sm font-bold">⚡ Urgence croissante</div>
+      </div>
+
+      <div class="news-card p-6 rounded-xl fade-in fade-in-delay-2">
+        <div class="flex items-center space-x-3 mb-4">
+          <span class="text-2xl">☁️</span>
+          <div>
+            <h3 class="font-bold text-cyan-400">Sécurité Cloud Native</h3>
+            <p class="text-xs text-gray-400">Architecture moderne</p>
+          </div>
+        </div>
+        <p class="text-gray-300 text-sm mb-4">
+          Nouvelles approches pour sécuriser les environnements containerisés.
+        </p>
+        <div class="text-blue-400 text-sm font-bold">🚀 Innovation continue</div>
+      </div>
+
+      <div class="news-card p-6 rounded-xl fade-in fade-in-delay-3">
+        <div class="flex items-center space-x-3 mb-4">
+          <span class="text-2xl">🌐</span>
+          <div>
+            <h3 class="font-bold text-green-400">Zero Trust 2.0</h3>
+            <p class="text-xs text-gray-400">Évolution majeure</p>
+          </div>
+        </div>
+        <p class="text-gray-300 text-sm mb-4">
+          L'architecture Zero Trust s'enrichit de capacités d'IA prédictive.
+        </p>
+        <div class="text-purple-400 text-sm font-bold">🎯 Adoption massive</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-slate-900 py-8">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <div class="flex items-center justify-center space-x-4 mb-4">
+      <div class="w-3 h-3 bg-green-400 rounded-full live-indicator"></div>
+      <span class="text-gray-300">Actualités mises à jour en temps réel</span>
+    </div>
+    <p class="text-gray-400">
+      &copy; 2024 TechSpace - Veille Cybersécurité | Dernière mise à jour: <span id="footerTime">--:--</span>
+    </p>
+  </div>
+</footer>
+
+<script>
+  // Configuration des actualités avec liens réels
+  const newsTemplates = {
+    alerts: [
+      {
+        title: "Nouvelle campagne de ransomware LockBit 4.0 détectée",
+        summary: "Une variante évoluée du ransomware LockBit cible les infrastructures critiques avec des techniques d'évasion avancées.",
+        category: "🚨 Alerte Critique",
+        severity: "critical",
+        source: "CERT-FR",
+        readTime: "3 min",
+        link: "https://www.cert.ssi.gouv.fr/"
+      },
+      {
+        title: "Vulnérabilité zero-day dans Microsoft Exchange exploitée",
+        summary: "Une faille critique permet l'exécution de code à distance. Patch d'urgence disponible.",
+        category: "🚨 Alerte Critique",
+        severity: "critical",
+        source: "Microsoft MSRC",
+        readTime: "2 min",
+        link: "https://msrc.microsoft.com/update-guide"
+      },
+      {
+        title: "Campagne de phishing ciblant les institutions financières",
+        summary: "Nouvelle technique d'ingénierie sociale utilisant l'IA pour personnaliser les attaques.",
+        category: "🚨 Alerte Sécurité",
+        severity: "high",
+        source: "ANSSI",
+        readTime: "4 min",
+        link: "https://www.ssi.gouv.fr/"
+      }
+    ],
+    vulnerabilities: [
+      {
+        title: "CVE-2024-0132: Faille critique dans OpenSSL 3.2",
+        summary: "Vulnérabilité permettant un déni de service et potentiellement l'exécution de code arbitraire.",
+        category: "🔓 Vulnérabilité",
+        severity: "high",
+        source: "OpenSSL Project",
+        readTime: "5 min",
+        link: "https://www.openssl.org/news/secadv/"
+      },
+      {
+        title: "Failles multiples découvertes dans les routeurs Cisco",
+        summary: "Série de vulnérabilités affectant les gammes ISR et ASR, correctifs disponibles.",
+        category: "🔓 Vulnérabilité",
+        severity: "medium",
+        source: "Cisco PSIRT",
+        readTime: "3 min",
+        link: "https://sec.cloudapps.cisco.com/security/center/publicationListing.x"
+      }
+    ],
+    patches: [
+      {
+        title: "Patch Tuesday Microsoft - Décembre 2024",
+        summary: "89 vulnérabilités corrigées dont 12 critiques. Mise à jour recommandée immédiatement.",
+        category: "🛠️ Correctifs",
+        severity: "medium",
+        source: "Microsoft",
+        readTime: "6 min",
+        link: "https://msrc.microsoft.com/update-guide"
+      },
+      {
+        title: "Mise à jour de sécurité Chrome 120.0.6099.129",
+        summary: "Correction de 8 failles de sécurité dont 3 de haute criticité.",
+        category: "🛠️ Correctifs",
+        severity: "medium",
+        source: "Google Chrome",
+        readTime: "2 min",
+        link: "https://chromereleases.googleblog.com/"
+      }
+    ],
+    analysis: [
+      {
+        title: "Rapport 2024: L'IA dans les cyberattaques",
+        summary: "Analyse complète de l'utilisation croissante de l'intelligence artificielle par les cybercriminels.",
+        category: "📊 Analyse",
+        severity: "info",
+        source: "TechSpace Research",
+        readTime: "12 min",
+        link: "https://www.cybersecurity-insiders.com/"
+      },
+      {
+        title: "Évolution des techniques de ransomware en 2024",
+        summary: "Étude des nouvelles méthodes d'attaque et stratégies de défense adaptées.",
+        category: "📊 Analyse",
+        severity: "info",
+        source: "Cybersecurity Institute",
+        readTime: "8 min",
+        link: "https://www.sans.org/reading-room/"
+      }
+    ],
+    ai: [
+      {
+        title: "GPT-4 utilisé pour générer du code malveillant",
+        summary: "Recherche sur l'utilisation détournée des LLM pour créer des malwares sophistiqués.",
+        category: "🤖 IA & Sécurité",
+        severity: "high",
+        source: "AI Security Lab",
+        readTime: "7 min",
+        link: "https://arxiv.org/list/cs.CR/recent"
+      },
+      {
+        title: "Nouvelle IA défensive contre les deepfakes",
+        summary: "Algorithme révolutionnaire capable de détecter les deepfakes avec 99.7% de précision.",
+        category: "🤖 IA & Sécurité",
+        severity: "info",
+        source: "MIT CSAIL",
+        readTime: "5 min",
+        link: "https://www.csail.mit.edu/"
+      }
+    ]
+  };
+
+  const analysisTemplates = [
+    {
+      title: "Menaces Cyber Q4 2024: Bilan et Perspectives",
+      summary: "Analyse complète des tendances observées au quatrième trimestre avec projections pour 2025.",
+      author: "Dr. Sarah Chen, Expert Cybersécurité",
+      readTime: "15 min",
+      category: "Rapport Trimestriel",
+      link: "https://www.enisa.europa.eu/publications"
+    },
+    {
+      title: "L'Impact de l'IA Générative sur la Cybersécurité",
+      summary: "Étude approfondie des opportunités et risques liés à l'adoption massive des IA génératives.",
+      author: "Prof. Marc Dubois, Chercheur INRIA",
+      readTime: "20 min",
+      category: "Recherche Avancée",
+      link: "https://www.inria.fr/fr/actualites"
+    }
+  ];
+
+  // Variables globales
+  let currentFilter = 'all';
+  let newsData = [];
+  let updateInterval;
+  let statsInterval;
+
+  // Initialisation
+  document.addEventListener('DOMContentLoaded', function() {
+    generateNews();
+    generateAnalysis();
+    startRealTimeUpdates();
+    updateStats();
+
+    // Masquer le loading et afficher le contenu
+    setTimeout(() => {
+      document.getElementById('loadingState').classList.add('hidden');
+      document.getElementById('newsContainer').classList.remove('hidden');
+    }, 2000);
+  });
+
+  // Génération des actualités avec rotation quotidienne
+  function generateNews() {
+    const container = document.getElementById('newsContainer');
+    newsData = [];
+
+    // Utiliser la date pour créer une rotation quotidienne
+    const today = new Date();
+    const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
+
+    // Créer un pool d'actualités plus large pour la rotation
+    const allNewsPool = [];
+    Object.values(newsTemplates).forEach(categoryNews => {
+      allNewsPool.push(...categoryNews);
+    });
+
+    // Ajouter des actualités supplémentaires pour la rotation
+    const additionalNews = [
+      {
+        title: "Nouvelle technique de bypass des WAF détectée",
+        summary: "Méthode sophistiquée permettant de contourner les Web Application Firewalls les plus récents.",
+        category: "🚨 Alerte Sécurité",
+        severity: "high",
+        source: "Security Research",
+        readTime: "5 min",
+        link: "https://owasp.org/www-community/"
+      },
+      {
+        title: "Faille critique dans les processeurs Intel découverte",
+        summary: "Vulnérabilité matérielle affectant plusieurs générations de processeurs Intel.",
+        category: "🔓 Vulnérabilité",
+        severity: "critical",
+        source: "Intel Security",
+        readTime: "4 min",
+        link: "https://www.intel.com/content/www/us/en/security-center/"
+      },
+      {
+        title: "Mise à jour critique pour les serveurs Apache",
+        summary: "Correctif d'urgence pour plusieurs vulnérabilités de sécurité dans Apache HTTP Server.",
+        category: "🛠️ Correctifs",
+        severity: "high",
+        source: "Apache Foundation",
+        readTime: "3 min",
+        link: "https://httpd.apache.org/security/"
+      },
+      {
+        title: "Rapport: Augmentation de 300% des attaques supply chain",
+        summary: "Analyse détaillée de l'explosion des attaques ciblant la chaîne d'approvisionnement logicielle.",
+        category: "📊 Analyse",
+        severity: "info",
+        source: "Cyber Threat Alliance",
+        readTime: "10 min",
+        link: "https://www.cyberthreatalliance.org/"
+      },
+      {
+        title: "IA malveillante: Nouveaux outils de génération de malware",
+        summary: "Découverte d'outils IA spécialisés dans la création automatique de logiciels malveillants.",
+        category: "🤖 IA & Sécurité",
+        severity: "high",
+        source: "AI Threat Research",
+        readTime: "6 min",
+        link: "https://www.mitre.org/capabilities/cybersecurity"
+      }
+    ];
+
+    allNewsPool.push(...additionalNews);
+
+    // Utiliser le jour de l'année comme seed pour la sélection
+    const shuffledNews = shuffleArrayWithSeed(allNewsPool, dayOfYear);
+
+    // Sélectionner 8-12 actualités pour aujourd'hui
+    const todayNewsCount = 8 + (dayOfYear % 5); // Entre 8 et 12 actualités
+    newsData = shuffledNews.slice(0, todayNewsCount);
+
+    // Ajouter des timestamps réalistes basés sur la date du jour
+    newsData.forEach((news, index) => {
+      const now = new Date();
+      const hoursAgo = index * 2 + Math.floor(Math.random() * 3); // Échelonner sur la journée
+      news.timestamp = new Date(now.getTime() - (hoursAgo * 3600000));
+      news.id = `news-${dayOfYear}-${index}`;
+    });
+
+    // Trier par timestamp décroissant
+    newsData.sort((a, b) => b.timestamp - a.timestamp);
+
+    renderNews();
+  }
+
+  // Fonction pour mélanger un array avec une seed (pour la reproductibilité quotidienne)
+  function shuffleArrayWithSeed(array, seed) {
+    const shuffled = [...array];
+    let currentIndex = shuffled.length;
+
+    // Générateur de nombres pseudo-aléatoires basé sur la seed
+    function seededRandom() {
+      seed = (seed * 9301 + 49297) % 233280;
+      return seed / 233280;
+    }
+
+    while (currentIndex !== 0) {
+      const randomIndex = Math.floor(seededRandom() * currentIndex);
+      currentIndex--;
+
+      [shuffled[currentIndex], shuffled[randomIndex]] = [shuffled[randomIndex], shuffled[currentIndex]];
+    }
+
+    return shuffled;
+  }
+
+  // Rendu des actualités
+  function renderNews() {
+    const container = document.getElementById('newsContainer');
+    const filteredNews = currentFilter === 'all' ? newsData :
+            newsData.filter(news => {
+              switch(currentFilter) {
+                case 'alerts': return news.category.includes('🚨');
+                case 'vulnerabilities': return news.category.includes('🔓');
+                case 'patches': return news.category.includes('🛠️');
+                case 'analysis': return news.category.includes('📊');
+                case 'ai': return news.category.includes('🤖');
+                default: return true;
+              }
+            });
+
+    container.innerHTML = filteredNews.map((news, index) => `
+                <article class="news-card ${news.severity === 'critical' ? 'breaking-news' : ''} p-6 rounded-xl fade-in" style="animation-delay: ${index * 0.1}s">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="category-badge px-3 py-1 rounded-full text-xs font-bold text-white">
+                            ${news.category}
+                        </span>
+                        <div class="text-xs text-gray-400">
+                            ${formatTimeAgo(news.timestamp)}
+                        </div>
+                    </div>
+
+                    <h3 class="text-xl font-bold mb-3 text-white hover:text-blue-400 transition-colors cursor-pointer">
+                        ${news.title}
+                    </h3>
+
+                    <p class="text-gray-300 mb-4 leading-relaxed">
+                        ${news.summary}
+                    </p>
+
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-4 text-sm text-gray-400">
+                            <span>📰 ${news.source}</span>
+                            <span>⏱️ ${news.readTime}</span>
+                        </div>
+                        <a href="${news.link}" target="_blank" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors inline-block">
+                            Lire plus
+                        </a>
+                    </div>
+
+                    ${news.severity === 'critical' ? `
+                        <div class="mt-4 p-3 bg-red-600/20 border border-red-500/30 rounded-lg">
+                            <div class="flex items-center space-x-2 text-red-400">
+                                <span>⚠️</span>
+                                <span class="font-bold text-sm">ACTION REQUISE</span>
+                            </div>
+                            <p class="text-red-300 text-sm mt-1">Cette alerte nécessite une attention immédiate</p>
+                        </div>
+                    ` : ''}
+                </article>
+            `).join('');
+  }
+
+  // Génération des analyses
+  function generateAnalysis() {
+    const container = document.getElementById('analysisContainer');
+
+    container.innerHTML = analysisTemplates.map((analysis, index) => `
+                <article class="news-card p-8 rounded-xl fade-in" style="animation-delay: ${index * 0.2}s">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <span class="text-2xl">📊</span>
+                        <span class="bg-purple-600/20 text-purple-300 px-3 py-1 rounded-full text-xs font-bold">
+                            ${analysis.category}
+                        </span>
+                    </div>
+
+                    <h3 class="text-2xl font-bold mb-4 text-white hover:text-purple-400 transition-colors cursor-pointer">
+                        ${analysis.title}
+                    </h3>
+
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        ${analysis.summary}
+                    </p>
+
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-10 h-10 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-sm font-bold">
+                                ${analysis.author.split(' ').map(n => n[0]).join('')}
+                            </div>
+                            <div>
+                                <div class="text-white font-medium">${analysis.author}</div>
+                                <div class="text-gray-400 text-sm">⏱️ ${analysis.readTime}</div>
+                            </div>
+                        </div>
+                        <a href="${analysis.link}" target="_blank" class="bg-purple-600 hover:bg-purple-700 px-6 py-2 rounded-lg font-medium transition-colors inline-block">
+                            Lire l'analyse
+                        </a>
+                    </div>
+                </article>
+            `).join('');
+  }
+
+  // Filtrage des actualités
+  function filterNews(category) {
+    currentFilter = category;
+
+    // Mettre à jour les boutons
+    document.querySelectorAll('.filter-button').forEach(btn => {
+      btn.classList.remove('active');
+    });
+    event.target.classList.add('active');
+
+    renderNews();
+  }
+
+  // Formatage du temps relatif
+  function formatTimeAgo(timestamp) {
+    const now = new Date();
+    const diff = now - timestamp;
+    const minutes = Math.floor(diff / 60000);
+    const hours = Math.floor(diff / 3600000);
+
+    if (minutes < 1) return 'À l\'instant';
+    if (minutes < 60) return `Il y a ${minutes} min`;
+    if (hours < 24) return `Il y a ${hours}h`;
+    return timestamp.toLocaleDateString('fr-FR');
+  }
+
+  // Mise à jour des statistiques
+  function updateStats() {
+    const threatsToday = document.getElementById('threatsToday');
+    const articlesCount = document.getElementById('articlesCount');
+    const patchesReleased = document.getElementById('patchesReleased');
+    const lastUpdate = document.getElementById('lastUpdate');
+    const footerTime = document.getElementById('footerTime');
+
+    // Simulation de données réalistes
+    const now = new Date();
+    const baseThreats = 1247;
+    const baseArticles = 23;
+    const basePatches = 8;
+
+    // Variation aléatoire
+    const threats = baseThreats + Math.floor(Math.random() * 50);
+    const articles = baseArticles + Math.floor(Math.random() * 5);
+    const patches = basePatches + Math.floor(Math.random() * 3);
+
+    // Animation des chiffres
+    animateNumber(threatsToday, threats);
+    animateNumber(articlesCount, articles);
+    animateNumber(patchesReleased, patches);
+
+    // Mise à jour des heures
+    const timeString = now.toLocaleTimeString('fr-FR', {
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+    lastUpdate.textContent = timeString;
+    footerTime.textContent = timeString;
+  }
+
+  // Animation des nombres
+  function animateNumber(element, target) {
+    const current = parseInt(element.textContent) || 0;
+    const increment = target > current ? 1 : -1;
+    const duration = 1000;
+    const steps = Math.abs(target - current);
+    const stepDuration = duration / steps;
+
+    let currentValue = current;
+    const timer = setInterval(() => {
+      currentValue += increment;
+      element.textContent = currentValue;
+
+      if (currentValue === target) {
+        clearInterval(timer);
+      }
+    }, stepDuration);
+  }
+
+  // Mises à jour en temps réel
+  function startRealTimeUpdates() {
+    // Mettre à jour les stats toutes les 30 secondes
+    statsInterval = setInterval(updateStats, 30000);
+
+    // Ajouter de nouvelles actualités toutes les 2 minutes
+    updateInterval = setInterval(() => {
+      addBreakingNews();
+      updateStats();
+    }, 120000);
+
+    // Afficher une alerte breaking news aléatoirement
+    setTimeout(() => {
+      showBreakingAlert("Nouvelle vulnérabilité critique détectée dans Apache Struts");
+    }, 10000);
+  }
+
+  // Ajouter une actualité breaking
+  function addBreakingNews() {
+    const breakingNews = [
+      {
+        title: "Attaque DDoS massive contre les infrastructures européennes",
+        summary: "Campagne coordonnée affectant plusieurs pays, origine en cours d'investigation.",
+        category: "🚨 Alerte Critique",
+        severity: "critical",
+        source: "CERT-EU",
+        readTime: "2 min",
+        link: "https://cert.europa.eu/"
+      },
+      {
+        title: "Nouveau malware polymorphe évade les antivirus",
+        summary: "Technique d'obfuscation avancée rendant la détection extrêmement difficile.",
+        category: "🚨 Alerte Sécurité",
+        severity: "high",
+        source: "Threat Intelligence",
+        readTime: "4 min",
+        link: "https://www.virustotal.com/gui/"
+      },
+      {
+        title: "Faille zero-day exploitée dans les systèmes Windows",
+        summary: "Microsoft confirme l'exploitation active d'une vulnérabilité non corrigée.",
+        category: "🚨 Alerte Critique",
+        severity: "critical",
+        source: "Microsoft MSRC",
+        readTime: "3 min",
+        link: "https://msrc.microsoft.com/"
+      },
+      {
+        title: "Campagne de cryptojacking ciblant les serveurs cloud",
+        summary: "Nouvelle vague d'attaques exploitant les ressources cloud pour miner des cryptomonnaies.",
+        category: "🚨 Alerte Sécurité",
+        severity: "high",
+        source: "Cloud Security Alliance",
+        readTime: "5 min",
+        link: "https://cloudsecurityalliance.org/"
+      }
+    ];
+
+    const randomNews = breakingNews[Math.floor(Math.random() * breakingNews.length)];
+    randomNews.timestamp = new Date();
+    randomNews.id = `breaking-${Date.now()}`;
+
+    newsData.unshift(randomNews);
+    renderNews();
+
+    // Afficher l'alerte
+    showBreakingAlert(randomNews.title);
+  }
+
+  // Afficher l'alerte breaking news
+  function showBreakingAlert(message) {
+    const alert = document.getElementById('breakingAlert');
+    const text = document.getElementById('breakingText');
+
+    text.textContent = message;
+    alert.classList.remove('hidden');
+
+    // Auto-hide après 10 secondes
+    setTimeout(() => {
+      hideBreakingAlert();
+    }, 10000);
+  }
+
+  // Masquer l'alerte
+  function hideBreakingAlert() {
+    document.getElementById('breakingAlert').classList.add('hidden');
+  }
+
+  // Animation des éléments au scroll
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.animationPlayState = 'running';
+      }
+    });
+  }, observerOptions);
+
+  // Observer tous les éléments fade-in
+  setTimeout(() => {
+    document.querySelectorAll('.fade-in').forEach(el => {
+      observer.observe(el);
+    });
+  }, 100);
+
+  // Nettoyage lors de la fermeture
+  window.addEventListener('beforeunload', () => {
+    if (updateInterval) clearInterval(updateInterval);
+    if (statsInterval) clearInterval(statsInterval);
+  });
+</script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9642a09017ac6f1b',t:'MTc1MzM1MTgyMC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

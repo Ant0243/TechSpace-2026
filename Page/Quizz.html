@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechSpace - Quiz Cybersécurité | Testez vos Connaissances</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        * { font-family: 'Inter', sans-serif; }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 20%, #1d4ed8 40%, #2563eb 60%, #3b82f6 80%, #60a5fa 100%);
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .fade-in-delay-1 { animation-delay: 0.2s; }
+        .fade-in-delay-2 { animation-delay: 0.4s; }
+        .fade-in-delay-3 { animation-delay: 0.6s; }
+        .fade-in-delay-4 { animation-delay: 0.8s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .quiz-card {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            border: 1px solid #475569;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quiz-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .quiz-card:hover::before {
+            left: 100%;
+        }
+
+        .quiz-card:hover {
+            border-color: #3b82f6;
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
+        }
+
+        .answer-option {
+            background: linear-gradient(135deg, #374151 0%, #4b5563 100%);
+            border: 2px solid #6b7280;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .answer-option:hover {
+            border-color: #3b82f6;
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            transform: translateX(5px);
+        }
+
+        .answer-option.correct {
+            border-color: #10b981;
+            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+            animation: correctPulse 0.6s ease;
+        }
+
+        .answer-option.incorrect {
+            border-color: #ef4444;
+            background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+            animation: incorrectShake 0.6s ease;
+        }
+
+        @keyframes correctPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes incorrectShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+            transition: width 0.5s ease;
+        }
+
+        .timer-circle {
+            stroke-dasharray: 283;
+            stroke-dashoffset: 283;
+            transition: stroke-dashoffset 1s linear;
+        }
+
+        .timer-warning {
+            stroke: #f59e0b;
+            animation: timerPulse 1s infinite;
+        }
+
+        .timer-danger {
+            stroke: #ef4444;
+            animation: timerPulse 0.5s infinite;
+        }
+
+        @keyframes timerPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .score-animation {
+            animation: scoreUp 0.8s ease;
+        }
+
+        @keyframes scoreUp {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); color: #10b981; }
+            100% { transform: scale(1); }
+        }
+
+        .level-badge {
+            background: linear-gradient(45deg, #f59e0b, #d97706);
+            animation: badgeGlow 2s ease infinite;
+        }
+
+        @keyframes badgeGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(245, 158, 11, 0.3); }
+            50% { box-shadow: 0 0 30px rgba(245, 158, 11, 0.6); }
+        }
+
+        .celebration {
+            animation: celebrate 1s ease;
+        }
+
+        @keyframes celebrate {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            25% { transform: scale(1.1) rotate(-5deg); }
+            75% { transform: scale(1.1) rotate(5deg); }
+        }
+
+        .result-card {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            border: 2px solid #3b82f6;
+            animation: resultSlideIn 0.8s ease;
+        }
+
+        @keyframes resultSlideIn {
+            0% { opacity: 0; transform: translateY(50px) scale(0.9); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+    </style>
+</head>
+<body class="gradient-bg text-white min-h-screen">
+<!-- Navigation -->
+<nav class="fixed w-full z-50 bg-slate-900/95 backdrop-blur-lg border-b border-slate-700">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+            <div class="flex items-center space-x-3">
+                <div class="rounded-lg p-2">
+                    <svg width="40" height="40" viewBox="0 0 40 40" class="text-blue-400">
+                        <circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.3"/>
+                        <circle cx="20" cy="20" r="14" fill="none" stroke="currentColor" stroke-width="2"/>
+                        <path d="M20 6 L14 10 L14 20 Q14 24 20 26 Q26 24 26 20 L26 10 Z" fill="url(#logoGradient)" stroke="currentColor" stroke-width="1.5"/>
+                        <circle cx="20" cy="16" r="2" fill="currentColor"/>
+                        <defs>
+                            <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:0.8" />
+                                <stop offset="100%" style="stop-color:#1e40af;stop-opacity:0.9" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <div>
+                    <span class="text-2xl font-bold text-blue-400">TechSpace</span>
+                    <div class="text-xs text-orange-400 font-bold">QUIZ CYBER</div>
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-6">
+                <a href="../index.html" class="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-lg font-medium transition-all duration-300 hover:scale-105">🏠 Accueil</a>
+                <div class="flex items-center space-x-2 bg-purple-600/20 px-3 py-1 rounded-full">
+                    <span class="text-purple-400 text-sm font-bold">🧠 QUIZ INTERACTIF</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Page d'accueil du quiz -->
+<section id="quizHome" class="pt-32 pb-12 min-h-screen flex items-center">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div class="fade-in">
+            <h1 class="text-7xl font-extrabold mb-8">
+                <span class="text-6xl">🧠</span><br>
+                <span class="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                        Quiz Cybersécurité
+                    </span>
+            </h1>
+            <p class="text-2xl text-gray-300 mb-12 leading-relaxed">
+                Testez vos connaissances en sécurité informatique !<br>
+                <span class="text-blue-400 font-bold">20 questions • Difficulté progressive • Scoring intelligent</span>
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8 mb-12 fade-in fade-in-delay-1">
+            <div class="quiz-card p-8 rounded-2xl text-center">
+                <div class="text-4xl mb-4">⚡</div>
+                <h3 class="text-xl font-bold mb-3 text-blue-400">Questions Variées</h3>
+                <p class="text-gray-300">Malwares, cryptographie, phishing, IA et plus encore !</p>
+            </div>
+
+            <div class="quiz-card p-8 rounded-2xl text-center">
+                <div class="text-4xl mb-4">⏱️</div>
+                <h3 class="text-xl font-bold mb-3 text-purple-400">Timer Dynamique</h3>
+                <p class="text-gray-300">30 secondes par question avec bonus de rapidité !</p>
+            </div>
+
+            <div class="quiz-card p-8 rounded-2xl text-center">
+                <div class="text-4xl mb-4">🏆</div>
+                <h3 class="text-xl font-bold mb-3 text-green-400">Niveaux d'Expertise</h3>
+                <p class="text-gray-300">De débutant à maître cyber selon vos résultats !</p>
+            </div>
+        </div>
+
+        <div class="fade-in fade-in-delay-2">
+            <button onclick="startQuiz()" class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-12 py-4 rounded-2xl text-xl font-bold transition-all transform hover:scale-105 shadow-2xl">
+                🚀 Commencer le Quiz
+            </button>
+            <p class="text-gray-400 mt-4">Prêt à défier vos connaissances cyber ?</p>
+        </div>
+    </div>
+</section>
+
+<!-- Interface du quiz -->
+<section id="quizInterface" class="pt-24 pb-12 min-h-screen hidden">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header du quiz -->
+        <div class="flex justify-between items-center mb-8">
+            <div class="flex items-center space-x-6">
+                <div class="text-2xl font-bold">
+                    Question <span id="currentQuestion" class="text-blue-400">1</span>/<span id="totalQuestions" class="text-purple-400">20</span>
+                </div>
+                <div class="level-badge px-4 py-2 rounded-full text-white font-bold">
+                    Score: <span id="currentScore" class="text-yellow-200">0</span>
+                </div>
+            </div>
+
+            <!-- Timer circulaire -->
+            <div class="relative w-20 h-20">
+                <svg class="w-20 h-20 transform -rotate-90" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="#374151" stroke-width="8"/>
+                    <circle id="timerCircle" cx="50" cy="50" r="45" fill="none" stroke="#3b82f6" stroke-width="8"
+                            class="timer-circle" stroke-linecap="round"/>
+                </svg>
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <span id="timeLeft" class="text-xl font-bold">30</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Barre de progression -->
+        <div class="w-full bg-gray-700 rounded-full h-3 mb-8">
+            <div id="progressBar" class="progress-bar h-3 rounded-full" style="width: 5%"></div>
+        </div>
+
+        <!-- Question -->
+        <div class="quiz-card p-8 rounded-2xl mb-8">
+            <div class="flex items-start space-x-4 mb-6">
+                <div id="questionIcon" class="text-3xl">🤔</div>
+                <div class="flex-1">
+                    <div id="questionCategory" class="text-blue-400 font-bold mb-2">Catégorie</div>
+                    <h2 id="questionText" class="text-2xl font-bold leading-relaxed">Question apparaîtra ici...</h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- Options de réponse -->
+        <div id="answersContainer" class="space-y-4 mb-8">
+            <!-- Les réponses seront générées ici -->
+        </div>
+
+        <!-- Feedback -->
+        <div id="feedback" class="hidden quiz-card p-6 rounded-2xl mb-6">
+            <div class="flex items-start space-x-4">
+                <div id="feedbackIcon" class="text-3xl"></div>
+                <div>
+                    <div id="feedbackTitle" class="text-xl font-bold mb-2"></div>
+                    <div id="feedbackText" class="text-gray-300"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bouton suivant -->
+        <div class="text-center">
+            <button id="nextButton" onclick="nextQuestion()" class="hidden bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 px-8 py-3 rounded-xl font-bold transition-all">
+                Question Suivante →
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- Résultats -->
+<section id="quizResults" class="pt-24 pb-12 min-h-screen hidden">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div class="result-card p-12 rounded-3xl">
+            <div id="resultIcon" class="text-8xl mb-6">🎉</div>
+            <h1 class="text-5xl font-extrabold mb-4">
+                    <span class="bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">
+                        Quiz Terminé !
+                    </span>
+            </h1>
+
+            <div class="grid md:grid-cols-3 gap-8 mb-8">
+                <div class="quiz-card p-6 rounded-xl">
+                    <div class="text-3xl font-bold text-blue-400" id="finalScore">0</div>
+                    <div class="text-gray-300">Score Final</div>
+                </div>
+                <div class="quiz-card p-6 rounded-xl">
+                    <div class="text-3xl font-bold text-green-400" id="correctAnswers">0/20</div>
+                    <div class="text-gray-300">Bonnes Réponses</div>
+                </div>
+                <div class="quiz-card p-6 rounded-xl">
+                    <div class="text-3xl font-bold text-purple-400" id="totalTime">0:00</div>
+                    <div class="text-gray-300">Temps Total</div>
+                </div>
+            </div>
+
+            <div class="level-badge px-8 py-4 rounded-2xl mb-8 inline-block">
+                <div class="text-2xl font-bold" id="userLevel">Niveau</div>
+                <div class="text-sm" id="levelDescription">Description</div>
+            </div>
+
+            <div id="recommendations" class="quiz-card p-6 rounded-xl mb-8 text-left">
+                <h3 class="text-xl font-bold mb-4 text-center">📚 Recommandations Personnalisées</h3>
+                <div id="recommendationsList"></div>
+            </div>
+
+            <div class="flex justify-center space-x-4">
+                <button onclick="restartQuiz()" class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-8 py-3 rounded-xl font-bold transition-all">
+                    🔄 Recommencer
+                </button>
+                <button onclick="shareResults()" class="bg-gradient-to-r from-green-600 to-teal-600 hover:from-green-700 hover:to-teal-700 px-8 py-3 rounded-xl font-bold transition-all">
+                    📤 Partager
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Configuration du quiz
+    const quizData = [
+        {
+            category: "🦠 Malwares",
+            question: "Quel type de malware se propage automatiquement d'un ordinateur à l'autre sans intervention humaine ?",
+            options: ["Virus", "Ver (Worm)", "Cheval de Troie", "Spyware"],
+            correct: 1,
+            explanation: "Un ver (worm) est capable de se répliquer et de se propager automatiquement à travers les réseaux, contrairement aux virus qui nécessitent une action de l'utilisateur."
+        },
+        {
+            category: "🔐 Cryptographie",
+            question: "Quelle est la principale différence entre le chiffrement symétrique et asymétrique ?",
+            options: ["La vitesse de chiffrement", "Le nombre de clés utilisées", "La taille des données", "Le niveau de sécurité"],
+            correct: 1,
+            explanation: "Le chiffrement symétrique utilise une seule clé pour chiffrer et déchiffrer, tandis que l'asymétrique utilise une paire de clés (publique/privée)."
+        },
+        {
+            category: "🎣 Phishing",
+            question: "Qu'est-ce qui caractérise une attaque de 'spear phishing' ?",
+            options: ["Elle cible de nombreuses personnes", "Elle est personnalisée pour une cible spécifique", "Elle utilise des SMS", "Elle exploite des vulnérabilités"],
+            correct: 1,
+            explanation: "Le spear phishing est une attaque ciblée et personnalisée visant une personne ou organisation spécifique, contrairement au phishing de masse."
+        },
+        {
+            category: "🔥 Pare-feu",
+            question: "Quel type de pare-feu analyse le contenu des paquets et maintient l'état des connexions ?",
+            options: ["Pare-feu de filtrage de paquets", "Pare-feu stateful", "Pare-feu proxy", "Pare-feu NAT"],
+            correct: 1,
+            explanation: "Un pare-feu stateful (à état) suit l'état des connexions réseau et peut prendre des décisions basées sur le contexte de la connexion."
+        },
+        {
+            category: "🕵️ Ingénierie Sociale",
+            question: "Quelle technique d'ingénierie sociale consiste à fouiller les poubelles pour trouver des informations sensibles ?",
+            options: ["Pretexting", "Baiting", "Dumpster diving", "Tailgating"],
+            correct: 2,
+            explanation: "Le 'dumpster diving' consiste à fouiller les déchets pour récupérer des documents ou supports contenant des informations confidentielles."
+        },
+        {
+            category: "🌐 Sécurité Web",
+            question: "Que signifie l'acronyme XSS en sécurité web ?",
+            options: ["XML Security Standard", "Cross-Site Scripting", "eXternal Security System", "eXtended SSL Support"],
+            correct: 1,
+            explanation: "XSS (Cross-Site Scripting) est une vulnérabilité permettant d'injecter du code malveillant dans des pages web vues par d'autres utilisateurs."
+        },
+        {
+            category: "🔑 Authentification",
+            question: "Qu'est-ce que l'authentification à deux facteurs (2FA) ?",
+            options: ["Deux mots de passe différents", "Un mot de passe + un élément supplémentaire", "Deux questions de sécurité", "Deux tentatives de connexion"],
+            correct: 1,
+            explanation: "La 2FA combine quelque chose que vous connaissez (mot de passe) avec quelque chose que vous possédez (téléphone, token) ou que vous êtes (biométrie)."
+        },
+        {
+            category: "💰 Ransomware",
+            question: "Quelle est la meilleure défense contre les ransomwares ?",
+            options: ["Antivirus puissant", "Sauvegardes régulières", "Pare-feu avancé", "Mots de passe complexes"],
+            correct: 1,
+            explanation: "Les sauvegardes régulières et testées permettent de restaurer les données sans payer la rançon en cas d'infection par ransomware."
+        },
+        {
+            category: "🔍 Analyse Forensique",
+            question: "Qu'est-ce qu'un 'hash' en informatique légale ?",
+            options: ["Un mot de passe chiffré", "Une empreinte numérique unique", "Un fichier corrompu", "Une signature électronique"],
+            correct: 1,
+            explanation: "Un hash est une empreinte numérique unique qui permet de vérifier l'intégrité d'un fichier et de détecter toute modification."
+        },
+        {
+            category: "☁️ Sécurité Cloud",
+            question: "Quel modèle de responsabilité s'applique généralement au cloud computing ?",
+            options: ["Responsabilité totale du fournisseur", "Responsabilité totale du client", "Responsabilité partagée", "Aucune responsabilité"],
+            correct: 2,
+            explanation: "Le modèle de responsabilité partagée définit ce dont le fournisseur cloud et le client sont respectivement responsables en matière de sécurité."
+        },
+        {
+            category: "🤖 IA et Sécurité",
+            question: "Comment l'IA peut-elle être utilisée malicieusement en cybersécurité ?",
+            options: ["Génération de deepfakes", "Automatisation d'attaques", "Évasion d'antivirus", "Toutes les réponses"],
+            correct: 3,
+            explanation: "L'IA peut être détournée pour créer des deepfakes, automatiser des cyberattaques, générer du code malveillant et contourner les défenses."
+        },
+        {
+            category: "📱 Sécurité Mobile",
+            question: "Qu'est-ce qu'un 'jailbreak' ou 'root' sur un appareil mobile ?",
+            options: ["Une mise à jour système", "Suppression des restrictions du fabricant", "Installation d'antivirus", "Sauvegarde des données"],
+            correct: 1,
+            explanation: "Le jailbreak/root supprime les restrictions de sécurité imposées par le fabricant, donnant un accès administrateur complet mais réduisant la sécurité."
+        },
+        {
+            category: "🏢 Sécurité Entreprise",
+            question: "Que signifie le principe du 'moindre privilège' ?",
+            options: ["Donner tous les droits aux utilisateurs", "Accorder uniquement les permissions nécessaires", "Supprimer tous les privilèges", "Changer régulièrement les droits"],
+            correct: 1,
+            explanation: "Le principe du moindre privilège consiste à n'accorder aux utilisateurs que les permissions strictement nécessaires à leur travail."
+        },
+        {
+            category: "🌍 Réglementation",
+            question: "Que régule principalement le RGPD (GDPR) ?",
+            options: ["La sécurité des réseaux", "La protection des données personnelles", "Les cyberattaques", "Les logiciels malveillants"],
+            correct: 1,
+            explanation: "Le RGPD (Règlement Général sur la Protection des Données) régule la collecte, le traitement et la protection des données personnelles en Europe."
+        },
+        {
+            category: "🔧 Outils de Sécurité",
+            question: "À quoi sert un SIEM (Security Information and Event Management) ?",
+            options: ["Chiffrer les données", "Analyser les logs de sécurité", "Bloquer les malwares", "Gérer les mots de passe"],
+            correct: 1,
+            explanation: "Un SIEM collecte, analyse et corrèle les logs de sécurité de différentes sources pour détecter les incidents et menaces."
+        },
+        {
+            category: "🎯 Tests de Pénétration",
+            question: "Qu'est-ce qu'un 'pentest' ?",
+            options: ["Un test de performance", "Un test d'intrusion autorisé", "Un test de résistance", "Un test utilisateur"],
+            correct: 1,
+            explanation: "Un pentest (test de pénétration) est une évaluation de sécurité autorisée qui simule des attaques pour identifier les vulnérabilités."
+        },
+        {
+            category: "🔐 Gestion des Accès",
+            question: "Qu'est-ce que l'architecture 'Zero Trust' ?",
+            options: ["Ne faire confiance à personne par défaut", "Faire confiance aux employés uniquement", "Bloquer tout le trafic", "Chiffrer toutes les données"],
+            correct: 0,
+            explanation: "Zero Trust est un modèle de sécurité qui ne fait confiance à aucun utilisateur ou appareil par défaut, même à l'intérieur du réseau."
+        },
+        {
+            category: "⚡ Incidents de Sécurité",
+            question: "Quelle est la première étape lors de la découverte d'un incident de sécurité ?",
+            options: ["Éteindre tous les systèmes", "Contenir la menace", "Analyser les logs", "Informer la direction"],
+            correct: 1,
+            explanation: "La première priorité est de contenir l'incident pour empêcher sa propagation, avant de procéder à l'analyse et à la récupération."
+        },
+        {
+            category: "🔍 Threat Intelligence",
+            question: "Qu'est-ce qu'un IOC (Indicator of Compromise) ?",
+            options: ["Un certificat de sécurité", "Un indice de compromission", "Un outil de chiffrement", "Un protocole réseau"],
+            correct: 1,
+            explanation: "Un IOC est un artefact ou observable qui indique qu'un système a potentiellement été compromis (hash de malware, IP malveillante, etc.)."
+        },
+        {
+            category: "🛡️ Défense Avancée",
+            question: "Qu'est-ce que l'EDR (Endpoint Detection and Response) ?",
+            options: ["Un type de pare-feu", "Une solution de détection sur les postes", "Un protocole de chiffrement", "Un système de sauvegarde"],
+            correct: 1,
+            explanation: "L'EDR surveille et analyse en continu les activités des endpoints pour détecter et répondre aux menaces avancées."
+        }
+    ];
+
+    // Variables globales
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let correctAnswers = 0;
+    let timeLeft = 30;
+    let timer;
+    let startTime;
+    let userAnswers = [];
+    let shuffledQuestions = [];
+
+    // Initialisation
+    document.addEventListener('DOMContentLoaded', function() {
+        // Mélanger les questions
+        shuffledQuestions = shuffleArray([...quizData]);
+    });
+
+    // Fonction pour mélanger un array
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    }
+
+    // Démarrer le quiz
+    function startQuiz() {
+        document.getElementById('quizHome').classList.add('hidden');
+        document.getElementById('quizInterface').classList.remove('hidden');
+
+        currentQuestionIndex = 0;
+        score = 0;
+        correctAnswers = 0;
+        userAnswers = [];
+        startTime = new Date();
+
+        // Mélanger à nouveau les questions
+        shuffledQuestions = shuffleArray([...quizData]);
+
+        loadQuestion();
+    }
+
+    // Charger une question
+    function loadQuestion() {
+        if (currentQuestionIndex >= shuffledQuestions.length) {
+            endQuiz();
+            return;
+        }
+
+        const question = shuffledQuestions[currentQuestionIndex];
+
+        // Mettre à jour l'interface
+        document.getElementById('currentQuestion').textContent = currentQuestionIndex + 1;
+        document.getElementById('totalQuestions').textContent = shuffledQuestions.length;
+        document.getElementById('questionCategory').textContent = question.category;
+        document.getElementById('questionText').textContent = question.question;
+
+        // Icône de catégorie
+        const categoryIcons = {
+            '🦠 Malwares': '🦠',
+            '🔐 Cryptographie': '🔐',
+            '🎣 Phishing': '🎣',
+            '🔥 Pare-feu': '🔥',
+            '🕵️ Ingénierie Sociale': '🕵️',
+            '🌐 Sécurité Web': '🌐',
+            '🔑 Authentification': '🔑',
+            '💰 Ransomware': '💰',
+            '🔍 Analyse Forensique': '🔍',
+            '☁️ Sécurité Cloud': '☁️',
+            '🤖 IA et Sécurité': '🤖',
+            '📱 Sécurité Mobile': '📱',
+            '🏢 Sécurité Entreprise': '🏢',
+            '🌍 Réglementation': '🌍',
+            '🔧 Outils de Sécurité': '🔧',
+            '🎯 Tests de Pénétration': '🎯',
+            '🔐 Gestion des Accès': '🔐',
+            '⚡ Incidents de Sécurité': '⚡',
+            '🔍 Threat Intelligence': '🔍',
+            '🛡️ Défense Avancée': '🛡️'
+        };
+
+        document.getElementById('questionIcon').textContent = categoryIcons[question.category] || '🤔';
+
+        // Mélanger les options
+        const shuffledOptions = question.options.map((option, index) => ({
+            text: option,
+            originalIndex: index
+        }));
+        shuffleArray(shuffledOptions);
+
+        // Générer les options de réponse
+        const container = document.getElementById('answersContainer');
+        container.innerHTML = shuffledOptions.map((option, index) => `
+                <div class="answer-option p-4 rounded-xl" onclick="selectAnswer(${option.originalIndex}, this)">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center font-bold">
+                            ${String.fromCharCode(65 + index)}
+                        </div>
+                        <span class="text-lg">${option.text}</span>
+                    </div>
+                </div>
+            `).join('');
+
+        // Masquer le feedback et le bouton suivant
+        document.getElementById('feedback').classList.add('hidden');
+        document.getElementById('nextButton').classList.add('hidden');
+
+        // Mettre à jour la barre de progression
+        const progress = ((currentQuestionIndex + 1) / shuffledQuestions.length) * 100;
+        document.getElementById('progressBar').style.width = progress + '%';
+
+        // Démarrer le timer
+        startTimer();
+    }
+
+    // Démarrer le timer
+    function startTimer() {
+        timeLeft = 30;
+        document.getElementById('timeLeft').textContent = timeLeft;
+
+        const circle = document.getElementById('timerCircle');
+        circle.classList.remove('timer-warning', 'timer-danger');
+
+        timer = setInterval(() => {
+            timeLeft--;
+            document.getElementById('timeLeft').textContent = timeLeft;
+
+            // Mettre à jour le cercle
+            const offset = 283 - (283 * (30 - timeLeft) / 30);
+            circle.style.strokeDashoffset = offset;
+
+            // Changer la couleur selon le temps restant
+            if (timeLeft <= 10 && timeLeft > 5) {
+                circle.classList.add('timer-warning');
+            } else if (timeLeft <= 5) {
+                circle.classList.add('timer-danger');
+            }
+
+            if (timeLeft <= 0) {
+                clearInterval(timer);
+                selectAnswer(-1, null); // Temps écoulé
+            }
+        }, 1000);
+    }
+
+    // Sélectionner une réponse
+    function selectAnswer(answerIndex, element) {
+        clearInterval(timer);
+
+        const question = shuffledQuestions[currentQuestionIndex];
+        const isCorrect = answerIndex === question.correct;
+        const timeBonus = Math.max(0, timeLeft * 2); // Bonus de rapidité
+
+        // Désactiver toutes les options
+        document.querySelectorAll('.answer-option').forEach(option => {
+            option.style.pointerEvents = 'none';
+        });
+
+        // Marquer la bonne et mauvaise réponse
+        document.querySelectorAll('.answer-option').forEach((option, index) => {
+            const optionText = option.querySelector('span').textContent;
+            if (optionText === question.options[question.correct]) {
+                option.classList.add('correct');
+            } else if (element && option === element && !isCorrect) {
+                option.classList.add('incorrect');
+            }
+        });
+
+        // Calculer le score
+        let questionScore = 0;
+        if (isCorrect) {
+            questionScore = 100 + timeBonus;
+            correctAnswers++;
+
+            // Animation de score
+            const scoreElement = document.getElementById('currentScore');
+            scoreElement.classList.add('score-animation');
+            setTimeout(() => scoreElement.classList.remove('score-animation'), 800);
+        }
+
+        score += questionScore;
+        document.getElementById('currentScore').textContent = score;
+
+        // Enregistrer la réponse
+        userAnswers.push({
+            question: question.question,
+            userAnswer: answerIndex >= 0 ? question.options[answerIndex] : 'Temps écoulé',
+            correctAnswer: question.options[question.correct],
+            isCorrect: isCorrect,
+            timeLeft: timeLeft,
+            score: questionScore
+        });
+
+        // Afficher le feedback
+        showFeedback(isCorrect, question.explanation, timeLeft === 0);
+
+        // Afficher le bouton suivant
+        document.getElementById('nextButton').classList.remove('hidden');
+    }
+
+    // Afficher le feedback
+    function showFeedback(isCorrect, explanation, timeOut) {
+        const feedback = document.getElementById('feedback');
+        const icon = document.getElementById('feedbackIcon');
+        const title = document.getElementById('feedbackTitle');
+        const text = document.getElementById('feedbackText');
+
+        if (timeOut) {
+            icon.textContent = '⏰';
+            title.textContent = 'Temps écoulé !';
+            title.className = 'text-xl font-bold mb-2 text-orange-400';
+            text.textContent = explanation;
+        } else if (isCorrect) {
+            icon.textContent = '✅';
+            title.textContent = 'Excellente réponse !';
+            title.className = 'text-xl font-bold mb-2 text-green-400';
+            text.textContent = explanation;
+        } else {
+            icon.textContent = '❌';
+            title.textContent = 'Pas tout à fait...';
+            title.className = 'text-xl font-bold mb-2 text-red-400';
+            text.textContent = explanation;
+        }
+
+        feedback.classList.remove('hidden');
+    }
+
+    // Question suivante
+    function nextQuestion() {
+        currentQuestionIndex++;
+        loadQuestion();
+    }
+
+    // Terminer le quiz
+    function endQuiz() {
+        const endTime = new Date();
+        const totalTime = Math.floor((endTime - startTime) / 1000);
+        const minutes = Math.floor(totalTime / 60);
+        const seconds = totalTime % 60;
+
+        document.getElementById('quizInterface').classList.add('hidden');
+        document.getElementById('quizResults').classList.remove('hidden');
+
+        // Calculer le pourcentage
+        const percentage = Math.round((correctAnswers / shuffledQuestions.length) * 100);
+
+        // Afficher les résultats
+        document.getElementById('finalScore').textContent = score;
+        document.getElementById('correctAnswers').textContent = `${correctAnswers}/${shuffledQuestions.length}`;
+        document.getElementById('totalTime').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+        // Déterminer le niveau
+        let level, levelDesc, icon;
+        if (percentage >= 86) {
+            level = '👑 Maître Cyber';
+            levelDesc = 'Expertise exceptionnelle !';
+            icon = '👑';
+        } else if (percentage >= 71) {
+            level = '🥇 Expert';
+            levelDesc = 'Très bonnes connaissances !';
+            icon = '🥇';
+        } else if (percentage >= 41) {
+            level = '🥈 Intermédiaire';
+            levelDesc = 'Bonnes bases, continuez !';
+            icon = '🥈';
+        } else {
+            level = '🥉 Débutant';
+            levelDesc = 'Bon début, à approfondir !';
+            icon = '🥉';
+        }
+
+        document.getElementById('userLevel').textContent = level;
+        document.getElementById('levelDescription').textContent = levelDesc;
+        document.getElementById('resultIcon').textContent = icon;
+
+        // Générer des recommandations
+        generateRecommendations(percentage);
+    }
+
+    // Générer des recommandations personnalisées
+    function generateRecommendations(percentage) {
+        const recommendations = [];
+
+        if (percentage < 50) {
+            recommendations.push('📚 Commencez par les bases de la cybersécurité');
+            recommendations.push('🎓 Suivez un cours en ligne sur la sécurité informatique');
+            recommendations.push('📖 Lisez des articles sur les menaces actuelles');
+        } else if (percentage < 75) {
+            recommendations.push('🔍 Approfondissez vos connaissances en analyse de malwares');
+            recommendations.push('🛡️ Étudiez les techniques de défense avancées');
+            recommendations.push('📊 Explorez les outils de threat intelligence');
+        } else {
+            recommendations.push('🎯 Pratiquez le pentesting éthique');
+            recommendations.push('🏆 Obtenez des certifications professionnelles (CISSP, CEH)');
+            recommendations.push('👥 Rejoignez des communautés de sécurité');
+        }
+
+        // Analyser les catégories faibles
+        const categoryStats = {};
+        userAnswers.forEach(answer => {
+            const category = shuffledQuestions.find(q => q.question === answer.question).category;
+            if (!categoryStats[category]) {
+                categoryStats[category] = { correct: 0, total: 0 };
+            }
+            categoryStats[category].total++;
+            if (answer.isCorrect) categoryStats[category].correct++;
+        });
+
+        // Recommandations spécifiques
+        Object.entries(categoryStats).forEach(([category, stats]) => {
+            const percentage = (stats.correct / stats.total) * 100;
+            if (percentage < 50) {
+                recommendations.push(`🎯 Renforcez vos connaissances en ${category}`);
+            }
+        });
+
+        document.getElementById('recommendationsList').innerHTML = recommendations
+            .slice(0, 4)
+            .map(rec => `<div class="mb-2">• ${rec}</div>`)
+            .join('');
+    }
+
+    // Recommencer le quiz
+    function restartQuiz() {
+        document.getElementById('quizResults').classList.add('hidden');
+        document.getElementById('quizHome').classList.remove('hidden');
+    }
+
+    // Partager les résultats
+    function shareResults() {
+        const percentage = Math.round((correctAnswers / shuffledQuestions.length) * 100);
+        const level = document.getElementById('userLevel').textContent;
+
+        const shareText = `🧠 J'ai obtenu ${percentage}% au Quiz Cybersécurité TechSpace !\n` +
+            `Niveau atteint: ${level}\n` +
+            `Score: ${score} points\n\n` +
+            `Testez vos connaissances cyber ! 🚀`;
+
+        if (navigator.share) {
+            navigator.share({
+                title: 'Quiz Cybersécurité TechSpace',
+                text: shareText,
+                url: window.location.href
+            });
+        } else {
+            // Fallback: copier dans le presse-papiers
+            navigator.clipboard.writeText(shareText).then(() => {
+                alert('Résultats copiés dans le presse-papiers !');
+            });
+        }
+    }
+</script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9642ab48049df0d3',t:'MTc1MzM1MjI2MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

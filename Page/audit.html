@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TechSpace - Audit Cybersécurité Gratuit 2024 | Évaluation Complète</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+    * { font-family: 'Inter', sans-serif; }
+
+    .gradient-bg {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 20%, #1d4ed8 40%, #2563eb 60%, #3b82f6 80%, #60a5fa 100%);
+      animation: gradientShift 15s ease infinite;
+    }
+
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .audit-card {
+      background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+      border: 1px solid #475569;
+      transition: all 0.5s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .audit-card:hover {
+      border-color: #3b82f6;
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(59, 130, 246, 0.3);
+    }
+
+    .audit-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+      transition: left 0.5s;
+    }
+
+    .audit-card:hover::before {
+      left: 100%;
+    }
+
+    .step-card {
+      background: linear-gradient(135deg, #374151, #4b5563);
+      border: 1px solid #6b7280;
+      transition: all 0.3s ease;
+    }
+
+    .step-card:hover {
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
+      border-color: #3b82f6;
+      transform: translateY(-3px);
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.8s ease forwards;
+    }
+
+    .fade-in-delay-1 { animation-delay: 0.2s; }
+    .fade-in-delay-2 { animation-delay: 0.4s; }
+    .fade-in-delay-3 { animation-delay: 0.6s; }
+    .fade-in-delay-4 { animation-delay: 0.8s; }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .pulse-ring {
+      animation: pulseRing 2s ease infinite;
+    }
+
+    @keyframes pulseRing {
+      0% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(1.5); opacity: 0; }
+    }
+
+    .floating-element {
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+
+    .progress-bar {
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+      animation: progressFlow 3s ease infinite;
+    }
+
+    @keyframes progressFlow {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .security-scan {
+      animation: securityScan 2s ease infinite;
+    }
+
+    @keyframes securityScan {
+      0%, 100% { box-shadow: 0 0 20px rgba(34, 197, 94, 0.3); }
+      50% { box-shadow: 0 0 40px rgba(34, 197, 94, 0.6); }
+    }
+  </style>
+</head>
+<body class="gradient-bg text-white min-h-screen">
+<!-- Navigation -->
+<nav class="fixed w-full z-50 bg-slate-900/95 backdrop-blur-lg border-b border-slate-700">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+      <div class="flex items-center space-x-3">
+        <div class="rounded-lg p-2">
+          <svg width="40" height="40" viewBox="0 0 40 40" class="text-blue-400">
+            <circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.3"/>
+            <circle cx="20" cy="20" r="14" fill="none" stroke="currentColor" stroke-width="2"/>
+            <path d="M20 6 L14 10 L14 20 Q14 24 20 26 Q26 24 26 20 L26 10 Z" fill="url(#logoGradient)" stroke="currentColor" stroke-width="1.5"/>
+            <circle cx="20" cy="16" r="2" fill="currentColor"/>
+            <defs>
+              <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:0.8" />
+                <stop offset="100%" style="stop-color:#1e40af;stop-opacity:0.9" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div>
+          <span class="text-2xl font-bold text-blue-400">TechSpace</span>
+          <div class="text-xs text-green-400 font-bold">AUDIT GRATUIT</div>
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-6">
+        <a href="../index.html" class="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-lg font-medium transition-all duration-300 hover:scale-105">🏠 Accueil</a>
+        <div class="flex items-center space-x-2 bg-green-600/20 px-3 py-1 rounded-full">
+          <span class="text-green-400 text-sm font-bold">🔍 AUDIT</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="pt-32 pb-16 relative overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16 fade-in">
+      <h1 class="text-7xl font-extrabold mb-8">
+        <span class="text-6xl">🔍</span><br>
+        <span class="bg-gradient-to-r from-green-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
+                        Audit Cybersécurité
+                    </span>
+        <br>
+        <span class="text-4xl text-green-400 font-bold">100% GRATUIT</span>
+      </h1>
+      <p class="text-2xl text-gray-300 mb-8 leading-relaxed max-w-4xl mx-auto">
+        Évaluez la sécurité de votre entreprise avec notre IA avant-gardiste.<br>
+        <span class="text-green-400 font-bold">Rapport complet • Recommandations personnalisées • Avant-goût TechSpace 2030</span>
+      </p>
+
+      <!-- Status Audit -->
+      <div class="inline-flex items-center space-x-3 bg-green-900/30 px-6 py-3 rounded-full border border-green-500/30 security-scan">
+        <div class="relative">
+          <div class="w-3 h-3 bg-green-400 rounded-full"></div>
+          <div class="absolute inset-0 w-3 h-3 bg-green-400 rounded-full pulse-ring"></div>
+        </div>
+        <span class="text-green-400 font-bold">Système d'audit IA activé</span>
+      </div>
+
+      <div class="mt-8">
+        <a href="#audit-form" class="bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 px-12 py-6 rounded-3xl font-bold text-2xl transition-all transform hover:scale-105 inline-block">
+          🚀 Demander Mon Audit Gratuit
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Pourquoi un Audit Gratuit -->
+<section class="py-16 bg-slate-900/50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-5xl font-bold text-center mb-16 fade-in">
+      <span class="text-4xl">🎯</span> Pourquoi un Audit Gratuit ?
+    </h2>
+
+    <div class="grid lg:grid-cols-3 gap-8">
+      <div class="audit-card p-8 rounded-2xl text-center fade-in">
+        <div class="text-5xl mb-6 floating-element">🧪</div>
+        <h3 class="text-2xl font-bold mb-4 text-blue-400">Tester Notre IA</h3>
+        <p class="text-gray-300 leading-relaxed">
+          Découvrez en avant-première les capacités de notre intelligence artificielle de cybersécurité.
+          Votre audit nous aide à perfectionner nos algorithmes pour 2030.
+        </p>
+      </div>
+
+      <div class="audit-card p-8 rounded-2xl text-center fade-in fade-in-delay-1">
+        <div class="text-5xl mb-6 floating-element">🤝</div>
+        <h3 class="text-2xl font-bold mb-4 text-green-400">Créer des Partenariats</h3>
+        <p class="text-gray-300 leading-relaxed">
+          Les entreprises qui nous font confiance aujourd'hui bénéficieront d'avantages exclusifs
+          lors du lancement officiel en 2030. Soyez parmi les premiers !
+        </p>
+      </div>
+
+      <div class="audit-card p-8 rounded-2xl text-center fade-in fade-in-delay-2">
+        <div class="text-5xl mb-6 floating-element">📊</div>
+        <h3 class="text-2xl font-bold mb-4 text-purple-400">Valeur Immédiate</h3>
+        <p class="text-gray-300 leading-relaxed">
+          Recevez un rapport détaillé avec des recommandations concrètes pour améliorer
+          votre sécurité dès maintenant. Pas d'attente jusqu'en 2030 !
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Ce que Vous Recevez -->
+<section class="py-16">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-5xl font-bold text-center mb-16 fade-in">
+      <span class="text-4xl">📋</span> Ce que Vous Recevez
+    </h2>
+
+    <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <div class="fade-in">
+        <div class="audit-card p-8 rounded-3xl">
+          <h3 class="text-3xl font-bold mb-6 text-blue-400">📊 Rapport Complet (50+ pages)</h3>
+
+          <div class="space-y-4">
+            <div class="flex items-center space-x-3 p-4 bg-slate-700/50 rounded-lg">
+              <span class="text-2xl">🔍</span>
+              <div>
+                <div class="font-bold text-green-400">Scan de Vulnérabilités</div>
+                <div class="text-sm text-gray-300">Analyse complète de votre infrastructure</div>
+              </div>
+            </div>
+
+            <div class="flex items-center space-x-3 p-4 bg-slate-700/50 rounded-lg">
+              <span class="text-2xl">⚠️</span>
+              <div>
+                <div class="font-bold text-yellow-400">Évaluation des Risques</div>
+                <div class="text-sm text-gray-300">Classification par niveau de criticité</div>
+              </div>
+            </div>
+
+            <div class="flex items-center space-x-3 p-4 bg-slate-700/50 rounded-lg">
+              <span class="text-2xl">🛡️</span>
+              <div>
+                <div class="font-bold text-blue-400">Plan de Remédiation</div>
+                <div class="text-sm text-gray-300">Actions prioritaires à mettre en place</div>
+              </div>
+            </div>
+
+            <div class="flex items-center space-x-3 p-4 bg-slate-700/50 rounded-lg">
+              <span class="text-2xl">📈</span>
+              <div>
+                <div class="font-bold text-purple-400">Score de Sécurité</div>
+                <div class="text-sm text-gray-300">Benchmark vs industrie</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fade-in fade-in-delay-1">
+        <div class="audit-card p-8 rounded-3xl">
+          <h3 class="text-3xl font-bold mb-6 text-green-400">🎁 Bonus Exclusifs</h3>
+
+          <div class="space-y-4">
+            <div class="flex items-center space-x-3 p-4 bg-slate-700/50 rounded-lg">
+              <span class="text-2xl">🎯</span>
+              <div>
+                <div class="font-bold text-green-400">Consultation 1h Gratuite</div>
+                <div class="text-sm text-gray-300">Avec un expert TechSpace</div>
+              </div>
+            </div>
+
+            <div class="flex items-center space-x-3 p-4 bg-slate-700/50 rounded-lg">
+              <span class="text-2xl">📚</span>
+              <div>
+                <div class="font-bold text-blue-400">Guide de Bonnes Pratiques</div>
+                <div class="text-sm text-gray-300">100 pages de conseils experts</div>
+              </div>
+            </div>
+
+            <div class="flex items-center space-x-3 p-4 bg-slate-700/50 rounded-lg">
+              <span class="text-2xl">🔔</span>
+              <div>
+                <div class="font-bold text-purple-400">Alertes Menaces</div>
+                <div class="text-sm text-gray-300">6 mois de veille gratuite</div>
+              </div>
+            </div>
+
+            <div class="flex items-center space-x-3 p-4 bg-slate-700/50 rounded-lg">
+              <span class="text-2xl">🌟</span>
+              <div>
+                <div class="font-bold text-yellow-400">Accès VIP 2030</div>
+                <div class="text-sm text-gray-300">Tarifs préférentiels garantis</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Processus d'Audit -->
+<section class="py-16 bg-slate-900/50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-5xl font-bold text-center mb-16 fade-in">
+      <span class="text-4xl">⚙️</span> Processus d'Audit
+    </h2>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="step-card p-6 rounded-2xl text-center fade-in">
+        <div class="text-4xl mb-4">📝</div>
+        <div class="text-xl font-bold mb-2 text-blue-400">1. Demande</div>
+        <p class="text-sm text-gray-300">Remplissez le formulaire détaillé</p>
+        <div class="mt-4 text-xs text-green-400 font-bold">⏱️ 10 minutes</div>
+      </div>
+
+      <div class="step-card p-6 rounded-2xl text-center fade-in fade-in-delay-1">
+        <div class="text-4xl mb-4">🤝</div>
+        <div class="text-xl font-bold mb-2 text-green-400">2. Qualification</div>
+        <p class="text-sm text-gray-300">Appel de validation avec notre équipe</p>
+        <div class="mt-4 text-xs text-green-400 font-bold">⏱️ 30 minutes</div>
+      </div>
+
+      <div class="step-card p-6 rounded-2xl text-center fade-in fade-in-delay-2">
+        <div class="text-4xl mb-4">🔍</div>
+        <div class="text-xl font-bold mb-2 text-purple-400">3. Analyse IA</div>
+        <p class="text-sm text-gray-300">Scan automatisé par notre intelligence artificielle</p>
+        <div class="mt-4 text-xs text-green-400 font-bold">⏱️ 48-72h</div>
+      </div>
+
+      <div class="step-card p-6 rounded-2xl text-center fade-in fade-in-delay-3">
+        <div class="text-4xl mb-4">📊</div>
+        <div class="text-xl font-bold mb-2 text-yellow-400">4. Rapport</div>
+        <p class="text-sm text-gray-300">Livraison du rapport + présentation</p>
+        <div class="mt-4 text-xs text-green-400 font-bold">⏱️ 1 semaine</div>
+      </div>
+    </div>
+
+    <div class="text-center mt-12">
+      <div class="inline-flex items-center space-x-4 bg-green-900/30 px-8 py-4 rounded-full border border-green-500/30">
+        <span class="text-2xl">⚡</span>
+        <span class="text-green-400 font-bold text-lg">Délai total : 2 semaines maximum</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Critères d'Éligibilité -->
+<section class="py-16">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="audit-card p-8 rounded-3xl fade-in">
+      <h2 class="text-4xl font-bold text-center mb-8">
+        <span class="text-3xl">✅</span> Critères d'Éligibilité
+      </h2>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <div>
+          <h3 class="text-2xl font-bold mb-4 text-green-400">✅ Éligible</h3>
+          <ul class="space-y-3">
+            <li class="flex items-center space-x-3">
+              <span class="text-green-400">✓</span>
+              <span>Entreprise 100+ employés</span>
+            </li>
+            <li class="flex items-center space-x-3">
+              <span class="text-green-400">✓</span>
+              <span>Infrastructure IT existante</span>
+            </li>
+            <li class="flex items-center space-x-3">
+              <span class="text-green-400">✓</span>
+              <span>Budget cybersécurité défini</span>
+            </li>
+            <li class="flex items-center space-x-3">
+              <span class="text-green-400">✓</span>
+              <span>Décideur IT disponible</span>
+            </li>
+            <li class="flex items-center space-x-3">
+              <span class="text-green-400">✓</span>
+              <span>Secteur réglementé prioritaire</span>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="text-2xl font-bold mb-4 text-red-400">❌ Non Éligible</h3>
+          <ul class="space-y-3">
+            <li class="flex items-center space-x-3">
+              <span class="text-red-400">✗</span>
+              <span>TPE/PME moins de 100 employés</span>
+            </li>
+            <li class="flex items-center space-x-3">
+              <span class="text-red-400">✗</span>
+              <span>Particuliers</span>
+            </li>
+            <li class="flex items-center space-x-3">
+              <span class="text-red-400">✗</span>
+              <span>Concurrents directs</span>
+            </li>
+            <li class="flex items-center space-x-3">
+              <span class="text-red-400">✗</span>
+              <span>Secteurs non compatibles</span>
+            </li>
+            <li class="flex items-center space-x-3">
+              <span class="text-red-400">✗</span>
+              <span>Demandes multiples</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="text-center mt-8 p-4 bg-blue-900/30 rounded-lg border border-blue-500/30">
+        <p class="text-blue-300">
+          <span class="font-bold">💡 Astuce :</span> Les entreprises des secteurs finance, santé, énergie et gouvernement sont prioritaires !
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Formulaire d'Audit -->
+<section id="audit-form" class="py-16 bg-slate-900/50">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="audit-card p-8 rounded-3xl fade-in">
+      <h2 class="text-4xl font-bold text-center mb-8 text-green-400">
+        <span class="text-3xl">🚀</span> Demander Mon Audit Gratuit
+      </h2>
+
+      <form class="space-y-6" onsubmit="submitAuditForm(event)">
+        <!-- Informations Entreprise -->
+        <div class="bg-slate-700/30 p-6 rounded-2xl">
+          <h3 class="text-xl font-bold mb-4 text-blue-400">🏢 Informations Entreprise</h3>
+          <div class="grid md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-bold mb-2 text-gray-300">Nom de l'entreprise *</label>
+              <input type="text" required class="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-green-500" placeholder="TechCorp Inc.">
+            </div>
+            <div>
+              <label class="block text-sm font-bold mb-2 text-gray-300">Secteur d'activité *</label>
+              <select required class="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-green-500">
+                <option value="">Sélectionnez...</option>
+                <option>Finance & Banque</option>
+                <option>Santé & Pharmaceutique</option>
+                <option>Énergie & Utilities</option>
+                <option>Gouvernement & Public</option>
+                <option>Technologie & Software</option>
+                <option>Industrie & Manufacturing</option>
+                <option>Commerce & Retail</option>
+                <option>Éducation</option>
+                <option>Autre</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-bold mb-2 text-gray-300">Nombre d'employés *</label>
+              <select required class="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-green-500">
+                <option value="">Sélectionnez...</option>
+                <option>100-250</option>
+                <option>250-500</option>
+                <option>500-1000</option>
+                <option>1000-5000</option>
+                <option>5000+</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-bold mb-2 text-gray-300">Chiffre d'affaires annuel</label>
+              <select class="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-green-500">
+                <option value="">Optionnel</option>
+                <option>1-10M€</option>
+                <option>10-50M€</option>
+                <option>50-100M€</option>
+                <option>100-500M€</option>
+                <option>500M€+</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Principal -->
+        <div class="bg-slate-700/30 p-6 rounded-2xl">
+          <h3 class="text-xl font-bold mb-4 text-blue-400">👤 Contact Principal</h3>
+          <div class="grid md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-bold mb-2 text-gray-300">Nom complet *</label>
+              <input type="text" required class="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-green-500" placeholder="Jean Dupont">
+            </div>
+            <div>
+              <label class="block text-sm font-bold mb-2 text-gray-300">Poste/Fonction *</label>
+              <input type="text" required class="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-green-500" placeholder="CISO, CTO, IT Manager...">
+            </div>
+            <div>
+              <label class="block text-sm font-bold mb-2 text-gray-300">Email professionnel *</label>
+              <input type="email" required class="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-green-500" placeholder="jean.dupont@entreprise.com">
+            </div>
+            <div>
+              <label class="block text-sm font-bold mb-2 text-gray-300">Téléphone *</label>
+              <input type="tel" required class="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-green-500" placeholder="+33 1 23 45 67 89">
+            </div>
+          </div>
+        </div>
+
+        <!-- Infrastructure IT -->
+        <div class="bg-slate-700/30 p-6 rounded-2xl">
+          <h3 class="text-xl font-bold mb-4 text-blue-400">💻 Infrastructure IT</h3>
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-bold mb-2 text-gray-300">Environnements (plusieurs choix possibles)</label>
+              <div class="grid md:grid-cols-3 gap-3">
+                <label class="flex items-center space-x-2 cursor-pointer">
+                  <input type="checkbox" class="rounded border-gray-600 bg-slate-700 text-green-500 focus:ring-green-500">
+                  <span>On-premise</span>
+                </label>
+                <label class="flex items-center space-x-2 cursor-pointer">
+                  <input type="checkbox" class="rounded border-gray-600 bg-slate-700 text-green-500 focus:ring-green-500">
+                  <span>Cloud (AWS/Azure/GCP)</span>
+                </label>
+                <label class="flex items-center space-x-2 cursor-pointer">
+                  <input type="checkbox" class="rounded border-gray-600 bg-slate-700 text-green-500 focus:ring-green-500">
+                  <span>Hybride</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-bold mb-2 text-gray-300">Budget cybersécurité annuel</label>
+                <select class="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-green-500">
+                  <option value="">Sélectionnez...</option>
+                  <option>Moins de 50K€</option>
+                  <option>50K€ - 100K€</option>
+                  <option>100K€ - 500K€</option>
+                  <option>500K€ - 1M€</option>
+                  <option>Plus de 1M€</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-bold mb-2 text-gray-300">Équipe IT interne</label>
+                <select class="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-green-500">
+                  <option value="">Sélectionnez...</option>
+                  <option>1-5 personnes</option>
+                  <option>5-10 personnes</option>
+                  <option>10-20 personnes</option>
+                  <option>20+ personnes</option>
+                  <option>Externalisé</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Besoins Spécifiques -->
+        <div class="bg-slate-700/30 p-6 rounded-2xl">
+          <h3 class="text-xl font-bold mb-4 text-blue-400">🎯 Besoins Spécifiques</h3>
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-bold mb-2 text-gray-300">Principales préoccupations (plusieurs choix possibles)</label>
+              <div class="grid md:grid-cols-2 gap-3">
+                <label class="flex items-center space-x-2 cursor-pointer">
+                  <input type="checkbox" class="rounded border-gray-600 bg-slate-700 text-green-500 focus:ring-green-500">
+                  <span>Phishing & ingénierie sociale</span>
+                </label>
+                <label class="flex items-center space-x-2 cursor-pointer">
+                  <input type="checkbox" class="rounded border-gray-600 bg-slate-700 text-green-500 focus:ring-green-500">
+                  <span>Ransomware</span>
+                </label>
+                <label class="flex items-center space-x-2 cursor-pointer">
+                  <input type="checkbox" class="rounded border-gray-600 bg-slate-700 text-green-500 focus:ring-green-500">
+                  <span>Fuite de données</span>
+                </label>
+                <label class="flex items-center space-x-2 cursor-pointer">
+                  <input type="checkbox" class="rounded border-gray-600 bg-slate-700 text-green-500 focus:ring-green-500">
+                  <span>Conformité réglementaire</span>
+                </label>
+                <label class="flex items-center space-x-2 cursor-pointer">
+                  <input type="checkbox" class="rounded border-gray-600 bg-slate-700 text-green-500 focus:ring-green-500">
+                  <span>Sécurité des endpoints</span>
+                </label>
+                <label class="flex items-center space-x-2 cursor-pointer">
+                  <input type="checkbox" class="rounded border-gray-600 bg-slate-700 text-green-500 focus:ring-green-500">
+                  <span>Sécurité cloud</span>
+                </label>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm font-bold mb-2 text-gray-300">Incidents récents ou préoccupations particulières</label>
+              <textarea rows="4" class="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-green-500" placeholder="Décrivez brièvement vos préoccupations actuelles, incidents récents, ou objectifs spécifiques..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Disponibilité -->
+        <div class="bg-slate-700/30 p-6 rounded-2xl">
+          <h3 class="text-xl font-bold mb-4 text-blue-400">📅 Disponibilité</h3>
+          <div class="grid md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-bold mb-2 text-gray-300">Urgence de l'audit</label>
+              <select class="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-green-500">
+                <option>Pas urgent (1 mois)</option>
+                <option>Modéré (2 semaines)</option>
+                <option>Urgent (1 semaine)</option>
+                <option>Très urgent (ASAP)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-bold mb-2 text-gray-300">Meilleur moment pour vous contacter</label>
+              <select class="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-green-500">
+                <option>Matin (9h-12h)</option>
+                <option>Après-midi (14h-17h)</option>
+                <option>Fin de journée (17h-19h)</option>
+                <option>Flexible</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Consentements -->
+        <div class="bg-slate-700/30 p-6 rounded-2xl">
+          <h3 class="text-xl font-bold mb-4 text-blue-400">✅ Consentements</h3>
+          <div class="space-y-3">
+            <label class="flex items-start space-x-3 cursor-pointer">
+              <input type="checkbox" required class="mt-1 rounded border-gray-600 bg-slate-700 text-green-500 focus:ring-green-500">
+              <span class="text-sm">J'accepte que TechSpace traite mes données pour réaliser cet audit gratuit et me recontacter. <a href="#" class="text-blue-400 hover:underline">Politique de confidentialité</a></span>
+            </label>
+            <label class="flex items-start space-x-3 cursor-pointer">
+              <input type="checkbox" class="mt-1 rounded border-gray-600 bg-slate-700 text-green-500 focus:ring-green-500">
+              <span class="text-sm">J'accepte de recevoir des informations sur les solutions TechSpace et le lancement 2030</span>
+            </label>
+            <label class="flex items-start space-x-3 cursor-pointer">
+              <input type="checkbox" class="mt-1 rounded border-gray-600 bg-slate-700 text-green-500 focus:ring-green-500">
+              <span class="text-sm">J'autorise TechSpace à utiliser les résultats anonymisés de cet audit pour améliorer ses algorithmes IA</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="text-center">
+          <button type="submit" class="bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 px-12 py-6 rounded-3xl font-bold text-xl transition-all transform hover:scale-105">
+            🚀 Demander Mon Audit Gratuit
+          </button>
+          <p class="text-sm text-gray-400 mt-4">
+            Réponse sous 24h • Audit complet en 2 semaines • 100% gratuit
+          </p>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- Témoignages Bêta -->
+<section class="py-16">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-5xl font-bold text-center mb-16 fade-in">
+      <span class="text-4xl">💬</span> Témoignages Bêta-Testeurs
+    </h2>
+
+    <div class="grid lg:grid-cols-3 gap-8">
+      <div class="audit-card p-6 rounded-2xl fade-in">
+        <div class="flex items-center space-x-4 mb-4">
+          <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center font-bold">
+            JM
+          </div>
+          <div>
+            <div class="font-bold">Jean Martin</div>
+            <div class="text-sm text-gray-400">CISO - BankTech (2500 employés)</div>
+          </div>
+        </div>
+        <p class="text-gray-300 italic mb-4">
+          "L'audit TechSpace a révélé 23 vulnérabilités critiques que nos outils actuels n'avaient pas détectées.
+          Leur IA est impressionnante, j'ai hâte de voir la version 2030 !"
+        </p>
+        <div class="flex text-yellow-400">
+          ⭐⭐⭐⭐⭐
+        </div>
+      </div>
+
+      <div class="audit-card p-6 rounded-2xl fade-in fade-in-delay-1">
+        <div class="flex items-center space-x-4 mb-4">
+          <div class="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center font-bold">
+            SL
+          </div>
+          <div>
+            <div class="font-bold">Sophie Leroy</div>
+            <div class="text-sm text-gray-400">CTO - HealthCorp (800 employés)</div>
+          </div>
+        </div>
+        <p class="text-gray-300 italic mb-4">
+          "Rapport très détaillé avec des recommandations concrètes. Nous avons implémenté 80% des suggestions
+          et notre score de sécurité a augmenté de 40%. Merci TechSpace !"
+        </p>
+        <div class="flex text-yellow-400">
+          ⭐⭐⭐⭐⭐
+        </div>
+      </div>
+
+      <div class="audit-card p-6 rounded-2xl fade-in fade-in-delay-2">
+        <div class="flex items-center space-x-4 mb-4">
+          <div class="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center font-bold">
+            MD
+          </div>
+          <div>
+            <div class="font-bold">Marc Dubois</div>
+            <div class="text-sm text-gray-400">IT Manager - IndusTech (1200 employés)</div>
+          </div>
+        </div>
+        <p class="text-gray-300 italic mb-4">
+          "L'équipe TechSpace est très professionnelle. L'audit était gratuit mais la qualité est celle
+          d'un service premium. Nous serons clients dès 2030 !"
+        </p>
+        <div class="flex text-yellow-400">
+          ⭐⭐⭐⭐⭐
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="py-16 bg-slate-900/50">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-5xl font-bold text-center mb-16 fade-in">
+      <span class="text-4xl">❓</span> Questions Fréquentes
+    </h2>
+
+    <div class="space-y-4">
+      <div class="audit-card p-6 rounded-2xl fade-in">
+        <button class="w-full text-left flex justify-between items-center" onclick="toggleFAQ(1)">
+          <span class="font-bold text-lg">Pourquoi l'audit est-il vraiment gratuit ?</span>
+          <span id="faq-icon-1" class="text-2xl">+</span>
+        </button>
+        <div id="faq-content-1" class="hidden mt-4 text-gray-300">
+          Nous testons notre IA avant le lancement 2030. Votre audit nous aide à perfectionner nos algorithmes
+          tout en vous apportant une valeur immédiate. C'est gagnant-gagnant !
+        </div>
+      </div>
+
+      <div class="audit-card p-6 rounded-2xl fade-in">
+        <button class="w-full text-left flex justify-between items-center" onclick="toggleFAQ(2)">
+          <span class="font-bold text-lg">Combien d'audits gratuits proposez-vous ?</span>
+          <span id="faq-icon-2" class="text-2xl">+</span>
+        </button>
+        <div id="faq-content-2" class="hidden mt-4 text-gray-300">
+          Nous limitons à 100 audits gratuits par trimestre pour garantir la qualité.
+          Les entreprises des secteurs critiques (finance, santé, énergie) sont prioritaires.
+        </div>
+      </div>
+
+      <div class="audit-card p-6 rounded-2xl fade-in">
+        <button class="w-full text-left flex justify-between items-center" onclick="toggleFAQ(3)">
+          <span class="font-bold text-lg">Que se passe-t-il après l'audit ?</span>
+          <span id="faq-icon-3" class="text-2xl">+</span>
+        </button>
+        <div id="faq-content-3" class="hidden mt-4 text-gray-300">
+          Vous recevez votre rapport complet, une consultation gratuite d'1h, et rejoignez notre programme VIP
+          pour bénéficier d'avantages exclusifs lors du lancement 2030.
+        </div>
+      </div>
+
+      <div class="audit-card p-6 rounded-2xl fade-in">
+        <button class="w-full text-left flex justify-between items-center" onclick="toggleFAQ(4)">
+          <span class="font-bold text-lg">Mes données sont-elles sécurisées ?</span>
+          <span id="faq-icon-4" class="text-2xl">+</span>
+        </button>
+        <div id="faq-content-4" class="hidden mt-4 text-gray-300">
+          Absolument ! Nous appliquons les plus hauts standards de sécurité (chiffrement AES-256, accès restreint,
+          conformité RGPD). Vos données ne sont jamais partagées avec des tiers.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-slate-900 py-8">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <div class="flex items-center justify-center space-x-4 mb-4">
+      <span class="text-2xl">🔍</span>
+      <span class="text-gray-300">Audit cybersécurité gratuit - Préparez-vous pour 2030</span>
+    </div>
+    <p class="text-gray-400">
+      &copy; 2024 TechSpace - Audit Cybersécurité Gratuit
+    </p>
+  </div>
+</footer>
+
+<script>
+  // Animation d'initialisation
+  document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(() => {
+      document.querySelectorAll('.fade-in').forEach(el => {
+        el.style.animationPlayState = 'running';
+      });
+    }, 100);
+  });
+
+  // Gestion du formulaire d'audit
+  function submitAuditForm(event) {
+    event.preventDefault();
+
+    // Simulation d'envoi
+    const button = event.target.querySelector('button[type="submit"]');
+    const originalText = button.innerHTML;
+
+    button.innerHTML = '⏳ Envoi en cours...';
+    button.disabled = true;
+
+    setTimeout(() => {
+      button.innerHTML = '✅ Demande envoyée !';
+
+      setTimeout(() => {
+        alert('🎉 Votre demande d\'audit a été envoyée avec succès !\n\n' +
+                '✅ Vous recevrez un email de confirmation sous 24h\n' +
+                '📞 Notre équipe vous contactera pour planifier l\'audit\n' +
+                '📊 Rapport complet livré sous 2 semaines\n\n' +
+                'Merci de faire confiance à TechSpace !');
+
+        button.innerHTML = originalText;
+        button.disabled = false;
+        event.target.reset();
+      }, 2000);
+    }, 2000);
+  }
+
+  // Gestion FAQ
+  function toggleFAQ(id) {
+    const content = document.getElementById(`faq-content-${id}`);
+    const icon = document.getElementById(`faq-icon-${id}`);
+
+    if (content.classList.contains('hidden')) {
+      content.classList.remove('hidden');
+      icon.textContent = '-';
+    } else {
+      content.classList.add('hidden');
+      icon.textContent = '+';
+    }
+  }
+
+  // Smooth scroll pour le formulaire
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      document.querySelector(this.getAttribute('href')).scrollIntoView({
+        behavior: 'smooth'
+      });
+    });
+  });
+</script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96441b9aa0630031',t:'MTc1MzM2NzM0Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

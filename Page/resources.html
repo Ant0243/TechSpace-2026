@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ressources Cybersécurité - TechSpace</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+    * { font-family: 'Inter', sans-serif; }
+    .gradient-bg { background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 30%, #1d4ed8 70%, #2563eb 100%); }
+
+    /* Animations avancées */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(50px);
+      animation: fadeInUp 1s ease forwards;
+    }
+
+    .fade-in-delay-1 { animation-delay: 0.3s; }
+    .fade-in-delay-2 { animation-delay: 0.6s; }
+    .fade-in-delay-3 { animation-delay: 0.9s; }
+    .fade-in-delay-4 { animation-delay: 1.2s; }
+    .fade-in-delay-5 { animation-delay: 1.5s; }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .pulse-glow {
+      animation: pulseGlow 3s infinite;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.3); }
+      50% { box-shadow: 0 0 40px rgba(59, 130, 246, 0.7); }
+    }
+
+    .floating {
+      animation: floating 8s ease-in-out infinite;
+    }
+
+    @keyframes floating {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      25% { transform: translateY(-10px) rotate(2deg); }
+      50% { transform: translateY(-20px) rotate(0deg); }
+      75% { transform: translateY(-10px) rotate(-2deg); }
+    }
+
+    .hero-text {
+      background: linear-gradient(45deg, #3b82f6, #2563eb, #1d4ed8);
+      background-size: 300% 300%;
+      animation: textGlow 4s ease infinite;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    @keyframes textGlow {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .resource-card {
+      background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+      border: 1px solid #475569;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .resource-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .resource-card:hover::before {
+      left: 100%;
+    }
+
+    .resource-card:hover {
+      border-color: #3b82f6;
+      transform: translateY(-10px);
+      box-shadow: 0 25px 50px rgba(59, 130, 246, 0.3);
+    }
+
+    .category-filter {
+      background: rgba(51, 65, 85, 0.5);
+      border: 1px solid #475569;
+      transition: all 0.3s ease;
+    }
+
+    .category-filter.active {
+      background: linear-gradient(45deg, #3b82f6, #2563eb);
+      border-color: #3b82f6;
+      color: white;
+    }
+
+    .category-filter:hover {
+      border-color: #3b82f6;
+      background: rgba(59, 130, 246, 0.1);
+    }
+
+    .search-box {
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid #475569;
+      transition: all 0.3s ease;
+    }
+
+    .search-box:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+      background: rgba(30, 41, 59, 1);
+    }
+
+    .download-btn {
+      background: linear-gradient(45deg, #059669, #10b981);
+      transition: all 0.3s ease;
+    }
+
+    .download-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
+    }
+
+    .tool-card {
+      background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+      border: 1px solid #475569;
+      transition: all 0.4s ease;
+    }
+
+    .tool-card:hover {
+      border-color: #3b82f6;
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
+    }
+
+    .webinar-card {
+      background: linear-gradient(135deg, #7c2d12 0%, #dc2626 100%);
+      border: 1px solid #ef4444;
+      transition: all 0.4s ease;
+    }
+
+    .webinar-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(239, 68, 68, 0.3);
+    }
+
+    .favorite-btn {
+      transition: all 0.3s ease;
+    }
+
+    .favorite-btn:hover {
+      transform: scale(1.2);
+    }
+
+    .favorite-btn.active {
+      color: #f59e0b;
+    }
+
+    .notification-badge {
+      background: linear-gradient(45deg, #dc2626, #ef4444);
+      animation: pulse 2s infinite;
+    }
+
+    .stats-counter {
+      font-size: 2rem;
+      font-weight: 800;
+      background: linear-gradient(45deg, #3b82f6, #2563eb);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+  </style>
+</head>
+<body class="gradient-bg text-white min-h-screen">
+<!-- Navigation -->
+<nav class="fixed w-full z-50 bg-slate-900/95 backdrop-blur-lg border-b border-slate-700">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+      <div class="flex items-center space-x-3">
+        <div class="pulse-glow rounded-lg p-2">
+          <svg width="40" height="40" viewBox="0 0 40 40" class="text-blue-400">
+            <circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.3"/>
+            <circle cx="20" cy="20" r="14" fill="none" stroke="currentColor" stroke-width="2"/>
+            <path d="M20 6 L14 10 L14 20 Q14 24 20 26 Q26 24 26 20 L26 10 Z" fill="url(#logoGradient)" stroke="currentColor" stroke-width="1.5"/>
+            <circle cx="20" cy="16" r="2" fill="currentColor"/>
+            <defs>
+              <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:0.8" />
+                <stop offset="100%" style="stop-color:#1e40af;stop-opacity:0.9" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <span class="text-2xl font-bold text-blue-400">TechSpace</span>
+      </div>
+      <div class="flex space-x-4">
+        <a href="../index.html" class="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-lg font-medium transition-all duration-300 hover:scale-105">🏠 Accueil</a>
+        <div class="flex items-center space-x-2 bg-green-600/20 px-3 py-1 rounded-full">
+          <span class="text-green-400 text-sm font-bold">📚RESSOURCES </span>
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="pt-32 pb-20 relative overflow-hidden">
+  <div class="absolute inset-0 bg-gradient-to-r from-blue-600/15 to-purple-600/15"></div>
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
+    <h1 class="text-6xl font-extrabold mb-6 fade-in">
+      <span class="floating text-blue-400">📚</span>
+      <span class="hero-text">RESSOURCES CYBERSÉCURITÉ</span>
+    </h1>
+    <p class="text-2xl text-gray-300 mb-8 fade-in fade-in-delay-1 max-w-4xl mx-auto">
+      Guides, outils et formations pour <span class="text-green-400 font-bold">sécuriser votre entreprise</span>
+      et rester à jour sur les <span class="text-blue-400 font-bold">dernières menaces</span>
+    </p>
+
+    <!-- Stats des ressources -->
+    <div class="grid md:grid-cols-4 gap-8 mt-12 fade-in fade-in-delay-2">
+      <div class="text-center">
+        <div class="stats-counter mb-2">150+</div>
+        <p class="text-blue-300">Guides & Articles</p>
+      </div>
+      <div class="text-center">
+        <div class="stats-counter mb-2">25</div>
+        <p class="text-green-300">Outils Gratuits</p>
+      </div>
+      <div class="text-center">
+        <div class="stats-counter mb-2">50+</div>
+        <p class="text-purple-300">Webinaires</p>
+      </div>
+      <div class="text-center">
+        <div class="stats-counter mb-2">10K+</div>
+        <p class="text-orange-300">Téléchargements</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Recherche et Filtres -->
+<section class="py-12 bg-slate-900/50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col lg:flex-row gap-6 items-center justify-between fade-in">
+      <!-- Barre de recherche -->
+      <div class="relative flex-1 max-w-md">
+        <input type="text" id="searchBox" placeholder="Rechercher des ressources..."
+               class="search-box w-full px-4 py-3 pl-12 rounded-xl text-white placeholder-gray-400 focus:outline-none">
+        <div class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">
+          🔍
+        </div>
+      </div>
+
+      <!-- Filtres par catégorie -->
+      <div class="flex flex-wrap gap-3">
+        <button class="category-filter active px-4 py-2 rounded-lg font-medium" data-category="all">
+          Tout
+        </button>
+        <button class="category-filter px-4 py-2 rounded-lg font-medium" data-category="guides">
+          📖 Guides
+        </button>
+        <button class="category-filter px-4 py-2 rounded-lg font-medium" data-category="tools">
+          🛠️ Outils
+        </button>
+        <button class="category-filter px-4 py-2 rounded-lg font-medium" data-category="webinars">
+          🎥 Webinaires
+        </button>
+        <button class="category-filter px-4 py-2 rounded-lg font-medium" data-category="news">
+          📰 Actualités
+        </button>
+      </div>
+
+      <!-- Notifications -->
+      <div class="relative">
+        <button class="bg-slate-700 hover:bg-slate-600 px-4 py-2 rounded-lg transition-colors relative">
+          🔔 Notifications
+          <span class="notification-badge absolute -top-2 -right-2 w-5 h-5 rounded-full flex items-center justify-center text-xs text-white">
+                            3
+                        </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Guides Pratiques -->
+<section class="py-20" id="guides-section">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-5xl font-bold text-center mb-16 fade-in">
+      <span class="floating">📖</span> Guides Pratiques
+    </h2>
+
+    <div class="grid lg:grid-cols-3 gap-8">
+      <div class="resource-card p-8 rounded-2xl fade-in" data-category="guides">
+        <div class="flex justify-between items-start mb-4">
+          <div class="text-4xl">🛡️</div>
+          <button class="favorite-btn text-2xl" onclick="toggleFavorite(this)">⭐</button>
+        </div>
+        <h3 class="text-2xl font-bold mb-4 text-blue-400">Guide RGPD Complet 2024</h3>
+        <p class="text-gray-300 mb-6 leading-relaxed">
+          Tout ce que vous devez savoir sur la conformité RGPD : obligations,
+          procédures, modèles de documents et checklist complète.
+        </p>
+        <div class="flex items-center justify-between mb-4">
+          <span class="bg-blue-600/20 text-blue-300 px-3 py-1 rounded-full text-sm">PDF - 45 pages</span>
+          <span class="text-gray-400 text-sm">⬇️ 2,847 téléchargements</span>
+        </div>
+        <button class="download-btn w-full py-3 rounded-xl font-bold text-white" onclick="downloadResource('rgpd-guide')">
+          📥 Télécharger Gratuitement
+        </button>
+      </div>
+
+      <div class="resource-card p-8 rounded-2xl fade-in fade-in-delay-1" data-category="guides">
+        <div class="flex justify-between items-start mb-4">
+          <div class="text-4xl">🔒</div>
+          <button class="favorite-btn text-2xl" onclick="toggleFavorite(this)">⭐</button>
+        </div>
+        <h3 class="text-2xl font-bold mb-4 text-green-400">Checklist Sécurité PME</h3>
+        <p class="text-gray-300 mb-6 leading-relaxed">
+          50 points de contrôle essentiels pour sécuriser votre PME.
+          Format pratique avec cases à cocher et priorités.
+        </p>
+        <div class="flex items-center justify-between mb-4">
+          <span class="bg-green-600/20 text-green-300 px-3 py-1 rounded-full text-sm">PDF - 12 pages</span>
+          <span class="text-gray-400 text-sm">⬇️ 4,156 téléchargements</span>
+        </div>
+        <button class="download-btn w-full py-3 rounded-xl font-bold text-white" onclick="downloadResource('pme-checklist')">
+          📥 Télécharger Gratuitement
+        </button>
+      </div>
+
+      <div class="resource-card p-8 rounded-2xl fade-in fade-in-delay-2" data-category="guides">
+        <div class="flex justify-between items-start mb-4">
+          <div class="text-4xl">🚨</div>
+          <button class="favorite-btn text-2xl" onclick="toggleFavorite(this)">⭐</button>
+        </div>
+        <h3 class="text-2xl font-bold mb-4 text-red-400">Plan de Réponse aux Incidents</h3>
+        <p class="text-gray-300 mb-6 leading-relaxed">
+          Modèle complet de plan de réponse aux incidents cyber.
+          Procédures, contacts d'urgence et templates de communication.
+        </p>
+        <div class="flex items-center justify-between mb-4">
+          <span class="bg-red-600/20 text-red-300 px-3 py-1 rounded-full text-sm">PDF - 28 pages</span>
+          <span class="text-gray-400 text-sm">⬇️ 1,923 téléchargements</span>
+        </div>
+        <button class="download-btn w-full py-3 rounded-xl font-bold text-white" onclick="downloadResource('incident-plan')">
+          📥 Télécharger Gratuitement
+        </button>
+      </div>
+
+      <div class="resource-card p-8 rounded-2xl fade-in fade-in-delay-3" data-category="guides">
+        <div class="flex justify-between items-start mb-4">
+          <div class="text-4xl">🔍</div>
+          <button class="favorite-btn text-2xl" onclick="toggleFavorite(this)">⭐</button>
+        </div>
+        <h3 class="text-2xl font-bold mb-4 text-purple-400">Audit Sécurité DIY</h3>
+        <p class="text-gray-300 mb-6 leading-relaxed">
+          Réalisez votre propre audit de sécurité avec notre guide étape par étape.
+          Outils recommandés et grille d'évaluation incluse.
+        </p>
+        <div class="flex items-center justify-between mb-4">
+          <span class="bg-purple-600/20 text-purple-300 px-3 py-1 rounded-full text-sm">PDF - 35 pages</span>
+          <span class="text-gray-400 text-sm">⬇️ 3,241 téléchargements</span>
+        </div>
+        <button class="download-btn w-full py-3 rounded-xl font-bold text-white" onclick="downloadResource('audit-diy')">
+          📥 Télécharger Gratuitement
+        </button>
+      </div>
+
+      <div class="resource-card p-8 rounded-2xl fade-in fade-in-delay-4" data-category="guides">
+        <div class="flex justify-between items-start mb-4">
+          <div class="text-4xl">☁️</div>
+          <button class="favorite-btn text-2xl" onclick="toggleFavorite(this)">⭐</button>
+        </div>
+        <h3 class="text-2xl font-bold mb-4 text-cyan-400">Sécurité Cloud AWS/Azure</h3>
+        <p class="text-gray-300 mb-6 leading-relaxed">
+          Bonnes pratiques pour sécuriser vos environnements cloud.
+          Configurations, monitoring et gestion des accès.
+        </p>
+        <div class="flex items-center justify-between mb-4">
+          <span class="bg-cyan-600/20 text-cyan-300 px-3 py-1 rounded-full text-sm">PDF - 52 pages</span>
+          <span class="text-gray-400 text-sm">⬇️ 2,678 téléchargements</span>
+        </div>
+        <button class="download-btn w-full py-3 rounded-xl font-bold text-white" onclick="downloadResource('cloud-security')">
+          📥 Télécharger Gratuitement
+        </button>
+      </div>
+
+      <div class="resource-card p-8 rounded-2xl fade-in fade-in-delay-5" data-category="guides">
+        <div class="flex justify-between items-start mb-4">
+          <div class="text-4xl">🎓</div>
+          <button class="favorite-btn text-2xl" onclick="toggleFavorite(this)">⭐</button>
+        </div>
+        <h3 class="text-2xl font-bold mb-4 text-yellow-400">Formation Utilisateurs</h3>
+        <p class="text-gray-300 mb-6 leading-relaxed">
+          Kit complet pour former vos équipes à la cybersécurité.
+          Présentations, quiz et supports de sensibilisation.
+        </p>
+        <div class="flex items-center justify-between mb-4">
+          <span class="bg-yellow-600/20 text-yellow-300 px-3 py-1 rounded-full text-sm">ZIP - Multiples</span>
+          <span class="text-gray-400 text-sm">⬇️ 1,567 téléchargements</span>
+        </div>
+        <button class="download-btn w-full py-3 rounded-xl font-bold text-white" onclick="downloadResource('training-kit')">
+          📥 Télécharger Gratuitement
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Outils Gratuits -->
+<section class="py-20 bg-slate-900/50" id="tools-section">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-5xl font-bold text-center mb-16 fade-in">
+      <span class="floating">🛠️</span> Outils Gratuits
+    </h2>
+
+    <div class="grid lg:grid-cols-4 gap-6">
+      <div class="tool-card p-6 rounded-xl fade-in" data-category="tools">
+        <div class="text-4xl mb-4 text-center">🔐</div>
+        <h3 class="text-xl font-bold mb-3 text-blue-400 text-center">Générateur de Mots de Passe</h3>
+        <p class="text-gray-300 text-sm mb-4 text-center">
+          Créez des mots de passe sécurisés avec options personnalisables.
+        </p>
+        <button class="w-full bg-blue-600 hover:bg-blue-700 py-2 rounded-lg font-medium transition-colors" onclick="openTool('password-generator')">
+          🚀 Utiliser l'Outil
+        </button>
+      </div>
+
+      <div class="tool-card p-6 rounded-xl fade-in fade-in-delay-1" data-category="tools">
+        <div class="text-4xl mb-4 text-center">🔍</div>
+        <h3 class="text-xl font-bold mb-3 text-green-400 text-center">Test de Vulnérabilités</h3>
+        <p class="text-gray-300 text-sm mb-4 text-center">
+          Scannez vos sites web pour détecter les failles de sécurité.
+        </p>
+        <button class="w-full bg-green-600 hover:bg-green-700 py-2 rounded-lg font-medium transition-colors" onclick="openTool('vuln-scanner')">
+          🚀 Utiliser l'Outil
+        </button>
+      </div>
+
+      <div class="tool-card p-6 rounded-xl fade-in fade-in-delay-2" data-category="tools">
+        <div class="text-4xl mb-4 text-center">📊</div>
+        <h3 class="text-xl font-bold mb-3 text-purple-400 text-center">Calculateur de Risques</h3>
+        <p class="text-gray-300 text-sm mb-4 text-center">
+          Évaluez le niveau de risque cybersécurité de votre entreprise.
+        </p>
+        <button class="w-full bg-purple-600 hover:bg-purple-700 py-2 rounded-lg font-medium transition-colors" onclick="openTool('risk-calculator')">
+          🚀 Utiliser l'Outil
+        </button>
+      </div>
+
+      <div class="tool-card p-6 rounded-xl fade-in fade-in-delay-3" data-category="tools">
+        <div class="text-4xl mb-4 text-center">🌐</div>
+        <h3 class="text-xl font-bold mb-3 text-orange-400 text-center">Scanner de Ports</h3>
+        <p class="text-gray-300 text-sm mb-4 text-center">
+          Vérifiez les ports ouverts sur vos serveurs et équipements.
+        </p>
+        <button class="w-full bg-orange-600 hover:bg-orange-700 py-2 rounded-lg font-medium transition-colors" onclick="openTool('port-scanner')">
+          🚀 Utiliser l'Outil
+        </button>
+      </div>
+
+      <div class="tool-card p-6 rounded-xl fade-in fade-in-delay-4" data-category="tools">
+        <div class="text-4xl mb-4 text-center">📧</div>
+        <h3 class="text-xl font-bold mb-3 text-cyan-400 text-center">Vérificateur Email</h3>
+        <p class="text-gray-300 text-sm mb-4 text-center">
+          Testez si vos emails sont sécurisés contre le phishing.
+        </p>
+        <button class="w-full bg-cyan-600 hover:bg-cyan-700 py-2 rounded-lg font-medium transition-colors" onclick="openTool('email-checker')">
+          🚀 Utiliser l'Outil
+        </button>
+      </div>
+
+      <div class="tool-card p-6 rounded-xl fade-in fade-in-delay-5" data-category="tools">
+        <div class="text-4xl mb-4 text-center">🔒</div>
+        <h3 class="text-xl font-bold mb-3 text-pink-400 text-center">Chiffreur de Fichiers</h3>
+        <p class="text-gray-300 text-sm mb-4 text-center">
+          Chiffrez vos fichiers sensibles avec AES-256.
+        </p>
+        <button class="w-full bg-pink-600 hover:bg-pink-700 py-2 rounded-lg font-medium transition-colors" onclick="openTool('file-encryptor')">
+          🚀 Utiliser l'Outil
+        </button>
+      </div>
+
+      <div class="tool-card p-6 rounded-xl fade-in fade-in-delay-6" data-category="tools">
+        <div class="text-4xl mb-4 text-center">🌍</div>
+        <h3 class="text-xl font-bold mb-3 text-red-400 text-center">Géolocalisation IP</h3>
+        <p class="text-gray-300 text-sm mb-4 text-center">
+          Localisez et analysez les adresses IP suspectes.
+        </p>
+        <button class="w-full bg-red-600 hover:bg-red-700 py-2 rounded-lg font-medium transition-colors" onclick="openTool('ip-locator')">
+          🚀 Utiliser l'Outil
+        </button>
+      </div>
+
+      <div class="tool-card p-6 rounded-xl fade-in fade-in-delay-7" data-category="tools">
+        <div class="text-4xl mb-4 text-center">⚡</div>
+        <h3 class="text-xl font-bold mb-3 text-yellow-400 text-center">Test de Vitesse SSL</h3>
+        <p class="text-gray-300 text-sm mb-4 text-center">
+          Vérifiez la configuration SSL/TLS de vos sites web.
+        </p>
+        <button class="w-full bg-yellow-600 hover:bg-yellow-700 py-2 rounded-lg font-medium transition-colors" onclick="openTool('ssl-tester')">
+          🚀 Utiliser l'Outil
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Webinaires & Formations -->
+<section class="py-20" id="webinars-section">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-5xl font-bold text-center mb-16 fade-in">
+      <span class="floating">🎥</span> Webinaires & Formations
+    </h2>
+
+    <div class="grid lg:grid-cols-2 gap-8">
+      <!-- Webinaire en direct -->
+      <div class="webinar-card p-8 rounded-2xl fade-in" data-category="webinars">
+        <div class="flex items-center justify-between mb-4">
+                        <span class="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold animate-pulse">
+                            🔴 EN DIRECT
+                        </span>
+          <span class="text-red-200">📅 Aujourd'hui 14h00</span>
+        </div>
+        <h3 class="text-2xl font-bold mb-4 text-white">Menaces IA : Comment se Protéger ?</h3>
+        <p class="text-red-100 mb-6 leading-relaxed">
+          Découvrez les nouvelles menaces liées à l'intelligence artificielle et
+          les stratégies de défense adaptées. Avec Thomas Leroy, notre Directeur R&D.
+        </p>
+        <div class="flex items-center justify-between mb-6">
+          <span class="text-red-200">👥 247 participants</span>
+          <span class="text-red-200">⏱️ 60 minutes</span>
+        </div>
+        <button class="w-full bg-white text-red-600 hover:bg-gray-100 py-3 rounded-xl font-bold transition-colors">
+          🎥 Rejoindre le Webinaire
+        </button>
+      </div>
+
+      <!-- Formation certifiante -->
+      <div class="resource-card p-8 rounded-2xl fade-in fade-in-delay-1" data-category="webinars">
+        <div class="flex items-center justify-between mb-4">
+                        <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-bold">
+                            🏆 CERTIFIANT
+                        </span>
+          <span class="text-gray-400">📅 15 Janvier 2025</span>
+        </div>
+        <h3 class="text-2xl font-bold mb-4 text-blue-400">Formation RSSI Niveau 1</h3>
+        <p class="text-gray-300 mb-6 leading-relaxed">
+          Formation complète de 3 jours pour devenir RSSI. Théorie, pratique et
+          certification officielle TechSpace incluse.
+        </p>
+        <div class="flex items-center justify-between mb-6">
+          <span class="text-gray-400">👥 20 places max</span>
+          <span class="text-gray-400">⏱️ 3 jours</span>
+        </div>
+        <button class="w-full bg-blue-600 hover:bg-blue-700 py-3 rounded-xl font-bold text-white transition-colors">
+          📝 S'inscrire (299€)
+        </button>
+      </div>
+
+      <!-- Webinaires à venir -->
+      <div class="resource-card p-8 rounded-2xl fade-in fade-in-delay-2" data-category="webinars">
+        <h3 class="text-2xl font-bold mb-6 text-green-400">Prochains Webinaires</h3>
+        <div class="space-y-4">
+          <div class="flex items-center justify-between p-4 bg-slate-800/50 rounded-lg">
+            <div>
+              <h4 class="font-bold text-white">Sécurité Zero Trust</h4>
+              <p class="text-gray-400 text-sm">Implémentation pratique</p>
+            </div>
+            <div class="text-right">
+              <p class="text-green-400 font-bold">22 Jan</p>
+              <p class="text-gray-400 text-sm">15h00</p>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between p-4 bg-slate-800/50 rounded-lg">
+            <div>
+              <h4 class="font-bold text-white">Phishing Avancé</h4>
+              <p class="text-gray-400 text-sm">Détection et prévention</p>
+            </div>
+            <div class="text-right">
+              <p class="text-green-400 font-bold">29 Jan</p>
+              <p class="text-gray-400 text-sm">14h00</p>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between p-4 bg-slate-800/50 rounded-lg">
+            <div>
+              <h4 class="font-bold text-white">Conformité RGPD</h4>
+              <p class="text-gray-400 text-sm">Mise à jour 2025</p>
+            </div>
+            <div class="text-right">
+              <p class="text-green-400 font-bold">05 Fév</p>
+              <p class="text-gray-400 text-sm">16h00</p>
+            </div>
+          </div>
+        </div>
+        <button class="w-full mt-6 bg-green-600 hover:bg-green-700 py-3 rounded-xl font-bold text-white transition-colors">
+          📅 Voir Tous les Webinaires
+        </button>
+      </div>
+
+      <!-- Quiz interactif -->
+      <div class="resource-card p-8 rounded-2xl fade-in fade-in-delay-3" data-category="webinars">
+        <div class="text-4xl mb-4 text-center">🧠</div>
+        <h3 class="text-2xl font-bold mb-4 text-purple-400 text-center">Quiz Cybersécurité</h3>
+        <p class="text-gray-300 mb-6 text-center leading-relaxed">
+          Testez vos connaissances avec notre quiz interactif de 20 questions.
+          Obtenez votre score et des recommandations personnalisées.
+        </p>
+        <div class="flex items-center justify-center space-x-6 mb-6">
+          <div class="text-center">
+            <div class="text-2xl font-bold text-purple-400">20</div>
+            <div class="text-gray-400 text-sm">Questions</div>
+          </div>
+          <div class="text-center">
+            <div class="text-2xl font-bold text-purple-400">15</div>
+            <div class="text-gray-400 text-sm">Minutes</div>
+          </div>
+          <div class="text-center">
+            <div class="text-2xl font-bold text-purple-400">🏆</div>
+            <div class="text-gray-400 text-sm">Certificat</div>
+          </div>
+        </div>
+        <a href="Quizz.html" class="w-full bg-purple-600 hover:bg-purple-700 py-3 rounded-xl font-bold text-white transition-colors text-center block">
+          🎯 Commencer le Quiz
+        </a>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Actualités & Articles -->
+<section class="py-20 bg-slate-900/50" id="news-section">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-5xl font-bold text-center mb-16 fade-in">
+      <span class="floating">📰</span> Actualités & Articles
+    </h2>
+
+    <div class="grid lg:grid-cols-3 gap-8">
+      <div class="resource-card p-6 rounded-xl fade-in" data-category="news">
+        <div class="flex items-center justify-between mb-4">
+          <span class="bg-red-600/20 text-red-300 px-3 py-1 rounded-full text-sm">🚨 URGENT</span>
+          <span class="text-gray-400 text-sm">Il y a 2h</span>
+        </div>
+        <h3 class="text-xl font-bold mb-3 text-red-400">Nouvelle Faille Zero-Day Découverte</h3>
+        <p class="text-gray-300 text-sm mb-4">
+          Une vulnérabilité critique affecte les serveurs Windows.
+          Patch d'urgence disponible et recommandations de sécurité.
+        </p>
+        <div class="flex items-center justify-between">
+          <span class="text-gray-400 text-xs">👁️ 1,247 vues</span>
+          <a href="#" class="text-blue-400 hover:text-blue-300 text-sm font-medium">Lire la suite →</a>
+        </div>
+      </div>
+
+      <div class="resource-card p-6 rounded-xl fade-in fade-in-delay-1" data-category="news">
+        <div class="flex items-center justify-between mb-4">
+          <span class="bg-blue-600/20 text-blue-300 px-3 py-1 rounded-full text-sm">📊 ANALYSE</span>
+          <span class="text-gray-400 text-sm">Hier</span>
+        </div>
+        <h3 class="text-xl font-bold mb-3 text-blue-400">Tendances Cybersécurité 2025</h3>
+        <p class="text-gray-300 text-sm mb-4">
+          Notre analyse des principales menaces et technologies
+          qui marqueront l'année 2025 en cybersécurité.
+        </p>
+        <div class="flex items-center justify-between">
+          <span class="text-gray-400 text-xs">👁️ 3,892 vues</span>
+          <a href="#" class="text-blue-400 hover:text-blue-300 text-sm font-medium">Lire la suite →</a>
+        </div>
+      </div>
+
+      <div class="resource-card p-6 rounded-xl fade-in fade-in-delay-2" data-category="news">
+        <div class="flex items-center justify-between mb-4">
+          <span class="bg-green-600/20 text-green-300 px-3 py-1 rounded-full text-sm">💡 CONSEIL</span>
+          <span class="text-gray-400 text-sm">2 jours</span>
+        </div>
+        <h3 class="text-xl font-bold mb-3 text-green-400">10 Erreurs Sécurité à Éviter</h3>
+        <p class="text-gray-300 text-sm mb-4">
+          Les erreurs les plus communes que nous observons
+          chez nos clients et comment les corriger facilement.
+        </p>
+        <div class="flex items-center justify-between">
+          <span class="text-gray-400 text-xs">👁️ 2,156 vues</span>
+          <a href="#" class="text-blue-400 hover:text-blue-300 text-sm font-medium">Lire la suite →</a>
+        </div>
+      </div>
+
+      <div class="resource-card p-6 rounded-xl fade-in fade-in-delay-3" data-category="news">
+        <div class="flex items-center justify-between mb-4">
+          <span class="bg-purple-600/20 text-purple-300 px-3 py-1 rounded-full text-sm">🔬 R&D</span>
+          <span class="text-gray-400 text-sm">3 jours</span>
+        </div>
+        <h3 class="text-xl font-bold mb-3 text-purple-400">IA vs Cybercriminels</h3>
+        <p class="text-gray-300 text-sm mb-4">
+          Comment l'intelligence artificielle révolutionne
+          la détection et la réponse aux cyberattaques.
+        </p>
+        <div class="flex items-center justify-between">
+          <span class="text-gray-400 text-xs">👁️ 4,721 vues</span>
+          <a href="Page/actualités" class="text-blue-400 hover:text-blue-300 text-sm font-medium">Lire la suite →</a>
+        </div>
+      </div>
+
+      <div class="resource-card p-6 rounded-xl fade-in fade-in-delay-4" data-category="news">
+        <div class="flex items-center justify-between mb-4">
+          <span class="bg-orange-600/20 text-orange-300 px-3 py-1 rounded-full text-sm">📈 ÉTUDE</span>
+          <span class="text-gray-400 text-sm">1 semaine</span>
+        </div>
+        <h3 class="text-xl font-bold mb-3 text-orange-400">Coût des Cyberattaques en France</h3>
+        <p class="text-gray-300 text-sm mb-4">
+          Étude exclusive sur l'impact financier des cyberattaques
+          sur les entreprises françaises en 2024.
+        </p>
+        <div class="flex items-center justify-between">
+          <span class="text-gray-400 text-xs">👁️ 1,834 vues</span>
+          <a href="#" class="text-blue-400 hover:text-blue-300 text-sm font-medium">Lire la suite →</a>
+        </div>
+      </div>
+
+      <div class="resource-card p-6 rounded-xl fade-in fade-in-delay-5" data-category="news">
+        <div class="flex items-center justify-between mb-4">
+          <span class="bg-cyan-600/20 text-cyan-300 px-3 py-1 rounded-full text-sm">🎯 CAS CLIENT</span>
+          <span class="text-gray-400 text-sm">2 semaines</span>
+        </div>
+        <h3 class="text-xl font-bold mb-3 text-cyan-400">Succès Client : PME Protégée</h3>
+        <p class="text-gray-300 text-sm mb-4">
+          Comment une PME de 50 employés a bloqué une attaque
+          ransomware grâce à nos recommandations.
+        </p>
+        <div class="flex items-center justify-between">
+          <span class="text-gray-400 text-xs">👁️ 2,967 vues</span>
+          <a href="#" class="text-blue-400 hover:text-blue-300 text-sm font-medium">Lire la suite →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-12">
+      <button class="bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-xl font-bold text-white transition-colors">
+        📰 Voir Tous les Articles
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- Newsletter -->
+<section class="py-20 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 relative overflow-hidden">
+  <div class="absolute inset-0 bg-black/20"></div>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative fade-in">
+    <h2 class="text-5xl font-bold mb-8">Restez Informé</h2>
+    <p class="text-2xl text-blue-100 mb-10">
+      Recevez chaque semaine nos dernières ressources, analyses et alertes sécurité directement dans votre boîte mail.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
+      <input type="email" placeholder="votre@email.com"
+             class="flex-1 px-6 py-4 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white">
+      <button class="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 rounded-xl font-bold transition-colors">
+        📧 S'abonner
+      </button>
+    </div>
+    <p class="text-blue-200 mt-4 text-sm">
+      ✅ Gratuit • ✅ Pas de spam • ✅ Désabonnement facile
+    </p>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-slate-900 py-12">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid lg:grid-cols-4 gap-8">
+      <div>
+        <div class="flex items-center space-x-3 mb-6">
+          <div class="pulse-glow rounded-lg p-2">
+            <svg width="32" height="32" viewBox="0 0 40 40" class="text-blue-400">
+              <circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.3"/>
+              <circle cx="20" cy="20" r="14" fill="none" stroke="currentColor" stroke-width="2"/>
+              <path d="M20 6 L14 10 L14 20 Q14 24 20 26 Q26 24 26 20 L26 10 Z" fill="url(#logoGradient2)" stroke="currentColor" stroke-width="1.5"/>
+              <circle cx="20" cy="16" r="2" fill="currentColor"/>
+              <defs>
+                <linearGradient id="logoGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:0.8" />
+                  <stop offset="100%" style="stop-color:#1e40af;stop-opacity:0.9" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <span class="text-xl font-bold text-blue-400">TechSpace</span>
+        </div>
+        <p class="text-gray-400 mb-4">
+          Votre centre de ressources cybersécurité. Guides, outils et formations pour sécuriser votre entreprise.
+        </p>
+      </div>
+
+      <div>
+        <h3 class="text-lg font-bold mb-4">Ressources</h3>
+        <ul class="space-y-2 text-gray-400">
+          <li><a href="#guides-section" class="hover:text-white transition-colors">📖 Guides Pratiques</a></li>
+          <li><a href="#tools-section" class="hover:text-white transition-colors">🛠️ Outils Gratuits</a></li>
+          <li><a href="#webinars-section" class="hover:text-white transition-colors">🎥 Webinaires</a></li>
+          <li><a href="#news-section" class="hover:text-white transition-colors">📰 Actualités</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="text-lg font-bold mb-4">Support</h3>
+        <ul class="space-y-2 text-gray-400">
+          <li>📧 <a href="mailto:ressources@techspace.fr" class="hover:text-white transition-colors">ressources@techspace.fr</a></li>
+          <li>📞 <a href="tel:+33123456789" class="hover:text-white transition-colors">01 23 45 67 89</a></li>
+          <li>💬 Chat en ligne 24/7</li>
+          <li>❓ <a href="#" class="hover:text-white transition-colors">FAQ</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="text-lg font-bold mb-4">Nouveautés</h3>
+        <div class="bg-blue-600/20 border border-blue-500/50 rounded-lg p-4">
+          <p class="text-blue-300 font-bold mb-2">🆕 Nouveau Guide</p>
+          <p class="text-blue-200 text-sm">Sécurité IA pour les entreprises</p>
+          <a href="#" class="text-blue-400 hover:text-blue-300 text-sm">Télécharger →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="border-t border-slate-700 mt-8 pt-8 text-center text-gray-400">
+      <p>&copy; 2024 TechSpace. Tous droits réservés. | Centre de Ressources Cybersécurité</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Animation des éléments au scroll
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.animationPlayState = 'running';
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.fade-in').forEach(el => {
+    observer.observe(el);
+  });
+
+  // Système de filtres
+  const filterButtons = document.querySelectorAll('.category-filter');
+  const resourceCards = document.querySelectorAll('[data-category]');
+
+  filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      // Retirer la classe active de tous les boutons
+      filterButtons.forEach(btn => btn.classList.remove('active'));
+      // Ajouter la classe active au bouton cliqué
+      button.classList.add('active');
+
+      const category = button.dataset.category;
+
+      resourceCards.forEach(card => {
+        if (category === 'all' || card.dataset.category === category) {
+          card.style.display = 'block';
+          card.style.animation = 'fadeInUp 0.5s ease forwards';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+
+  // Fonction de recherche
+  const searchBox = document.getElementById('searchBox');
+  searchBox.addEventListener('input', (e) => {
+    const searchTerm = e.target.value.toLowerCase();
+
+    resourceCards.forEach(card => {
+      const title = card.querySelector('h3').textContent.toLowerCase();
+      const description = card.querySelector('p').textContent.toLowerCase();
+
+      if (title.includes(searchTerm) || description.includes(searchTerm)) {
+        card.style.display = 'block';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  });
+
+  // Fonction de téléchargement
+  function downloadResource(resourceId) {
+    // Simulation du téléchargement
+    const button = event.target;
+    const originalText = button.innerHTML;
+
+    button.innerHTML = '⏳ Téléchargement...';
+    button.disabled = true;
+
+    setTimeout(() => {
+      button.innerHTML = '✅ Téléchargé !';
+
+      // Incrémenter le compteur de téléchargements
+      const counterElement = button.closest('.resource-card').querySelector('[class*="téléchargements"]');
+      if (counterElement) {
+        const currentCount = parseInt(counterElement.textContent.match(/\d+/)[0]);
+        counterElement.textContent = counterElement.textContent.replace(/\d+/, currentCount + 1);
+      }
+
+      setTimeout(() => {
+        button.innerHTML = originalText;
+        button.disabled = false;
+      }, 2000);
+    }, 1500);
+  }
+
+  // Fonction pour ouvrir les outils
+  function openTool(toolId) {
+    alert(`Ouverture de l'outil : ${toolId}\n\nCette fonctionnalité sera disponible dans la version complète de TechSpace !`);
+  }
+
+  // Système de favoris
+  function toggleFavorite(button) {
+    button.classList.toggle('active');
+    if (button.classList.contains('active')) {
+      button.textContent = '⭐';
+      button.style.color = '#f59e0b';
+    } else {
+      button.textContent = '⭐';
+      button.style.color = '';
+    }
+  }
+
+  // Animation des compteurs
+  function animateCounters() {
+    const counters = document.querySelectorAll('.stats-counter');
+    const targets = [150, 25, 50, 10000];
+
+    counters.forEach((counter, index) => {
+      let current = 0;
+      const target = targets[index];
+      const increment = target / 100;
+
+      const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+          current = target;
+          clearInterval(timer);
+        }
+
+        if (index === 3) {
+          counter.textContent = Math.floor(current / 1000) + 'K+';
+        } else if (index === 0) {
+          counter.textContent = Math.floor(current) + '+';
+        } else {
+          counter.textContent = Math.floor(current);
+        }
+      }, 30);
+    });
+  }
+
+  // Démarrer l'animation des compteurs au chargement
+  window.addEventListener('load', () => {
+    setTimeout(animateCounters, 1000);
+  });
+
+  // Smooth scroll pour les liens d'ancrage
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
+  });
+</script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'964249803087f1a4',t:'MTc1MzM0ODI1NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

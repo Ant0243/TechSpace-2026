@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TechSpace - Toutes les Applications | Solutions Cybersécurité 2030</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+    * { font-family: 'Inter', sans-serif; }
+
+    .gradient-bg {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 20%, #1d4ed8 40%, #2563eb 60%, #3b82f6 80%, #60a5fa 100%);
+      animation: gradientShift 15s ease infinite;
+    }
+
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .application-card {
+      background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+      border: 1px solid #475569;
+      transition: all 0.5s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .application-card:hover {
+      border-color: #3b82f6;
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(59, 130, 246, 0.3);
+    }
+
+    .application-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+      transition: left 0.5s;
+    }
+
+    .application-card:hover::before {
+      left: 100%;
+    }
+
+    .priority-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-size: 10px;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    .priority-critique { background: linear-gradient(45deg, #dc2626, #ef4444); }
+    .priority-strategique { background: linear-gradient(45deg, #d97706, #f59e0b); }
+    .priority-innovation { background: linear-gradient(45deg, #059669, #10b981); }
+    .priority-futur { background: linear-gradient(45deg, #7c3aed, #8b5cf6); }
+    .priority-essentiel { background: linear-gradient(45deg, #db2777, #ec4899); }
+
+    .sector-filter {
+      background: linear-gradient(135deg, #374151, #4b5563);
+      border: 1px solid #6b7280;
+      transition: all 0.3s ease;
+    }
+
+    .sector-filter.active {
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      border-color: #60a5fa;
+      transform: scale(1.05);
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.8s ease forwards;
+    }
+
+    .fade-in-delay-1 { animation-delay: 0.1s; }
+    .fade-in-delay-2 { animation-delay: 0.2s; }
+    .fade-in-delay-3 { animation-delay: 0.3s; }
+    .fade-in-delay-4 { animation-delay: 0.4s; }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .search-highlight {
+      background: linear-gradient(45deg, #fbbf24, #f59e0b);
+      color: #000;
+      padding: 2px 4px;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+
+    .stats-counter {
+      animation: countUp 2s ease-out forwards;
+    }
+
+    @keyframes countUp {
+      from { transform: scale(0.5); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .floating-element {
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+    }
+
+    .pulse-glow {
+      animation: pulseGlow 3s ease infinite;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% {
+        box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+      }
+      50% {
+        box-shadow: 0 0 40px rgba(59, 130, 246, 0.6);
+      }
+    }
+  </style>
+</head>
+<body class="gradient-bg text-white min-h-screen">
+<!-- Navigation -->
+<nav class="fixed w-full z-50 bg-slate-900/95 backdrop-blur-lg border-b border-slate-700">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+      <div class="flex items-center space-x-3">
+        <div class="rounded-lg p-2">
+          <svg width="40" height="40" viewBox="0 0 40 40" class="text-blue-400">
+            <circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.3"/>
+            <circle cx="20" cy="20" r="14" fill="none" stroke="currentColor" stroke-width="2"/>
+            <path d="M20 6 L14 10 L14 20 Q14 24 20 26 Q26 24 26 20 L26 10 Z" fill="url(#logoGradient)" stroke="currentColor" stroke-width="1.5"/>
+            <circle cx="20" cy="16" r="2" fill="currentColor"/>
+            <defs>
+              <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:0.8" />
+                <stop offset="100%" style="stop-color:#1e40af;stop-opacity:0.9" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div>
+          <span class="text-2xl font-bold text-blue-400">TechSpace</span>
+          <div class="text-xs text-purple-400 font-bold">APPLICATIONS 2030</div>
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-6">
+        <a href="../index.html" class="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-lg font-medium transition-all duration-300 hover:scale-105">🏠 Accueil</a>
+        <div class="flex items-center space-x-2 bg-green-600/20 px-3 py-1 rounded-full">
+          <span class="text-green-400 text-sm font-bold">🎯 APPLICATIONS</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="pt-32 pb-16 relative overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16 fade-in">
+      <h1 class="text-7xl font-extrabold mb-8">
+        <span class="text-6xl floating-element">🌍</span><br>
+        <span class="bg-gradient-to-r from-green-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
+                        Toutes les Applications
+                    </span>
+        <br>
+        <span class="text-4xl text-green-400 font-bold">CYBERSÉCURITÉ UNIVERSELLE</span>
+      </h1>
+      <p class="text-2xl text-gray-300 mb-8 leading-relaxed max-w-4xl mx-auto">
+        Découvrez comment TechSpace révolutionne la cybersécurité dans plus de <span class="text-green-400 font-bold">50 secteurs d'activité</span>.<br>
+        <span class="text-blue-400 font-bold">Solutions adaptées • Protection universelle • Innovation continue</span>
+      </p>
+
+      <!-- Statistiques Globales -->
+      <div class="grid md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+        <div class="bg-slate-800/50 p-6 rounded-2xl border border-slate-600 pulse-glow">
+          <div class="text-4xl font-bold text-green-400 stats-counter">50+</div>
+          <div class="text-sm text-gray-300">Secteurs Couverts</div>
+        </div>
+        <div class="bg-slate-800/50 p-6 rounded-2xl border border-slate-600 pulse-glow">
+          <div class="text-4xl font-bold text-blue-400 stats-counter">1000+</div>
+          <div class="text-sm text-gray-300">Entreprises Protégées</div>
+        </div>
+        <div class="bg-slate-800/50 p-6 rounded-2xl border border-slate-600 pulse-glow">
+          <div class="text-4xl font-bold text-purple-400 stats-counter">99.9%</div>
+          <div class="text-sm text-gray-300">Taux de Réussite</div>
+        </div>
+        <div class="bg-slate-800/50 p-6 rounded-2xl border border-slate-600 pulse-glow">
+          <div class="text-4xl font-bold text-yellow-400 stats-counter">24/7</div>
+          <div class="text-sm text-gray-300">Protection Continue</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Filtres et Recherche -->
+<section class="py-8 bg-slate-900/50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col lg:flex-row gap-6 items-center justify-between mb-8">
+      <!-- Barre de Recherche -->
+      <div class="flex-1 max-w-md">
+        <div class="relative">
+          <input type="text" id="search-input" placeholder="🔍 Rechercher un secteur..."
+                 class="w-full bg-slate-700 border border-slate-600 rounded-xl px-4 py-3 pl-12 text-white placeholder-gray-400 focus:border-blue-400 focus:outline-none transition-colors">
+          <div class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filtres par Priorité -->
+      <div class="flex flex-wrap gap-3">
+        <button onclick="filterByPriority('all')" class="sector-filter active px-4 py-2 rounded-xl font-bold text-sm transition-all" data-filter="all">
+          🌍 Tous les Secteurs
+        </button>
+        <button onclick="filterByPriority('critique')" class="sector-filter px-4 py-2 rounded-xl font-bold text-sm transition-all" data-filter="critique">
+          🔥 Critiques
+        </button>
+        <button onclick="filterByPriority('strategique')" class="sector-filter px-4 py-2 rounded-xl font-bold text-sm transition-all" data-filter="strategique">
+          ⚡ Stratégiques
+        </button>
+        <button onclick="filterByPriority('innovation')" class="sector-filter px-4 py-2 rounded-xl font-bold text-sm transition-all" data-filter="innovation">
+          🚀 Innovation
+        </button>
+        <button onclick="filterByPriority('futur')" class="sector-filter px-4 py-2 rounded-xl font-bold text-sm transition-all" data-filter="futur">
+          🔮 Futur
+        </button>
+      </div>
+    </div>
+
+    <!-- Compteur de Résultats -->
+    <div class="text-center mb-8">
+                <span id="results-counter" class="text-lg text-gray-300">
+                    <span class="text-blue-400 font-bold" id="visible-count">50</span> secteurs d'application disponibles
+                </span>
+    </div>
+  </div>
+</section>
+
+<!-- Secteurs Principaux -->
+<section class="py-16">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-5xl font-bold text-center mb-16 fade-in">
+      <span class="text-4xl">🏆</span> Secteurs Principaux
+    </h2>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16" id="main-sectors">
+      <!-- Finance & Banque -->
+      <div class="application-card p-8 rounded-3xl fade-in" data-priority="critique" data-keywords="finance banque paiement transaction conformité fraude">
+        <div class="priority-badge priority-critique">CRITIQUE</div>
+        <div class="text-center mb-6">
+          <div class="text-6xl mb-4">🏦</div>
+          <h3 class="text-2xl font-bold text-blue-400 mb-2">Finance & Banque</h3>
+          <p class="text-sm text-gray-300">Protection des transactions, conformité réglementaire, anti-fraude IA</p>
+        </div>
+
+        <div class="space-y-3 mb-6">
+          <div class="bg-slate-700/30 p-3 rounded-lg">
+            <div class="font-bold text-green-400 mb-1">💳 Applications Clés</div>
+            <div class="text-xs text-gray-300 space-y-1">
+              <div>• Paiements sécurisés en temps réel</div>
+              <div>• Trading haute fréquence protégé</div>
+              <div>• Conformité GDPR/PCI automatique</div>
+              <div>• Détection fraude IA avancée</div>
+            </div>
+          </div>
+          <div class="bg-slate-700/30 p-3 rounded-lg">
+            <div class="font-bold text-purple-400 mb-1">🛡️ Solutions TechSpace</div>
+            <div class="text-xs text-gray-300 space-y-1">
+              <div>• AI Guardian pour transactions</div>
+              <div>• Quantum Shield pour données</div>
+              <div>• Neural Defense prédictive</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center">
+          <div class="text-2xl font-bold text-green-400 mb-1">€2.5M+</div>
+          <div class="text-xs text-gray-400">Économies moyennes/an</div>
+        </div>
+      </div>
+
+      <!-- Santé & Pharmaceutique -->
+      <div class="application-card p-8 rounded-3xl fade-in fade-in-delay-1" data-priority="critique" data-keywords="santé médical hôpital patient pharmaceutique recherche">
+        <div class="priority-badge priority-critique">CRITIQUE</div>
+        <div class="text-center mb-6">
+          <div class="text-6xl mb-4">🏥</div>
+          <h3 class="text-2xl font-bold text-green-400 mb-2">Santé & Pharmaceutique</h3>
+          <p class="text-sm text-gray-300">Sécurité des données patients, recherche médicale, IoT médical</p>
+        </div>
+
+        <div class="space-y-3 mb-6">
+          <div class="bg-slate-700/30 p-3 rounded-lg">
+            <div class="font-bold text-green-400 mb-1">🩺 Applications Clés</div>
+            <div class="text-xs text-gray-300 space-y-1">
+              <div>• Dossiers patients sécurisés</div>
+              <div>• Équipements médicaux IoT</div>
+              <div>• Recherche clinique protégée</div>
+              <div>• Télémédecine sécurisée</div>
+            </div>
+          </div>
+          <div class="bg-slate-700/30 p-3 rounded-lg">
+            <div class="font-bold text-purple-400 mb-1">🛡️ Solutions TechSpace</div>
+            <div class="text-xs text-gray-300 space-y-1">
+              <div>• Protection HIPAA complète</div>
+              <div>• Chiffrement données sensibles</div>
+              <div>• Surveillance IoT médical</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center">
+          <div class="text-2xl font-bold text-green-400 mb-1">100%</div>
+          <div class="text-xs text-gray-400">Conformité réglementaire</div>
+        </div>
+      </div>
+
+      <!-- Énergie & Utilities -->
+      <div class="application-card p-8 rounded-3xl fade-in fade-in-delay-2" data-priority="strategique" data-keywords="énergie électricité nucléaire smart grid scada infrastructure">
+        <div class="priority-badge priority-strategique">STRATÉGIQUE</div>
+        <div class="text-center mb-6">
+          <div class="text-6xl mb-4">⚡</div>
+          <h3 class="text-2xl font-bold text-yellow-400 mb-2">Énergie & Utilities</h3>
+          <p class="text-sm text-gray-300">Infrastructure critique, smart grids, systèmes SCADA</p>
+        </div>
+
+        <div class="space-y-3 mb-6">
+          <div class="bg-slate-700/30 p-3 rounded-lg">
+            <div class="font-bold text-green-400 mb-1">⚡ Applications Clés</div>
+            <div class="text-xs text-gray-300 space-y-1">
+              <div>• Réseaux électriques intelligents</div>
+              <div>• Centrales nucléaires sécurisées</div>
+              <div>• Distribution eau/gaz protégée</div>
+              <div>• Systèmes SCADA renforcés</div>
+            </div>
+          </div>
+          <div class="bg-slate-700/30 p-3 rounded-lg">
+            <div class="font-bold text-purple-400 mb-1">🛡️ Solutions TechSpace</div>
+            <div class="text-xs text-gray-300 space-y-1">
+              <div>• Protection infrastructure critique</div>
+              <div>• Détection intrusion avancée</div>
+              <div>• Réponse incident automatique</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center">
+          <div class="text-2xl font-bold text-green-400 mb-1">99.99%</div>
+          <div class="text-xs text-gray-400">Disponibilité garantie</div>
+        </div>
+      </div>
+
+      <!-- Gouvernement -->
+      <div class="application-card p-8 rounded-3xl fade-in fade-in-delay-3" data-priority="critique" data-keywords="gouvernement défense sécurité nationale services publics">
+        <div class="priority-badge priority-critique">SOUVERAIN</div>
+        <div class="text-center mb-6">
+          <div class="text-6xl mb-4">🏛️</div>
+          <h3 class="text-2xl font-bold text-purple-400 mb-2">Gouvernement</h3>
+          <p class="text-sm text-gray-300">Sécurité nationale, services publics, données citoyens</p>
+        </div>
+
+        <div class="space-y-3 mb-6">
+          <div class="bg-slate-700/30 p-3 rounded-lg">
+            <div class="font-bold text-green-400 mb-1">🏛️ Applications Clés</div>
+            <div class="text-xs text-gray-300 space-y-1">
+              <div>• Défense nationale renforcée</div>
+              <div>• Services publics sécurisés</div>
+              <div>• Élections protégées</div>
+              <div>• Communications classifiées</div>
+            </div>
+          </div>
+          <div class="bg-slate-700/30 p-3 rounded-lg">
+            <div class="font-bold text-purple-400 mb-1">🛡️ Solutions TechSpace</div>
+            <div class="text-xs text-gray-300 space-y-1">
+              <div>• Cryptographie quantique</div>
+              <div>• Protection données sensibles</div>
+              <div>• Surveillance territoire</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center">
+          <div class="text-2xl font-bold text-green-400 mb-1">TOP SECRET</div>
+          <div class="text-xs text-gray-400">Niveau de sécurité</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Secteurs Émergents -->
+<section class="py-16 bg-slate-900/30">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-5xl font-bold text-center mb-16 fade-in">
+      <span class="text-4xl">🚀</span> Secteurs Émergents
+    </h2>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16" id="emerging-sectors">
+      <!-- Automobile & Transport -->
+      <div class="application-card p-6 rounded-2xl fade-in" data-priority="innovation" data-keywords="automobile transport véhicule autonome logistique">
+        <div class="priority-badge priority-innovation">INNOVATION</div>
+        <div class="text-center mb-4">
+          <div class="text-4xl mb-3">🚗</div>
+          <h3 class="text-xl font-bold text-cyan-400 mb-2">Automobile & Transport</h3>
+          <p class="text-sm text-gray-300">Véhicules connectés, conduite autonome, logistique intelligente</p>
+        </div>
+
+        <div class="space-y-2 mb-4">
+          <div class="text-xs text-gray-400">• Voitures autonomes sécurisées</div>
+          <div class="text-xs text-gray-400">• Fleet management protégé</div>
+          <div class="text-xs text-gray-400">• V2X Communication chiffrée</div>
+          <div class="text-xs text-gray-400">• Logistique intelligente</div>
+        </div>
+
+        <div class="text-center">
+          <div class="text-lg font-bold text-green-400">85%</div>
+          <div class="text-xs text-gray-400">Réduction incidents</div>
+        </div>
+      </div>
+
+      <!-- Industrie 4.0 -->
+      <div class="application-card p-6 rounded-2xl fade-in fade-in-delay-1" data-priority="strategique" data-keywords="industrie usine iot robotique production">
+        <div class="priority-badge priority-strategique">TRANSFORMATION</div>
+        <div class="text-center mb-4">
+          <div class="text-4xl mb-3">🏭</div>
+          <h3 class="text-xl font-bold text-orange-400 mb-2">Industrie 4.0</h3>
+          <p class="text-sm text-gray-300">Usines intelligentes, IoT industriel, robotique avancée</p>
+        </div>
+
+        <div class="space-y-2 mb-4">
+          <div class="text-xs text-gray-400">• Chaînes de production IoT</div>
+          <div class="text-xs text-gray-400">• Maintenance prédictive</div>
+          <div class="text-xs text-gray-400">• Supply chain sécurisée</div>
+          <div class="text-xs text-gray-400">• Robotique collaborative</div>
+        </div>
+
+        <div class="text-center">
+          <div class="text-lg font-bold text-green-400">+40%</div>
+          <div class="text-xs text-gray-400">Productivité</div>
+        </div>
+      </div>
+
+      <!-- Éducation & Recherche -->
+      <div class="application-card p-6 rounded-2xl fade-in fade-in-delay-2" data-priority="futur" data-keywords="éducation recherche université campus elearning">
+        <div class="priority-badge priority-futur">FUTUR</div>
+        <div class="text-center mb-4">
+          <div class="text-4xl mb-3">🎓</div>
+          <h3 class="text-xl font-bold text-indigo-400 mb-2">Éducation & Recherche</h3>
+          <p class="text-sm text-gray-300">Campus connectés, recherche collaborative, données étudiantes</p>
+        </div>
+
+        <div class="space-y-2 mb-4">
+          <div class="text-xs text-gray-400">• Plateformes e-learning</div>
+          <div class="text-xs text-gray-400">• Recherche scientifique</div>
+          <div class="text-xs text-gray-400">• Propriété intellectuelle</div>
+          <div class="text-xs text-gray-400">• Campus intelligents</div>
+        </div>
+
+        <div class="text-center">
+          <div class="text-lg font-bold text-green-400">100M+</div>
+          <div class="text-xs text-gray-400">Étudiants protégés</div>
+        </div>
+      </div>
+
+      <!-- E-commerce & Retail -->
+      <div class="application-card p-6 rounded-2xl fade-in fade-in-delay-3" data-priority="essentiel" data-keywords="ecommerce retail boutique paiement client">
+        <div class="priority-badge priority-essentiel">ESSENTIEL</div>
+        <div class="text-center mb-4">
+          <div class="text-4xl mb-3">🛒</div>
+          <h3 class="text-xl font-bold text-pink-400 mb-2">E-commerce & Retail</h3>
+          <p class="text-sm text-gray-300">Paiements sécurisés, données clients, supply chain digitale</p>
+        </div>
+
+        <div class="space-y-2 mb-4">
+          <div class="text-xs text-gray-400">• Boutiques en ligne</div>
+          <div class="text-xs text-gray-400">• Données personnelles</div>
+          <div class="text-xs text-gray-400">• Logistique globale</div>
+          <div class="text-xs text-gray-400">• IA recommandations</div>
+        </div>
+
+        <div class="text-center">
+          <div class="text-lg font-bold text-green-400">€5B+</div>
+          <div class="text-xs text-gray-400">Transactions protégées</div>
+        </div>
+      </div>
+
+      <!-- Télécommunications -->
+      <div class="application-card p-6 rounded-2xl fade-in" data-priority="strategique" data-keywords="télécommunications 5g 6g réseau communication">
+        <div class="priority-badge priority-strategique">BACKBONE</div>
+        <div class="text-center mb-4">
+          <div class="text-4xl mb-3">🌐</div>
+          <h3 class="text-xl font-bold text-teal-400 mb-2">Télécommunications</h3>
+          <p class="text-sm text-gray-300">5G/6G, infrastructure réseau, communications critiques</p>
+        </div>
+
+        <div class="space-y-2 mb-4">
+          <div class="text-xs text-gray-400">• Réseaux 5G/6G sécurisés</div>
+          <div class="text-xs text-gray-400">• Edge computing protégé</div>
+          <div class="text-xs text-gray-400">• IoT massif sécurisé</div>
+          <div class="text-xs text-gray-400">• Communications chiffrées</div>
+        </div>
+
+        <div class="text-center">
+          <div class="text-lg font-bold text-green-400">10B+</div>
+          <div class="text-xs text-gray-400">Appareils connectés</div>
+        </div>
+      </div>
+
+      <!-- Smart Cities -->
+      <div class="application-card p-6 rounded-2xl fade-in fade-in-delay-1" data-priority="futur" data-keywords="smart cities ville intelligente iot urbain">
+        <div class="priority-badge priority-futur">AVENIR</div>
+        <div class="text-center mb-4">
+          <div class="text-4xl mb-3">🏠</div>
+          <h3 class="text-xl font-bold text-emerald-400 mb-2">Smart Cities</h3>
+          <p class="text-sm text-gray-300">Villes connectées, IoT urbain, services citoyens intelligents</p>
+        </div>
+
+        <div class="space-y-2 mb-4">
+          <div class="text-xs text-gray-400">• Éclairage intelligent</div>
+          <div class="text-xs text-gray-400">• Trafic optimisé</div>
+          <div class="text-xs text-gray-400">• Services publics connectés</div>
+          <div class="text-xs text-gray-400">• Environnement surveillé</div>
+        </div>
+
+        <div class="text-center">
+          <div class="text-lg font-bold text-green-400">500+</div>
+          <div class="text-xs text-gray-400">Villes équipées</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Secteurs Spécialisés -->
+<section class="py-16">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-5xl font-bold text-center mb-16 fade-in">
+      <span class="text-4xl">⭐</span> Secteurs Spécialisés
+    </h2>
+
+    <div class="grid md:grid-cols-4 lg:grid-cols-6 gap-6 mb-16" id="specialized-sectors">
+      <!-- Aérospatial -->
+      <div class="application-card p-4 rounded-xl text-center fade-in" data-priority="strategique" data-keywords="aérospatial aviation satellite spatial">
+        <div class="text-3xl mb-2">✈️</div>
+        <h4 class="font-bold text-blue-300 mb-2">Aérospatial</h4>
+        <p class="text-xs text-gray-400 mb-3">Contrôle aérien, satellites, navigation</p>
+        <div class="text-sm font-bold text-green-400">HAUTE SÉCURITÉ</div>
+      </div>
+
+      <!-- Maritime -->
+      <div class="application-card p-4 rounded-xl text-center fade-in fade-in-delay-1" data-priority="strategique" data-keywords="maritime port navigation bateau">
+        <div class="text-3xl mb-2">🚢</div>
+        <h4 class="font-bold text-cyan-300 mb-2">Maritime</h4>
+        <p class="text-xs text-gray-400 mb-3">Ports intelligents, navigation sécurisée</p>
+        <div class="text-sm font-bold text-green-400">GLOBAL</div>
+      </div>
+
+      <!-- Gaming -->
+      <div class="application-card p-4 rounded-xl text-center fade-in fade-in-delay-2" data-priority="innovation" data-keywords="gaming jeux vidéo esport anti-cheat">
+        <div class="text-3xl mb-2">🎮</div>
+        <h4 class="font-bold text-purple-300 mb-2">Gaming</h4>
+        <p class="text-xs text-gray-400 mb-3">Anti-cheat, protection IP, esports</p>
+        <div class="text-sm font-bold text-green-400">DIVERTISSEMENT</div>
+      </div>
+
+      <!-- Média -->
+      <div class="application-card p-4 rounded-xl text-center fade-in fade-in-delay-3" data-priority="essentiel" data-keywords="média streaming télévision radio contenu">
+        <div class="text-3xl mb-2">🎬</div>
+        <h4 class="font-bold text-red-300 mb-2">Média</h4>
+        <p class="text-xs text-gray-400 mb-3">Streaming, droits d'auteur, diffusion</p>
+        <div class="text-sm font-bold text-green-400">CRÉATIF</div>
+      </div>
+
+      <!-- Hôtellerie -->
+      <div class="application-card p-4 rounded-xl text-center fade-in" data-priority="essentiel" data-keywords="hôtellerie tourisme réservation client">
+        <div class="text-3xl mb-2">🏨</div>
+        <h4 class="font-bold text-yellow-300 mb-2">Hôtellerie</h4>
+        <p class="text-xs text-gray-400 mb-3">Réservations, données clients, PMS</p>
+        <div class="text-sm font-bold text-green-400">HOSPITALITÉ</div>
+      </div>
+
+      <!-- Juridique -->
+      <div class="application-card p-4 rounded-xl text-center fade-in fade-in-delay-1" data-priority="critique" data-keywords="juridique avocat tribunal confidentialité">
+        <div class="text-3xl mb-2">⚖️</div>
+        <h4 class="font-bold text-indigo-300 mb-2">Juridique</h4>
+        <p class="text-xs text-gray-400 mb-3">Confidentialité, e-discovery, tribunaux</p>
+        <div class="text-sm font-bold text-green-400">CONFIDENTIEL</div>
+      </div>
+
+      <!-- Agriculture -->
+      <div class="application-card p-4 rounded-xl text-center fade-in fade-in-delay-2" data-priority="innovation" data-keywords="agriculture agtech ferme iot rural">
+        <div class="text-3xl mb-2">🌾</div>
+        <h4 class="font-bold text-green-300 mb-2">Agriculture</h4>
+        <p class="text-xs text-gray-400 mb-3">AgTech, IoT agricole, fermes connectées</p>
+        <div class="text-sm font-bold text-green-400">DURABLE</div>
+      </div>
+
+      <!-- Luxe -->
+      <div class="application-card p-4 rounded-xl text-center fade-in fade-in-delay-3" data-priority="essentiel" data-keywords="luxe mode authentification contrefaçon">
+        <div class="text-3xl mb-2">💎</div>
+        <h4 class="font-bold text-pink-300 mb-2">Luxe</h4>
+        <p class="text-xs text-gray-400 mb-3">Authentification, anti-contrefaçon</p>
+        <div class="text-sm font-bold text-green-400">PREMIUM</div>
+      </div>
+
+      <!-- Assurance -->
+      <div class="application-card p-4 rounded-xl text-center fade-in" data-priority="strategique" data-keywords="assurance actuariat risque sinistre">
+        <div class="text-3xl mb-2">🛡️</div>
+        <h4 class="font-bold text-blue-300 mb-2">Assurance</h4>
+        <p class="text-xs text-gray-400 mb-3">Gestion risques, sinistres, actuariat</p>
+        <div class="text-sm font-bold text-green-400">PROTECTION</div>
+      </div>
+
+      <!-- Immobilier -->
+      <div class="application-card p-4 rounded-xl text-center fade-in fade-in-delay-1" data-priority="innovation" data-keywords="immobilier proptech smart building">
+        <div class="text-3xl mb-2">🏢</div>
+        <h4 class="font-bold text-orange-300 mb-2">Immobilier</h4>
+        <p class="text-xs text-gray-400 mb-3">PropTech, smart buildings, gestion</p>
+        <div class="text-sm font-bold text-green-400">INTELLIGENT</div>
+      </div>
+
+      <!-- Sport -->
+      <div class="application-card p-4 rounded-xl text-center fade-in fade-in-delay-2" data-priority="innovation" data-keywords="sport fitness wearable performance">
+        <div class="text-3xl mb-2">⚽</div>
+        <h4 class="font-bold text-green-300 mb-2">Sport</h4>
+        <p class="text-xs text-gray-400 mb-3">SportTech, wearables, performance</p>
+        <div class="text-sm font-bold text-green-400">PERFORMANCE</div>
+      </div>
+
+      <!-- Environnement -->
+      <div class="application-card p-4 rounded-xl text-center fade-in fade-in-delay-3" data-priority="futur" data-keywords="environnement climat durable écologie">
+        <div class="text-3xl mb-2">🌱</div>
+        <h4 class="font-bold text-emerald-300 mb-2">Environnement</h4>
+        <p class="text-xs text-gray-400 mb-3">CleanTech, monitoring climat, durabilité</p>
+        <div class="text-sm font-bold text-green-400">VERT</div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Call to Action -->
+<section class="py-16">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <div class="application-card p-12 rounded-3xl fade-in">
+      <h2 class="text-4xl font-bold mb-6">
+        <span class="text-3xl">🌟</span> Votre Secteur, Notre Expertise
+      </h2>
+      <p class="text-xl text-gray-300 mb-8 leading-relaxed">
+        Rejoignez les <span class="text-green-400 font-bold">1000+ entreprises</span> qui font confiance à TechSpace
+        pour révolutionner leur cybersécurité. Quelle que soit votre industrie, nous avons la solution.
+      </p>
+
+      <div class="grid md:grid-cols-2 gap-6 mb-8">
+        <div class="bg-slate-700/30 p-6 rounded-2xl">
+          <div class="text-3xl mb-3">🎯</div>
+          <h3 class="font-bold text-blue-400 mb-2">Solution Immédiate</h3>
+          <p class="text-sm text-gray-300">Déploiement en moins de 48h pour la plupart des secteurs</p>
+        </div>
+        <div class="bg-slate-700/30 p-6 rounded-2xl">
+          <div class="text-3xl mb-3">🔬</div>
+          <h3 class="font-bold text-green-400 mb-2">Innovation Continue</h3>
+          <p class="text-sm text-gray-300">R&D permanente pour rester à la pointe de votre secteur</p>
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="contact.html" class="bg-gradient-to-r from-blue-600 to-green-600 hover:from-blue-700 hover:to-green-700 px-8 py-4 rounded-2xl font-bold text-lg transition-all transform hover:scale-105">
+          📞 Consultation Gratuite
+        </a>
+        <a href="demo.html" class="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 px-8 py-4 rounded-2xl font-bold text-lg transition-all transform hover:scale-105">
+          🎮 Démo Personnalisée
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-slate-900 py-8">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <div class="flex items-center justify-center space-x-4 mb-4">
+      <span class="text-2xl">🌍</span>
+      <span class="text-gray-300">Applications Cybersécurité Universelles - TechSpace 2030</span>
+    </div>
+    <p class="text-gray-400">
+      &copy; 2024 TechSpace - Protection Révolutionnaire pour Tous les Secteurs
+    </p>
+  </div>
+</footer>
+
+<script>
+  // Variables globales
+  let allCards = [];
+  let currentFilter = 'all';
+
+  // Initialisation
+  document.addEventListener('DOMContentLoaded', function() {
+    allCards = document.querySelectorAll('.application-card');
+    updateResultsCounter();
+
+    // Animation d'initialisation
+    setTimeout(() => {
+      document.querySelectorAll('.fade-in').forEach(el => {
+        el.style.animationPlayState = 'running';
+      });
+    }, 100);
+
+    // Recherche en temps réel
+    document.getElementById('search-input').addEventListener('input', handleSearch);
+  });
+
+  // Fonction de recherche
+  function handleSearch() {
+    const searchTerm = document.getElementById('search-input').value.toLowerCase();
+    let visibleCount = 0;
+
+    allCards.forEach(card => {
+      const keywords = card.dataset.keywords || '';
+      const title = card.querySelector('h3, h4').textContent.toLowerCase();
+      const description = card.querySelector('p').textContent.toLowerCase();
+
+      const matchesSearch = searchTerm === '' ||
+              keywords.includes(searchTerm) ||
+              title.includes(searchTerm) ||
+              description.includes(searchTerm);
+
+      const matchesFilter = currentFilter === 'all' ||
+              card.dataset.priority === currentFilter;
+
+      if (matchesSearch && matchesFilter) {
+        card.style.display = 'block';
+        card.style.animation = 'fadeInUp 0.5s ease forwards';
+        visibleCount++;
+
+        // Surligner les termes de recherche
+        if (searchTerm) {
+          highlightSearchTerm(card, searchTerm);
+        } else {
+          removeHighlight(card);
+        }
+      } else {
+        card.style.display = 'none';
+      }
+    });
+
+    updateResultsCounter(visibleCount);
+  }
+
+  // Fonction de filtrage par priorité
+  function filterByPriority(priority) {
+    currentFilter = priority;
+
+    // Mettre à jour les boutons de filtre
+    document.querySelectorAll('.sector-filter').forEach(btn => {
+      btn.classList.remove('active');
+    });
+    document.querySelector(`[data-filter="${priority}"]`).classList.add('active');
+
+    // Appliquer le filtre
+    handleSearch();
+  }
+
+  // Fonction de surlignage
+  function highlightSearchTerm(card, term) {
+    const textElements = card.querySelectorAll('h3, h4, p, div');
+    textElements.forEach(element => {
+      if (element.children.length === 0) { // Seulement les éléments texte
+        const originalText = element.textContent;
+        const regex = new RegExp(`(${term})`, 'gi');
+        const highlightedText = originalText.replace(regex, '<span class="search-highlight">$1</span>');
+        if (highlightedText !== originalText) {
+          element.innerHTML = highlightedText;
+        }
+      }
+    });
+  }
+
+  // Fonction de suppression du surlignage
+  function removeHighlight(card) {
+    const highlightedElements = card.querySelectorAll('.search-highlight');
+    highlightedElements.forEach(element => {
+      element.outerHTML = element.textContent;
+    });
+  }
+
+  // Mise à jour du compteur de résultats
+  function updateResultsCounter(count = null) {
+    if (count === null) {
+      count = Array.from(allCards).filter(card =>
+              card.style.display !== 'none'
+      ).length;
+    }
+
+    document.getElementById('visible-count').textContent = count;
+
+    const counterText = count === 1 ?
+            `${count} secteur d'application disponible` :
+            `${count} secteurs d'application disponibles`;
+
+    document.getElementById('results-counter').innerHTML =
+            `<span class="text-blue-400 font-bold">${count}</span> ${counterText.split(' ').slice(1).join(' ')}`;
+  }
+
+  // Fonctions pour les solutions personnalisées
+  function requestAnalysis() {
+    const sector = prompt('🔍 Analyse Personnalisée TechSpace\n\n' +
+            'Quel est votre secteur d\'activité ?\n' +
+            '(Ex: Biotechnologie, Cryptomonnaies, Spatial, etc.)');
+
+    if (sector && sector.trim()) {
+      alert(`🎯 Analyse Personnalisée Confirmée !\n\n` +
+              `Secteur: "${sector.trim()}"\n\n` +
+              `✨ Notre équipe d'experts va analyser :\n` +
+              `• Menaces spécifiques à votre secteur\n` +
+              `• Vulnérabilités actuelles\n` +
+              `• Opportunités d'amélioration\n` +
+              `• Solutions TechSpace adaptées\n\n` +
+              `📧 Rapport détaillé dans les 24h\n` +
+              `📞 Consultation gratuite incluse`);
+    }
+  }
+
+  function requestDevelopment() {
+    const requirements = prompt('⚙️ Développement Sur Mesure\n\n' +
+            'Décrivez brièvement vos besoins spécifiques :\n' +
+            '(Ex: IA pour détection fraude crypto, Protection IoT médical, etc.)');
+
+    if (requirements && requirements.trim()) {
+      alert(`🚀 Développement Sur Mesure Lancé !\n\n` +
+              `Besoins: "${requirements.trim()}"\n\n` +
+              `✨ Votre solution personnalisée incluera :\n` +
+              `• IA spécialisée pour vos besoins\n` +
+              `• Intégration transparente\n` +
+              `• Formation équipe complète\n` +
+              `• Support dédié 24/7\n\n` +
+              `⏱️ Développement: 2-4 semaines\n` +
+              `🎯 Déploiement: < 48h`);
+    }
+  }
+
+  function requestSupport() {
+    alert('🤝 Support Premium TechSpace\n\n' +
+            '✨ Votre package Support Premium inclut :\n\n' +
+            '👨‍💻 Équipe d\'experts dédiés\n' +
+            '📞 Hotline prioritaire 24/7\n' +
+            '🔄 Mises à jour automatiques\n' +
+            '📊 Rapports personnalisés\n' +
+            '🎓 Formation continue\n' +
+            '🛡️ Monitoring proactif\n\n' +
+            '📧 Un expert vous contacte dans l\'heure\n' +
+            '🎯 Activation immédiate possible');
+  }
+
+  // Animation au scroll
+  function animateOnScroll() {
+    const elements = document.querySelectorAll('.fade-in');
+    elements.forEach(element => {
+      const elementTop = element.getBoundingClientRect().top;
+      const elementVisible = 150;
+
+      if (elementTop < window.innerHeight - elementVisible) {
+        element.style.animationPlayState = 'running';
+      }
+    });
+  }
+
+  window.addEventListener('scroll', animateOnScroll);
+
+  // Smooth scroll pour les liens
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
+  });
+
+  // Animation des compteurs
+  function animateCounters() {
+    const counters = document.querySelectorAll('.stats-counter');
+    counters.forEach(counter => {
+      const target = counter.textContent;
+      const isNumber = !isNaN(target.replace(/[^0-9]/g, ''));
+
+      if (isNumber) {
+        const number = parseInt(target.replace(/[^0-9]/g, ''));
+        const suffix = target.replace(/[0-9]/g, '');
+        let current = 0;
+        const increment = number / 50;
+
+        const timer = setInterval(() => {
+          current += increment;
+          if (current >= number) {
+            counter.textContent = number + suffix;
+            clearInterval(timer);
+          } else {
+            counter.textContent = Math.floor(current) + suffix;
+          }
+        }, 40);
+      }
+    });
+  }
+
+  // Lancer l'animation des compteurs au chargement
+  setTimeout(animateCounters, 1000);
+</script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9644858eb7c3ed85',t:'MTc1MzM3MTY4Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

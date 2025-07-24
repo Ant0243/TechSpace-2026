@@ -1,0 +1,1841 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TechSpace - Solutions Cybersécurité 2030 | IA & Protection Avancée</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+    * { font-family: 'Inter', sans-serif; }
+
+    .gradient-bg {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 20%, #1d4ed8 40%, #2563eb 60%, #3b82f6 80%, #60a5fa 100%);
+      animation: gradientShift 15s ease infinite;
+    }
+
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .solution-card {
+      background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+      border: 1px solid #475569;
+      transition: all 0.5s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .solution-card:hover {
+      border-color: #3b82f6;
+      transform: translateY(-10px);
+      box-shadow: 0 25px 50px rgba(59, 130, 246, 0.4);
+    }
+
+    .solution-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+      transition: left 0.5s;
+    }
+
+    .solution-card:hover::before {
+      left: 100%;
+    }
+
+    .tech-badge {
+      background: linear-gradient(135deg, #059669, #10b981);
+      animation: techPulse 2s ease infinite;
+    }
+
+    @keyframes techPulse {
+      0%, 100% { box-shadow: 0 0 20px rgba(16, 185, 129, 0.3); }
+      50% { box-shadow: 0 0 40px rgba(16, 185, 129, 0.6); }
+    }
+
+    .ai-animation {
+      animation: aiFlow 3s ease infinite;
+    }
+
+    @keyframes aiFlow {
+      0%, 100% { transform: scale(1) rotate(0deg); }
+      50% { transform: scale(1.1) rotate(180deg); }
+    }
+
+    .security-shield {
+      animation: shieldProtect 4s ease infinite;
+    }
+
+    @keyframes shieldProtect {
+      0%, 100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 20px rgba(34, 197, 94, 0.3));
+      }
+      50% {
+        transform: scale(1.05);
+        filter: drop-shadow(0 0 40px rgba(34, 197, 94, 0.6));
+      }
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.8s ease forwards;
+    }
+
+    .fade-in-delay-1 { animation-delay: 0.2s; }
+    .fade-in-delay-2 { animation-delay: 0.4s; }
+    .fade-in-delay-3 { animation-delay: 0.6s; }
+    .fade-in-delay-4 { animation-delay: 0.8s; }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .floating-element {
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+
+    .data-stream {
+      animation: dataFlow 2s linear infinite;
+    }
+
+    @keyframes dataFlow {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    .quantum-effect {
+      animation: quantumShift 5s ease infinite;
+    }
+
+    @keyframes quantumShift {
+      0%, 100% {
+        background: linear-gradient(45deg, #8b5cf6, #a855f7);
+        box-shadow: 0 0 30px rgba(139, 92, 246, 0.3);
+      }
+      50% {
+        background: linear-gradient(45deg, #ec4899, #f97316);
+        box-shadow: 0 0 30px rgba(236, 72, 153, 0.3);
+      }
+    }
+  </style>
+</head>
+<body class="gradient-bg text-white min-h-screen">
+<!-- Navigation -->
+<nav class="fixed w-full z-50 bg-slate-900/95 backdrop-blur-lg border-b border-slate-700">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+      <div class="flex items-center space-x-3">
+        <div class="rounded-lg p-2">
+          <svg width="40" height="40" viewBox="0 0 40 40" class="text-blue-400">
+            <circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.3"/>
+            <circle cx="20" cy="20" r="14" fill="none" stroke="currentColor" stroke-width="2"/>
+            <path d="M20 6 L14 10 L14 20 Q14 24 20 26 Q26 24 26 20 L26 10 Z" fill="url(#logoGradient)" stroke="currentColor" stroke-width="1.5"/>
+            <circle cx="20" cy="16" r="2" fill="currentColor"/>
+            <defs>
+              <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:0.8" />
+                <stop offset="100%" style="stop-color:#1e40af;stop-opacity:0.9" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div>
+          <span class="text-2xl font-bold text-blue-400">TechSpace</span>
+          <div class="text-xs text-purple-400 font-bold">SOLUTIONS 2030</div>
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-6">
+        <a href="../index.html" class="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-lg font-medium transition-all duration-300 hover:scale-105">🏠 Accueil</a>
+        <div class="flex items-center space-x-2 bg-blue-600/20 px-3 py-1 rounded-full">
+          <span class="text-blue-400 text-sm font-bold">🛡️ SOLUTIONS</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="pt-32 pb-16 relative overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16 fade-in">
+      <h1 class="text-7xl font-extrabold mb-8">
+        <span class="text-6xl">🛡️</span><br>
+        <span class="bg-gradient-to-r from-purple-400 via-blue-400 to-green-400 bg-clip-text text-transparent">
+                        Solutions Cybersécurité
+                    </span>
+        <br>
+        <span class="text-4xl text-purple-400 font-bold">RÉVOLUTION 2030</span>
+      </h1>
+      <p class="text-2xl text-gray-300 mb-8 leading-relaxed max-w-4xl mx-auto">
+        Découvrez l'avenir de la cybersécurité avec nos solutions IA révolutionnaires.<br>
+        <span class="text-purple-400 font-bold">Protection autonome • Détection prédictive • Réponse instantanée</span>
+      </p>
+
+      <!-- Status Innovation -->
+      <div class="inline-flex items-center space-x-3 bg-purple-900/30 px-6 py-3 rounded-full border border-purple-500/30 quantum-effect">
+        <div class="ai-animation">
+          <span class="text-2xl">🤖</span>
+        </div>
+        <span class="text-purple-400 font-bold">IA Cybersécurité Nouvelle Génération</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Solutions Principales -->
+<section class="py-16">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-5xl font-bold text-center mb-16 fade-in">
+      <span class="text-4xl">⚡</span> Nos Solutions Révolutionnaires
+    </h2>
+
+    <div class="grid lg:grid-cols-3 gap-8">
+      <!-- TechSpace AI Guardian -->
+      <div class="solution-card p-8 rounded-3xl fade-in">
+        <div class="text-center mb-6">
+          <div class="text-6xl mb-4 security-shield">🛡️</div>
+          <h3 class="text-3xl font-bold text-blue-400 mb-2">AI Guardian</h3>
+          <div class="tech-badge px-4 py-2 rounded-full text-sm font-bold inline-block">
+            IA AUTONOME
+          </div>
+        </div>
+
+        <p class="text-gray-300 mb-6 leading-relaxed">
+          Intelligence artificielle autonome qui apprend, détecte et neutralise les menaces
+          en temps réel sans intervention humaine.
+        </p>
+
+        <div class="space-y-3 mb-6">
+          <div class="flex items-center space-x-3">
+            <span class="text-green-400">✓</span>
+            <span class="text-sm">Détection 0-day en temps réel</span>
+          </div>
+          <div class="flex items-center space-x-3">
+            <span class="text-green-400">✓</span>
+            <span class="text-sm">Réponse automatique < 0.1s</span>
+          </div>
+          <div class="flex items-center space-x-3">
+            <span class="text-green-400">✓</span>
+            <span class="text-sm">Apprentissage continu</span>
+          </div>
+          <div class="flex items-center space-x-3">
+            <span class="text-green-400">✓</span>
+            <span class="text-sm">99.9% de précision</span>
+          </div>
+        </div>
+
+        <div class="bg-slate-700/50 p-4 rounded-lg mb-6">
+          <div class="text-sm text-gray-400 mb-2">Efficacité vs solutions actuelles</div>
+          <div class="flex items-center space-x-2">
+            <div class="flex-1 bg-slate-600 rounded-full h-2">
+              <div class="bg-gradient-to-r from-green-400 to-blue-400 h-2 rounded-full" style="width: 95%"></div>
+            </div>
+            <span class="text-green-400 font-bold">+95%</span>
+          </div>
+        </div>
+
+        <button onclick="openAIGuardianDemo()" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 py-3 rounded-xl font-bold transition-all transform hover:scale-105">
+          🚀 Démo AI Guardian
+        </button>
+      </div>
+
+      <!-- TechSpace Quantum Shield -->
+      <div class="solution-card p-8 rounded-3xl fade-in fade-in-delay-1">
+        <div class="text-center mb-6">
+          <div class="text-6xl mb-4 floating-element">⚛️</div>
+          <h3 class="text-3xl font-bold text-purple-400 mb-2">Quantum Shield</h3>
+          <div class="tech-badge px-4 py-2 rounded-full text-sm font-bold inline-block">
+            CRYPTOGRAPHIE QUANTIQUE
+          </div>
+        </div>
+
+        <p class="text-gray-300 mb-6 leading-relaxed">
+          Protection cryptographique quantique inviolable, résistante aux ordinateurs
+          quantiques et aux attaques futures.
+        </p>
+
+        <div class="space-y-3 mb-6">
+          <div class="flex items-center space-x-3">
+            <span class="text-purple-400">✓</span>
+            <span class="text-sm">Chiffrement quantique inviolable</span>
+          </div>
+          <div class="flex items-center space-x-3">
+            <span class="text-purple-400">✓</span>
+            <span class="text-sm">Résistant aux attaques futures</span>
+          </div>
+          <div class="flex items-center space-x-3">
+            <span class="text-purple-400">✓</span>
+            <span class="text-sm">Clés quantiques auto-générées</span>
+          </div>
+          <div class="flex items-center space-x-3">
+            <span class="text-purple-400">✓</span>
+            <span class="text-sm">Sécurité théoriquement parfaite</span>
+          </div>
+        </div>
+
+        <div class="bg-slate-700/50 p-4 rounded-lg mb-6">
+          <div class="text-sm text-gray-400 mb-2">Niveau de sécurité</div>
+          <div class="flex items-center space-x-2">
+            <div class="flex-1 bg-slate-600 rounded-full h-2">
+              <div class="bg-gradient-to-r from-purple-400 to-pink-400 h-2 rounded-full" style="width: 100%"></div>
+            </div>
+            <span class="text-purple-400 font-bold">ABSOLU</span>
+          </div>
+        </div>
+
+        <button onclick="openQuantumShieldDemo()" class="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 py-3 rounded-xl font-bold transition-all transform hover:scale-105">
+          ⚛️ Démo Quantum Shield
+        </button>
+      </div>
+
+      <!-- TechSpace Neural Defense -->
+      <div class="solution-card p-8 rounded-3xl fade-in fade-in-delay-2">
+        <div class="text-center mb-6">
+          <div class="text-6xl mb-4 ai-animation">🧠</div>
+          <h3 class="text-3xl font-bold text-green-400 mb-2">Neural Defense</h3>
+          <div class="tech-badge px-4 py-2 rounded-full text-sm font-bold inline-block">
+            RÉSEAU NEURONAL
+          </div>
+        </div>
+
+        <p class="text-gray-300 mb-6 leading-relaxed">
+          Réseau neuronal distribué qui prédit et prévient les cyberattaques
+          avant même qu'elles ne se produisent.
+        </p>
+
+        <div class="space-y-3 mb-6">
+          <div class="flex items-center space-x-3">
+            <span class="text-green-400">✓</span>
+            <span class="text-sm">Prédiction d'attaques 72h à l'avance</span>
+          </div>
+          <div class="flex items-center space-x-3">
+            <span class="text-green-400">✓</span>
+            <span class="text-sm">Analyse comportementale avancée</span>
+          </div>
+          <div class="flex items-center space-x-3">
+            <span class="text-green-400">✓</span>
+            <span class="text-sm">Auto-adaptation aux nouvelles menaces</span>
+          </div>
+          <div class="flex items-center space-x-3">
+            <span class="text-green-400">✓</span>
+            <span class="text-sm">Zéro faux positif</span>
+          </div>
+        </div>
+
+        <div class="bg-slate-700/50 p-4 rounded-lg mb-6">
+          <div class="text-sm text-gray-400 mb-2">Taux de prédiction</div>
+          <div class="flex items-center space-x-2">
+            <div class="flex-1 bg-slate-600 rounded-full h-2">
+              <div class="bg-gradient-to-r from-green-400 to-emerald-400 h-2 rounded-full" style="width: 98%"></div>
+            </div>
+            <span class="text-green-400 font-bold">98.7%</span>
+          </div>
+        </div>
+
+        <button onclick="openNeuralDefenseDemo()" class="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 py-3 rounded-xl font-bold transition-all transform hover:scale-105">
+          🧠 Démo Neural Defense
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Technologies Révolutionnaires -->
+<section class="py-16 bg-slate-900/50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-5xl font-bold text-center mb-16 fade-in">
+      <span class="text-4xl">🔬</span> Technologies Révolutionnaires
+    </h2>
+
+    <div class="grid lg:grid-cols-2 gap-12">
+      <div class="fade-in">
+        <div class="solution-card p-8 rounded-3xl h-full">
+          <h3 class="text-3xl font-bold mb-6 text-blue-400">🤖 Intelligence Artificielle Avancée</h3>
+
+          <div class="space-y-6">
+            <div class="flex items-start space-x-4">
+              <div class="text-2xl">🧮</div>
+              <div>
+                <h4 class="font-bold text-lg mb-2">Deep Learning Adaptatif</h4>
+                <p class="text-gray-300 text-sm">Algorithmes qui évoluent en temps réel face aux nouvelles menaces</p>
+              </div>
+            </div>
+
+            <div class="flex items-start space-x-4">
+              <div class="text-2xl">🔮</div>
+              <div>
+                <h4 class="font-bold text-lg mb-2">Analyse Prédictive</h4>
+                <p class="text-gray-300 text-sm">Prévision des cyberattaques 72h avant leur exécution</p>
+              </div>
+            </div>
+
+            <div class="flex items-start space-x-4">
+              <div class="text-2xl">🎯</div>
+              <div>
+                <h4 class="font-bold text-lg mb-2">Précision Absolue</h4>
+                <p class="text-gray-300 text-sm">99.9% de précision avec zéro faux positif</p>
+              </div>
+            </div>
+
+            <div class="flex items-start space-x-4">
+              <div class="text-2xl">⚡</div>
+              <div>
+                <h4 class="font-bold text-lg mb-2">Réponse Instantanée</h4>
+                <p class="text-gray-300 text-sm">Neutralisation des menaces en moins de 0.1 seconde</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fade-in fade-in-delay-1">
+        <div class="solution-card p-8 rounded-3xl h-full">
+          <h3 class="text-3xl font-bold mb-6 text-purple-400">⚛️ Cryptographie Quantique</h3>
+
+          <div class="space-y-6">
+            <div class="flex items-start space-x-4">
+              <div class="text-2xl">🔐</div>
+              <div>
+                <h4 class="font-bold text-lg mb-2">Chiffrement Inviolable</h4>
+                <p class="text-gray-300 text-sm">Protection théoriquement parfaite basée sur la physique quantique</p>
+              </div>
+            </div>
+
+            <div class="flex items-start space-x-4">
+              <div class="text-2xl">🌌</div>
+              <div>
+                <h4 class="font-bold text-lg mb-2">Résistance Future</h4>
+                <p class="text-gray-300 text-sm">Sécurité garantie même contre les ordinateurs quantiques</p>
+              </div>
+            </div>
+
+            <div class="flex items-start space-x-4">
+              <div class="text-2xl">🔑</div>
+              <div>
+                <h4 class="font-bold text-lg mb-2">Clés Auto-Générées</h4>
+                <p class="text-gray-300 text-sm">Distribution quantique de clés impossibles à intercepter</p>
+              </div>
+            </div>
+
+            <div class="flex items-start space-x-4">
+              <div class="text-2xl">🛡️</div>
+              <div>
+                <h4 class="font-bold text-lg mb-2">Protection Absolue</h4>
+                <p class="text-gray-300 text-sm">Sécurité basée sur les lois fondamentales de la physique</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Comparaison Solutions Actuelles vs TechSpace -->
+<section class="py-16">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-5xl font-bold text-center mb-16 fade-in">
+      <span class="text-4xl">⚔️</span> TechSpace vs Solutions Actuelles
+    </h2>
+
+    <div class="solution-card p-8 rounded-3xl fade-in">
+      <div class="overflow-x-auto">
+        <table class="w-full">
+          <thead>
+          <tr class="border-b border-slate-600">
+            <th class="text-left py-4 px-6 font-bold text-lg">Critères</th>
+            <th class="text-center py-4 px-6 font-bold text-lg text-red-400">Solutions Actuelles</th>
+            <th class="text-center py-4 px-6 font-bold text-lg text-green-400">TechSpace 2030</th>
+          </tr>
+          </thead>
+          <tbody class="text-sm">
+          <tr class="border-b border-slate-700">
+            <td class="py-4 px-6 font-medium">⚡ Temps de détection</td>
+            <td class="py-4 px-6 text-center text-red-400">Minutes à heures</td>
+            <td class="py-4 px-6 text-center text-green-400 font-bold">< 0.1 seconde</td>
+          </tr>
+          <tr class="border-b border-slate-700">
+            <td class="py-4 px-6 font-medium">🎯 Taux de précision</td>
+            <td class="py-4 px-6 text-center text-red-400">70-85%</td>
+            <td class="py-4 px-6 text-center text-green-400 font-bold">99.9%</td>
+          </tr>
+          <tr class="border-b border-slate-700">
+            <td class="py-4 px-6 font-medium">🔮 Prédiction d'attaques</td>
+            <td class="py-4 px-6 text-center text-red-400">❌ Non disponible</td>
+            <td class="py-4 px-6 text-center text-green-400 font-bold">✅ 72h à l'avance</td>
+          </tr>
+          <tr class="border-b border-slate-700">
+            <td class="py-4 px-6 font-medium">🤖 Autonomie</td>
+            <td class="py-4 px-6 text-center text-red-400">Intervention humaine requise</td>
+            <td class="py-4 px-6 text-center text-green-400 font-bold">100% autonome</td>
+          </tr>
+          <tr class="border-b border-slate-700">
+            <td class="py-4 px-6 font-medium">🛡️ Protection quantique</td>
+            <td class="py-4 px-6 text-center text-red-400">❌ Vulnérable</td>
+            <td class="py-4 px-6 text-center text-green-400 font-bold">✅ Inviolable</td>
+          </tr>
+          <tr class="border-b border-slate-700">
+            <td class="py-4 px-6 font-medium">📊 Faux positifs</td>
+            <td class="py-4 px-6 text-center text-red-400">15-30%</td>
+            <td class="py-4 px-6 text-center text-green-400 font-bold">0%</td>
+          </tr>
+          <tr class="border-b border-slate-700">
+            <td class="py-4 px-6 font-medium">🔄 Adaptation</td>
+            <td class="py-4 px-6 text-center text-red-400">Mises à jour manuelles</td>
+            <td class="py-4 px-6 text-center text-green-400 font-bold">Apprentissage continu</td>
+          </tr>
+          <tr>
+            <td class="py-4 px-6 font-medium">💰 Coût total (5 ans)</td>
+            <td class="py-4 px-6 text-center text-red-400">€€€€€</td>
+            <td class="py-4 px-6 text-center text-green-400 font-bold">€€€ (-40%)</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="text-center mt-8">
+        <div class="inline-flex items-center space-x-4 bg-green-900/30 px-8 py-4 rounded-full border border-green-500/30">
+          <span class="text-3xl">🚀</span>
+          <span class="text-green-400 font-bold text-lg">Révolution technologique garantie</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Secteurs d'Application -->
+<section class="py-16 bg-slate-900/50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-5xl font-bold text-center mb-16 fade-in">
+      <span class="text-4xl">🏢</span> Secteurs d'Application
+    </h2>
+
+    <!-- Secteurs Principaux -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+      <div class="solution-card p-6 rounded-2xl text-center fade-in">
+        <div class="text-4xl mb-4">🏦</div>
+        <h3 class="text-xl font-bold mb-3 text-blue-400">Finance & Banque</h3>
+        <p class="text-sm text-gray-300 mb-4">Protection des transactions, conformité réglementaire, anti-fraude IA</p>
+        <div class="space-y-2 mb-4">
+          <div class="text-xs text-gray-400">• Paiements sécurisés</div>
+          <div class="text-xs text-gray-400">• Trading haute fréquence</div>
+          <div class="text-xs text-gray-400">• Conformité GDPR/PCI</div>
+        </div>
+        <div class="text-xs text-green-400 font-bold">PRIORITÉ ABSOLUE</div>
+      </div>
+
+      <div class="solution-card p-6 rounded-2xl text-center fade-in fade-in-delay-1">
+        <div class="text-4xl mb-4">🏥</div>
+        <h3 class="text-xl font-bold mb-3 text-green-400">Santé & Pharmaceutique</h3>
+        <p class="text-sm text-gray-300 mb-4">Sécurité des données patients, recherche médicale, IoT médical</p>
+        <div class="space-y-2 mb-4">
+          <div class="text-xs text-gray-400">• Dossiers patients</div>
+          <div class="text-xs text-gray-400">• Équipements médicaux</div>
+          <div class="text-xs text-gray-400">• Recherche clinique</div>
+        </div>
+        <div class="text-xs text-green-400 font-bold">CRITIQUE</div>
+      </div>
+
+      <div class="solution-card p-6 rounded-2xl text-center fade-in fade-in-delay-2">
+        <div class="text-4xl mb-4">⚡</div>
+        <h3 class="text-xl font-bold mb-3 text-yellow-400">Énergie & Utilities</h3>
+        <p class="text-sm text-gray-300 mb-4">Infrastructure critique, smart grids, systèmes SCADA</p>
+        <div class="space-y-2 mb-4">
+          <div class="text-xs text-gray-400">• Réseaux électriques</div>
+          <div class="text-xs text-gray-400">• Centrales nucléaires</div>
+          <div class="text-xs text-gray-400">• Distribution eau/gaz</div>
+        </div>
+        <div class="text-xs text-yellow-400 font-bold">STRATÉGIQUE</div>
+      </div>
+
+      <div class="solution-card p-6 rounded-2xl text-center fade-in fade-in-delay-3">
+        <div class="text-4xl mb-4">🏛️</div>
+        <h3 class="text-xl font-bold mb-3 text-purple-400">Gouvernement</h3>
+        <p class="text-sm text-gray-300 mb-4">Sécurité nationale, services publics, données citoyens</p>
+        <div class="space-y-2 mb-4">
+          <div class="text-xs text-gray-400">• Défense nationale</div>
+          <div class="text-xs text-gray-400">• Services publics</div>
+          <div class="text-xs text-gray-400">• Elections sécurisées</div>
+        </div>
+        <div class="text-xs text-purple-400 font-bold">SOUVERAIN</div>
+      </div>
+    </div>
+
+    <!-- Secteurs Émergents -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+      <div class="solution-card p-6 rounded-2xl text-center fade-in">
+        <div class="text-4xl mb-4">🚗</div>
+        <h3 class="text-xl font-bold mb-3 text-cyan-400">Automobile & Transport</h3>
+        <p class="text-sm text-gray-300 mb-4">Véhicules connectés, conduite autonome, logistique intelligente</p>
+        <div class="space-y-2 mb-4">
+          <div class="text-xs text-gray-400">• Voitures autonomes</div>
+          <div class="text-xs text-gray-400">• Fleet management</div>
+          <div class="text-xs text-gray-400">• V2X Communication</div>
+        </div>
+        <div class="text-xs text-cyan-400 font-bold">INNOVATION</div>
+      </div>
+
+      <div class="solution-card p-6 rounded-2xl text-center fade-in fade-in-delay-1">
+        <div class="text-4xl mb-4">🏭</div>
+        <h3 class="text-xl font-bold mb-3 text-orange-400">Industrie 4.0</h3>
+        <p class="text-sm text-gray-300 mb-4">Usines intelligentes, IoT industriel, robotique avancée</p>
+        <div class="space-y-2 mb-4">
+          <div class="text-xs text-gray-400">• Chaînes de production</div>
+          <div class="text-xs text-gray-400">• Maintenance prédictive</div>
+          <div class="text-xs text-gray-400">• Supply chain</div>
+        </div>
+        <div class="text-xs text-orange-400 font-bold">TRANSFORMATION</div>
+      </div>
+
+      <div class="solution-card p-6 rounded-2xl text-center fade-in fade-in-delay-2">
+        <div class="text-4xl mb-4">🎓</div>
+        <h3 class="text-xl font-bold mb-3 text-indigo-400">Éducation & Recherche</h3>
+        <p class="text-sm text-gray-300 mb-4">Campus connectés, recherche collaborative, données étudiantes</p>
+        <div class="space-y-2 mb-4">
+          <div class="text-xs text-gray-400">• Plateformes e-learning</div>
+          <div class="text-xs text-gray-400">• Recherche scientifique</div>
+          <div class="text-xs text-gray-400">• Propriété intellectuelle</div>
+        </div>
+        <div class="text-xs text-indigo-400 font-bold">FUTUR</div>
+      </div>
+
+      <div class="solution-card p-6 rounded-2xl text-center fade-in fade-in-delay-3">
+        <div class="text-4xl mb-4">🛒</div>
+        <h3 class="text-xl font-bold mb-3 text-pink-400">E-commerce & Retail</h3>
+        <p class="text-sm text-gray-300 mb-4">Paiements sécurisés, données clients, supply chain digitale</p>
+        <div class="space-y-2 mb-4">
+          <div class="text-xs text-gray-400">• Boutiques en ligne</div>
+          <div class="text-xs text-gray-400">• Données personnelles</div>
+          <div class="text-xs text-gray-400">• Logistique globale</div>
+        </div>
+        <div class="text-xs text-pink-400 font-bold">ESSENTIEL</div>
+      </div>
+
+      <div class="solution-card p-6 rounded-2xl text-center fade-in">
+        <div class="text-4xl mb-4">🌐</div>
+        <h3 class="text-xl font-bold mb-3 text-teal-400">Télécommunications</h3>
+        <p class="text-sm text-gray-300 mb-4">5G/6G, infrastructure réseau, communications critiques</p>
+        <div class="space-y-2 mb-4">
+          <div class="text-xs text-gray-400">• Réseaux 5G/6G</div>
+          <div class="text-xs text-gray-400">• Edge computing</div>
+          <div class="text-xs text-gray-400">• IoT massif</div>
+        </div>
+        <div class="text-xs text-teal-400 font-bold">BACKBONE</div>
+      </div>
+
+      <div class="solution-card p-6 rounded-2xl text-center fade-in fade-in-delay-1">
+        <div class="text-4xl mb-4">🏠</div>
+        <h3 class="text-xl font-bold mb-3 text-emerald-400">Smart Cities</h3>
+        <p class="text-sm text-gray-300 mb-4">Villes connectées, IoT urbain, services citoyens intelligents</p>
+        <div class="space-y-2 mb-4">
+          <div class="text-xs text-gray-400">• Éclairage intelligent</div>
+          <div class="text-xs text-gray-400">• Trafic optimisé</div>
+          <div class="text-xs text-gray-400">• Services publics</div>
+        </div>
+        <div class="text-xs text-emerald-400 font-bold">AVENIR</div>
+      </div>
+    </div>
+
+    <!-- Secteurs Spécialisés -->
+    <div class="grid md:grid-cols-4 gap-4 mb-12">
+      <div class="solution-card p-4 rounded-xl text-center fade-in">
+        <div class="text-2xl mb-2">✈️</div>
+        <h4 class="font-bold text-blue-300 mb-1">Aérospatial</h4>
+        <p class="text-xs text-gray-400">Contrôle aérien, satellites</p>
+      </div>
+
+      <div class="solution-card p-4 rounded-xl text-center fade-in fade-in-delay-1">
+        <div class="text-2xl mb-2">🚢</div>
+        <h4 class="font-bold text-cyan-300 mb-1">Maritime</h4>
+        <p class="text-xs text-gray-400">Ports intelligents, navigation</p>
+      </div>
+
+      <div class="solution-card p-4 rounded-xl text-center fade-in fade-in-delay-2">
+        <div class="text-2xl mb-2">🎮</div>
+        <h4 class="font-bold text-purple-300 mb-1">Gaming</h4>
+        <p class="text-xs text-gray-400">Anti-cheat, protection IP</p>
+      </div>
+
+      <div class="solution-card p-4 rounded-xl text-center fade-in fade-in-delay-3">
+        <div class="text-2xl mb-2">🎬</div>
+        <h4 class="font-bold text-red-300 mb-1">Média</h4>
+        <p class="text-xs text-gray-400">Streaming, droits d'auteur</p>
+      </div>
+
+      <div class="solution-card p-4 rounded-xl text-center fade-in">
+        <div class="text-2xl mb-2">🏨</div>
+        <h4 class="font-bold text-yellow-300 mb-1">Hôtellerie</h4>
+        <p class="text-xs text-gray-400">Réservations, données clients</p>
+      </div>
+
+      <div class="solution-card p-4 rounded-xl text-center fade-in fade-in-delay-1">
+        <div class="text-2xl mb-2">⚖️</div>
+        <h4 class="font-bold text-indigo-300 mb-1">Juridique</h4>
+        <p class="text-xs text-gray-400">Confidentialité, e-discovery</p>
+      </div>
+
+      <div class="solution-card p-4 rounded-xl text-center fade-in fade-in-delay-2">
+        <div class="text-2xl mb-2">🌾</div>
+        <h4 class="font-bold text-green-300 mb-1">Agriculture</h4>
+        <p class="text-xs text-gray-400">AgTech, IoT agricole</p>
+      </div>
+
+      <div class="solution-card p-4 rounded-xl text-center fade-in fade-in-delay-3">
+        <div class="text-2xl mb-2">💎</div>
+        <h4 class="font-bold text-pink-300 mb-1">Luxe</h4>
+        <p class="text-xs text-gray-400">Authentification, anti-contrefaçon</p>
+      </div>
+    </div>
+
+    <!-- Statistiques Sectorielles -->
+    <div class="solution-card p-8 rounded-3xl text-center">
+      <h3 class="text-3xl font-bold mb-6 text-blue-400">🌍 Impact Global TechSpace</h3>
+
+      <div class="grid md:grid-cols-4 gap-6 mb-8">
+        <div class="text-center">
+          <div class="text-4xl font-bold text-green-400 mb-2">50+</div>
+          <div class="text-sm text-gray-300">Secteurs d'activité</div>
+          <div class="text-xs text-green-400">Couverture mondiale</div>
+        </div>
+        <div class="text-center">
+          <div class="text-4xl font-bold text-blue-400 mb-2">1000+</div>
+          <div class="text-sm text-gray-300">Entreprises protégées</div>
+          <div class="text-xs text-blue-400">Fortune 500 incluses</div>
+        </div>
+        <div class="text-center">
+          <div class="text-4xl font-bold text-purple-400 mb-2">99.9%</div>
+          <div class="text-sm text-gray-300">Taux de satisfaction</div>
+          <div class="text-xs text-purple-400">Clients recommandent</div>
+        </div>
+        <div class="text-center">
+          <div class="text-4xl font-bold text-yellow-400 mb-2">24/7</div>
+          <div class="text-sm text-gray-300">Protection continue</div>
+          <div class="text-xs text-yellow-400">Surveillance globale</div>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-4 mb-8">
+        <div class="bg-slate-700/30 p-4 rounded-xl">
+          <div class="text-2xl mb-2">🏆</div>
+          <div class="font-bold text-green-400">Leader Mondial</div>
+          <div class="text-xs text-gray-400">Cybersécurité IA 2030</div>
+        </div>
+        <div class="bg-slate-700/30 p-4 rounded-xl">
+          <div class="text-2xl mb-2">🔬</div>
+          <div class="font-bold text-blue-400">Innovation Continue</div>
+          <div class="text-xs text-gray-400">R&D 40% du budget</div>
+        </div>
+        <div class="bg-slate-700/30 p-4 rounded-xl">
+          <div class="text-2xl mb-2">🌟</div>
+          <div class="font-bold text-purple-400">Excellence Reconnue</div>
+          <div class="text-xs text-gray-400">Prix internationaux</div>
+        </div>
+      </div>
+
+      <p class="text-xl text-gray-300 mb-6">
+        De la <span class="font-bold text-blue-400">startup innovante</span> aux <span class="font-bold text-green-400">multinationales</span>,<br>
+        nos solutions s'adaptent à tous les besoins de cybersécurité
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="application.html" class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-8 py-4 rounded-2xl font-bold text-lg text-white transition-all transform hover:scale-105 text-center">
+          🎯 Voir Toutes les Applications
+        </a>
+      </div>
+
+      <button onclick="requestCustomSolution()" class="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 px-8 py-4 rounded-2xl font-bold text-lg transition-all transform hover:scale-105">
+          🎨 Solution Sur Mesure
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Roadmap 2030 -->
+<section class="py-16">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-5xl font-bold text-center mb-16 fade-in">
+      <span class="text-4xl">🗺️</span> Roadmap Technologique 2030
+    </h2>
+
+    <div class="relative">
+      <!-- Timeline Line -->
+      <div class="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-blue-400 via-purple-400 to-green-400"></div>
+
+      <div class="space-y-12">
+        <!-- 2024 -->
+        <div class="flex items-center fade-in">
+          <div class="w-1/2 pr-8 text-right">
+            <div class="solution-card p-6 rounded-2xl">
+              <h3 class="text-2xl font-bold mb-3 text-blue-400">2024 - Fondations</h3>
+              <p class="text-gray-300 mb-4">Développement des algorithmes IA de base, premiers prototypes</p>
+              <div class="text-sm text-green-400 font-bold">✅ EN COURS</div>
+            </div>
+          </div>
+          <div class="w-8 h-8 bg-blue-400 rounded-full border-4 border-slate-900 z-10"></div>
+          <div class="w-1/2 pl-8"></div>
+        </div>
+
+        <!-- 2025 -->
+        <div class="flex items-center fade-in fade-in-delay-1">
+          <div class="w-1/2 pr-8"></div>
+          <div class="w-8 h-8 bg-purple-400 rounded-full border-4 border-slate-900 z-10"></div>
+          <div class="w-1/2 pl-8">
+            <div class="solution-card p-6 rounded-2xl">
+              <h3 class="text-2xl font-bold mb-3 text-purple-400">2025 - Tests Alpha</h3>
+              <p class="text-gray-300 mb-4">Tests internes, optimisation des performances, partenariats stratégiques</p>
+              <div class="text-sm text-yellow-400 font-bold">🔄 PLANIFIÉ</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2026 -->
+        <div class="flex items-center fade-in fade-in-delay-2">
+          <div class="w-1/2 pr-8 text-right">
+            <div class="solution-card p-6 rounded-2xl">
+              <h3 class="text-2xl font-bold mb-3 text-green-400">2026 - Bêta Fermée</h3>
+              <p class="text-gray-300 mb-4">Tests avec clients sélectionnés, intégration cryptographie quantique</p>
+              <div class="text-sm text-blue-400 font-bold">🎯 OBJECTIF</div>
+            </div>
+          </div>
+          <div class="w-8 h-8 bg-green-400 rounded-full border-4 border-slate-900 z-10"></div>
+          <div class="w-1/2 pl-8"></div>
+        </div>
+
+        <!-- 2027 -->
+        <div class="flex items-center fade-in fade-in-delay-3">
+          <div class="w-1/2 pr-8"></div>
+          <div class="w-8 h-8 bg-yellow-400 rounded-full border-4 border-slate-900 z-10"></div>
+          <div class="w-1/2 pl-8">
+            <div class="solution-card p-6 rounded-2xl">
+              <h3 class="text-2xl font-bold mb-3 text-yellow-400">2027 - Pré-Production</h3>
+              <p class="text-gray-300 mb-4">Finalisation des solutions, certifications sécurité, formation équipes</p>
+              <div class="text-sm text-purple-400 font-bold">🚀 PRÉPARATION</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2030 -->
+        <div class="flex items-center fade-in fade-in-delay-4">
+          <div class="w-1/2 pr-8 text-right">
+            <div class="solution-card p-6 rounded-2xl quantum-effect">
+              <h3 class="text-3xl font-bold mb-3 text-white">2030 - RÉVOLUTION</h3>
+              <p class="text-gray-100 mb-4">Lancement mondial, transformation de la cybersécurité</p>
+              <div class="text-sm text-yellow-300 font-bold">🌟 RÉVOLUTION GARANTIE</div>
+            </div>
+          </div>
+          <div class="w-12 h-12 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full border-4 border-slate-900 z-10 quantum-effect"></div>
+          <div class="w-1/2 pl-8"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-16 bg-slate-900/50">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <div class="solution-card p-12 rounded-3xl fade-in">
+      <h2 class="text-4xl font-bold mb-6">
+        <span class="text-3xl">🚀</span> Rejoignez la Révolution Cybersécurité
+      </h2>
+      <p class="text-xl text-gray-300 mb-8 leading-relaxed">
+        Soyez parmi les premiers à bénéficier de nos solutions révolutionnaires.
+        Les places sont limitées pour notre programme VIP 2030.
+      </p>
+
+      <div class="grid md:grid-cols-3 gap-6 mb-8">
+        <div class="text-center">
+          <div class="text-3xl mb-2">🔍</div>
+          <div class="font-bold text-blue-400">Audit Gratuit</div>
+          <div class="text-sm text-gray-400">Évaluez votre sécurité</div>
+        </div>
+        <div class="text-center">
+          <div class="text-3xl mb-2">🎮</div>
+          <div class="font-bold text-green-400">Démo Interactive</div>
+          <div class="text-sm text-gray-400">Testez nos solutions</div>
+        </div>
+        <div class="text-center">
+          <div class="text-3xl mb-2">🤝</div>
+          <div class="font-bold text-purple-400">Partenariat VIP</div>
+          <div class="text-sm text-gray-400">Accès privilégié 2030</div>
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="audit.html" class="bg-gradient-to-r from-blue-600 to-green-600 hover:from-blue-700 hover:to-green-700 px-8 py-4 rounded-2xl font-bold text-lg transition-all transform hover:scale-105">
+          🔍 Audit Gratuit
+        </a>
+        <a href="demo.html" class="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 px-8 py-4 rounded-2xl font-bold text-lg transition-all transform hover:scale-105">
+          🎮 Voir la Démo
+        </a>
+        <a href="contact.html" class="bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 px-8 py-4 rounded-2xl font-bold text-lg transition-all transform hover:scale-105">
+          🤝 Devenir Partenaire
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Modal Démo Quantum Shield -->
+<div id="quantum-shield-modal" class="fixed inset-0 bg-black/80 backdrop-blur-lg z-50 hidden">
+  <div class="flex items-center justify-center min-h-screen p-4">
+    <div class="bg-slate-800 rounded-3xl p-8 max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-3xl font-bold text-purple-400">⚛️ Démo Quantum Shield</h2>
+        <button onclick="closeQuantumShieldDemo()" class="text-gray-400 hover:text-white text-2xl">✕</button>
+      </div>
+
+      <!-- Interface de Cryptographie Quantique -->
+      <div class="grid lg:grid-cols-2 gap-8">
+        <!-- Panneau de Chiffrement -->
+        <div class="space-y-6">
+          <div class="bg-slate-700/50 p-6 rounded-2xl">
+            <h3 class="text-xl font-bold mb-4 text-purple-400">🔐 Chiffrement Quantique</h3>
+            <div class="space-y-4">
+              <div>
+                <label class="block text-sm font-bold mb-2">Message à chiffrer</label>
+                <textarea id="quantum-message" class="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-2 text-white h-20" placeholder="Entrez votre message secret...">Données confidentielles ultra-secrètes</textarea>
+              </div>
+              <div>
+                <label class="block text-sm font-bold mb-2">Niveau de sécurité quantique</label>
+                <select id="quantum-level" class="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-2 text-white">
+                  <option value="256">256-bit (Standard)</option>
+                  <option value="512">512-bit (Militaire)</option>
+                  <option value="1024">1024-bit (Gouvernemental)</option>
+                  <option value="2048">2048-bit (Quantique Pur)</option>
+                </select>
+              </div>
+              <button onclick="startQuantumEncryption()" class="w-full bg-purple-600 hover:bg-purple-700 py-3 rounded-xl font-bold transition-all">
+                ⚛️ Chiffrer avec Quantum Shield
+              </button>
+            </div>
+          </div>
+
+          <!-- Statistiques Quantiques -->
+          <div class="bg-slate-700/50 p-6 rounded-2xl">
+            <h3 class="text-xl font-bold mb-4 text-pink-400">📊 Métriques Quantiques</h3>
+            <div class="space-y-3">
+              <div class="flex justify-between">
+                <span>Clés générées</span>
+                <span id="quantum-keys" class="text-purple-400 font-bold">0</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Entropie quantique</span>
+                <span id="quantum-entropy" class="text-pink-400 font-bold">∞</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Sécurité théorique</span>
+                <span id="quantum-security" class="text-purple-400 font-bold">ABSOLUE</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Résistance quantique</span>
+                <span id="quantum-resistance" class="text-green-400 font-bold">100%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Visualisation Quantique -->
+        <div class="space-y-6">
+          <div class="bg-slate-700/50 p-6 rounded-2xl">
+            <h3 class="text-xl font-bold mb-4 text-blue-400">🌌 État Quantique</h3>
+            <div id="quantum-state" class="relative h-64 bg-slate-800 rounded-xl overflow-hidden">
+              <!-- Particules quantiques animées -->
+              <div class="absolute inset-0">
+                <div class="quantum-particle" style="top: 20%; left: 30%;"></div>
+                <div class="quantum-particle" style="top: 60%; left: 70%;"></div>
+                <div class="quantum-particle" style="top: 40%; left: 50%;"></div>
+                <div class="quantum-particle" style="top: 80%; left: 20%;"></div>
+                <div class="quantum-particle" style="top: 10%; left: 80%;"></div>
+              </div>
+              <div class="absolute inset-0 flex items-center justify-center">
+                <div id="quantum-core" class="w-16 h-16 bg-purple-500 rounded-full quantum-core"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Résultat du Chiffrement -->
+          <div class="bg-slate-700/50 p-6 rounded-2xl">
+            <h3 class="text-xl font-bold mb-4 text-green-400">🔒 Données Chiffrées</h3>
+            <div id="encrypted-output" class="h-32 overflow-y-auto text-sm font-mono bg-slate-800 p-4 rounded-lg">
+              <div class="text-gray-400">En attente du chiffrement quantique...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Résultats de Chiffrement -->
+      <div id="quantum-results" class="mt-8 hidden">
+        <div class="bg-purple-900/30 border border-purple-500/30 p-6 rounded-2xl">
+          <h3 class="text-2xl font-bold mb-4 text-purple-400">⚛️ Chiffrement Quantique Réussi</h3>
+          <div class="grid md:grid-cols-3 gap-4 text-center">
+            <div>
+              <div class="text-3xl font-bold text-purple-400" id="encryption-time">0.003s</div>
+              <div class="text-sm text-gray-300">Temps de chiffrement</div>
+            </div>
+            <div>
+              <div class="text-3xl font-bold text-pink-400" id="key-strength">2048-bit</div>
+              <div class="text-sm text-gray-300">Force de la clé</div>
+            </div>
+            <div>
+              <div class="text-3xl font-bold text-green-400" id="security-level">INVIOLABLE</div>
+              <div class="text-sm text-gray-300">Niveau de sécurité</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-8">
+        <p class="text-gray-400 mb-4">
+          Cryptographie quantique basée sur les lois fondamentales de la physique
+        </p>
+        <button onclick="resetQuantumDemo()" class="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 px-6 py-3 rounded-xl font-bold transition-all">
+          🔄 Réinitialiser
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Démo Neural Defense -->
+<div id="neural-defense-modal" class="fixed inset-0 bg-black/80 backdrop-blur-lg z-50 hidden">
+  <div class="flex items-center justify-center min-h-screen p-4">
+    <div class="bg-slate-800 rounded-3xl p-8 max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-3xl font-bold text-green-400">🧠 Démo Neural Defense</h2>
+        <button onclick="closeNeuralDefenseDemo()" class="text-gray-400 hover:text-white text-2xl">✕</button>
+      </div>
+
+      <!-- Interface de Prédiction -->
+      <div class="grid lg:grid-cols-2 gap-8">
+        <!-- Panneau d'Analyse -->
+        <div class="space-y-6">
+          <div class="bg-slate-700/50 p-6 rounded-2xl">
+            <h3 class="text-xl font-bold mb-4 text-green-400">🔮 Analyse Prédictive</h3>
+            <div class="space-y-4">
+              <div>
+                <label class="block text-sm font-bold mb-2">Période d'analyse</label>
+                <select id="prediction-period" class="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-2 text-white">
+                  <option value="24">24 heures</option>
+                  <option value="48">48 heures</option>
+                  <option value="72">72 heures (Recommandé)</option>
+                  <option value="168">7 jours</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-bold mb-2">Secteur d'activité</label>
+                <select id="business-sector" class="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-2 text-white">
+                  <option value="finance">🏦 Finance & Banque</option>
+                  <option value="healthcare">🏥 Santé</option>
+                  <option value="energy">⚡ Énergie</option>
+                  <option value="government">🏛️ Gouvernement</option>
+                  <option value="tech">💻 Technologie</option>
+                </select>
+              </div>
+              <button onclick="startPredictiveAnalysis()" class="w-full bg-green-600 hover:bg-green-700 py-3 rounded-xl font-bold transition-all">
+                🔮 Lancer l'Analyse Prédictive
+              </button>
+            </div>
+          </div>
+
+          <!-- Métriques Prédictives -->
+          <div class="bg-slate-700/50 p-6 rounded-2xl">
+            <h3 class="text-xl font-bold mb-4 text-blue-400">📈 Métriques Prédictives</h3>
+            <div class="space-y-3">
+              <div class="flex justify-between">
+                <span>Menaces prédites</span>
+                <span id="predicted-threats" class="text-red-400 font-bold">0</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Précision du modèle</span>
+                <span id="model-accuracy" class="text-green-400 font-bold">98.7%</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Confiance prédictive</span>
+                <span id="prediction-confidence" class="text-blue-400 font-bold">95.2%</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Temps d'avance</span>
+                <span id="prediction-lead-time" class="text-purple-400 font-bold">72h</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Visualisation du Réseau Neuronal -->
+        <div class="space-y-6">
+          <div class="bg-slate-700/50 p-6 rounded-2xl">
+            <h3 class="text-xl font-bold mb-4 text-purple-400">🧠 Réseau Neuronal</h3>
+            <div id="neural-network" class="relative h-64 bg-slate-800 rounded-xl overflow-hidden">
+              <!-- Réseau neuronal complexe -->
+              <div class="absolute inset-0">
+                <svg width="100%" height="100%" class="neural-svg">
+                  <!-- Connexions neuronales -->
+                  <g id="neural-connections"></g>
+                  <!-- Neurones -->
+                  <g id="neural-nodes"></g>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Prédictions -->
+          <div class="bg-slate-700/50 p-6 rounded-2xl">
+            <h3 class="text-xl font-bold mb-4 text-yellow-400">⚠️ Prédictions</h3>
+            <div id="prediction-list" class="h-32 overflow-y-auto text-sm space-y-2">
+              <div class="text-gray-400">Aucune analyse en cours...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Résultats de Prédiction -->
+      <div id="neural-results" class="mt-8 hidden">
+        <div class="bg-green-900/30 border border-green-500/30 p-6 rounded-2xl">
+          <h3 class="text-2xl font-bold mb-4 text-green-400">🧠 Analyse Prédictive Terminée</h3>
+          <div class="grid md:grid-cols-4 gap-4 text-center">
+            <div>
+              <div class="text-3xl font-bold text-red-400" id="threats-predicted">7</div>
+              <div class="text-sm text-gray-300">Menaces détectées</div>
+            </div>
+            <div>
+              <div class="text-3xl font-bold text-green-400" id="prevention-rate">100%</div>
+              <div class="text-sm text-gray-300">Taux de prévention</div>
+            </div>
+            <div>
+              <div class="text-3xl font-bold text-blue-400" id="analysis-time">2.3s</div>
+              <div class="text-sm text-gray-300">Temps d'analyse</div>
+            </div>
+            <div>
+              <div class="text-3xl font-bold text-purple-400" id="neural-updates">+15</div>
+              <div class="text-sm text-gray-300">Mises à jour IA</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-8">
+        <p class="text-gray-400 mb-4">
+          Prédiction basée sur l'analyse comportementale et l'apprentissage profond
+        </p>
+        <button onclick="resetNeuralDemo()" class="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 px-6 py-3 rounded-xl font-bold transition-all">
+          🔄 Réinitialiser
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Démo AI Guardian -->
+<div id="ai-guardian-modal" class="fixed inset-0 bg-black/80 backdrop-blur-lg z-50 hidden">
+  <div class="flex items-center justify-center min-h-screen p-4">
+    <div class="bg-slate-800 rounded-3xl p-8 max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-3xl font-bold text-blue-400">🛡️ Démo AI Guardian</h2>
+        <button onclick="closeAIGuardianDemo()" class="text-gray-400 hover:text-white text-2xl">✕</button>
+      </div>
+
+      <!-- Interface de Simulation -->
+      <div class="grid lg:grid-cols-2 gap-8">
+        <!-- Panneau de Contrôle -->
+        <div class="space-y-6">
+          <div class="bg-slate-700/50 p-6 rounded-2xl">
+            <h3 class="text-xl font-bold mb-4 text-green-400">🎮 Simulation d'Attaque</h3>
+            <div class="space-y-4">
+              <div>
+                <label class="block text-sm font-bold mb-2">Type d'attaque</label>
+                <select id="attack-type" class="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-2 text-white">
+                  <option value="phishing">🎣 Phishing</option>
+                  <option value="ransomware">🔒 Ransomware</option>
+                  <option value="ddos">⚡ DDoS</option>
+                  <option value="malware">🦠 Malware</option>
+                  <option value="zero-day">💥 Zero-Day</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-bold mb-2">Intensité</label>
+                <input type="range" id="intensity" min="1" max="10" value="5" class="w-full">
+                <div class="flex justify-between text-xs text-gray-400">
+                  <span>Faible</span>
+                  <span>Critique</span>
+                </div>
+              </div>
+              <button onclick="simulateAttack()" class="w-full bg-red-600 hover:bg-red-700 py-3 rounded-xl font-bold transition-all">
+                🚨 Lancer l'Attaque
+              </button>
+            </div>
+          </div>
+
+          <!-- Statistiques en Temps Réel -->
+          <div class="bg-slate-700/50 p-6 rounded-2xl">
+            <h3 class="text-xl font-bold mb-4 text-purple-400">📊 Statistiques</h3>
+            <div class="space-y-3">
+              <div class="flex justify-between">
+                <span>Menaces détectées</span>
+                <span id="threats-detected" class="text-green-400 font-bold">0</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Temps de réponse</span>
+                <span id="response-time" class="text-blue-400 font-bold">0.00s</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Taux de blocage</span>
+                <span id="block-rate" class="text-green-400 font-bold">100%</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Faux positifs</span>
+                <span id="false-positives" class="text-green-400 font-bold">0</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Visualisation IA -->
+        <div class="space-y-6">
+          <div class="bg-slate-700/50 p-6 rounded-2xl">
+            <h3 class="text-xl font-bold mb-4 text-blue-400">🧠 Cerveau IA</h3>
+            <div id="ai-brain" class="relative h-64 bg-slate-800 rounded-xl overflow-hidden">
+              <!-- Réseau neuronal animé -->
+              <div class="absolute inset-0 flex items-center justify-center">
+                <div class="grid grid-cols-4 gap-4">
+                  <div class="space-y-2">
+                    <div class="w-3 h-3 bg-blue-400 rounded-full neuron" data-layer="input"></div>
+                    <div class="w-3 h-3 bg-blue-400 rounded-full neuron" data-layer="input"></div>
+                    <div class="w-3 h-3 bg-blue-400 rounded-full neuron" data-layer="input"></div>
+                  </div>
+                  <div class="space-y-2">
+                    <div class="w-3 h-3 bg-purple-400 rounded-full neuron" data-layer="hidden1"></div>
+                    <div class="w-3 h-3 bg-purple-400 rounded-full neuron" data-layer="hidden1"></div>
+                    <div class="w-3 h-3 bg-purple-400 rounded-full neuron" data-layer="hidden1"></div>
+                    <div class="w-3 h-3 bg-purple-400 rounded-full neuron" data-layer="hidden1"></div>
+                  </div>
+                  <div class="space-y-2">
+                    <div class="w-3 h-3 bg-green-400 rounded-full neuron" data-layer="hidden2"></div>
+                    <div class="w-3 h-3 bg-green-400 rounded-full neuron" data-layer="hidden2"></div>
+                    <div class="w-3 h-3 bg-green-400 rounded-full neuron" data-layer="hidden2"></div>
+                  </div>
+                  <div class="space-y-2">
+                    <div class="w-3 h-3 bg-red-400 rounded-full neuron" data-layer="output"></div>
+                  </div>
+                </div>
+              </div>
+              <div id="neural-activity" class="absolute inset-0 pointer-events-none"></div>
+            </div>
+          </div>
+
+          <!-- Log d'Activité -->
+          <div class="bg-slate-700/50 p-6 rounded-2xl">
+            <h3 class="text-xl font-bold mb-4 text-yellow-400">📝 Log d'Activité</h3>
+            <div id="activity-log" class="h-32 overflow-y-auto text-sm space-y-1 font-mono">
+              <div class="text-green-400">[INIT] AI Guardian activé</div>
+              <div class="text-blue-400">[SCAN] Analyse du trafic réseau...</div>
+              <div class="text-green-400">[OK] Système prêt</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Résultats de Simulation -->
+      <div id="simulation-results" class="mt-8 hidden">
+        <div class="bg-green-900/30 border border-green-500/30 p-6 rounded-2xl">
+          <h3 class="text-2xl font-bold mb-4 text-green-400">✅ Attaque Neutralisée</h3>
+          <div class="grid md:grid-cols-3 gap-4 text-center">
+            <div>
+              <div class="text-3xl font-bold text-blue-400" id="detection-time">0.08s</div>
+              <div class="text-sm text-gray-300">Temps de détection</div>
+            </div>
+            <div>
+              <div class="text-3xl font-bold text-green-400" id="neutralization-time">0.12s</div>
+              <div class="text-sm text-gray-300">Neutralisation</div>
+            </div>
+            <div>
+              <div class="text-3xl font-bold text-purple-400" id="learning-update">+1</div>
+              <div class="text-sm text-gray-300">Mise à jour IA</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-8">
+        <p class="text-gray-400 mb-4">
+          Cette démo simule le comportement d'AI Guardian face aux cybermenaces
+        </p>
+        <button onclick="resetDemo()" class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-6 py-3 rounded-xl font-bold transition-all">
+          🔄 Réinitialiser
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="bg-slate-900 py-8">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <div class="flex items-center justify-center space-x-4 mb-4">
+      <span class="text-2xl">🛡️</span>
+      <span class="text-gray-300">Solutions Cybersécurité Révolutionnaires - Révolution 2030</span>
+    </div>
+    <p class="text-gray-400">
+      &copy; 2024 TechSpace - L'Avenir de la Cybersécurité
+    </p>
+  </div>
+</footer>
+
+<script>
+  // Animation d'initialisation
+  document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(() => {
+      document.querySelectorAll('.fade-in').forEach(el => {
+        el.style.animationPlayState = 'running';
+      });
+    }, 100);
+  });
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      document.querySelector(this.getAttribute('href')).scrollIntoView({
+        behavior: 'smooth'
+      });
+    });
+  });
+
+  // Effet de données qui défilent
+  function createDataStream() {
+    const streams = document.querySelectorAll('.data-stream');
+    streams.forEach(stream => {
+      const data = ['01001010', '11010110', '10101010', '01110011', '11001100'];
+      stream.textContent = data[Math.floor(Math.random() * data.length)];
+    });
+  }
+
+  setInterval(createDataStream, 2000);
+
+  // Variables globales pour la démo
+  let threatsDetected = 0;
+  let isSimulating = false;
+
+  // Fonctions de la démo AI Guardian
+  function openAIGuardianDemo() {
+    document.getElementById('ai-guardian-modal').classList.remove('hidden');
+    startNeuralAnimation();
+  }
+
+  function closeAIGuardianDemo() {
+    document.getElementById('ai-guardian-modal').classList.add('hidden');
+    stopNeuralAnimation();
+  }
+
+  function startNeuralAnimation() {
+    const neurons = document.querySelectorAll('.neuron');
+    neurons.forEach(neuron => {
+      neuron.style.animation = 'neuronPulse 2s ease infinite';
+    });
+  }
+
+  function stopNeuralAnimation() {
+    const neurons = document.querySelectorAll('.neuron');
+    neurons.forEach(neuron => {
+      neuron.style.animation = 'none';
+    });
+  }
+
+  function addLogEntry(message, type = 'info') {
+    const log = document.getElementById('activity-log');
+    const timestamp = new Date().toLocaleTimeString();
+    const colors = {
+      info: 'text-blue-400',
+      success: 'text-green-400',
+      warning: 'text-yellow-400',
+      error: 'text-red-400'
+    };
+
+    const entry = document.createElement('div');
+    entry.className = colors[type];
+    entry.textContent = `[${timestamp}] ${message}`;
+
+    log.appendChild(entry);
+    log.scrollTop = log.scrollHeight;
+  }
+
+  function simulateAttack() {
+    if (isSimulating) return;
+
+    isSimulating = true;
+    const attackType = document.getElementById('attack-type').value;
+    const intensity = document.getElementById('intensity').value;
+
+    // Cacher les résultats précédents
+    document.getElementById('simulation-results').classList.add('hidden');
+
+    // Messages d'attaque
+    const attackMessages = {
+      phishing: '🎣 Tentative de phishing détectée',
+      ransomware: '🔒 Ransomware en cours d\'exécution',
+      ddos: '⚡ Attaque DDoS massive détectée',
+      malware: '🦠 Malware infiltré dans le système',
+      'zero-day': '💥 Exploit zero-day identifié'
+    };
+
+    addLogEntry(`ALERTE: ${attackMessages[attackType]}`, 'error');
+    addLogEntry('AI Guardian activé - Analyse en cours...', 'warning');
+
+    // Animation des neurones pendant l'attaque
+    const neurons = document.querySelectorAll('.neuron');
+    neurons.forEach(neuron => {
+      neuron.style.animation = 'neuronAttack 0.3s ease infinite';
+    });
+
+    // Simulation de détection (temps variable selon l'intensité)
+    const detectionTime = Math.random() * 0.1 + 0.05; // 0.05-0.15s
+
+    setTimeout(() => {
+      addLogEntry('Menace identifiée - Classification en cours', 'info');
+
+      setTimeout(() => {
+        addLogEntry('Contre-mesures déployées', 'success');
+
+        setTimeout(() => {
+          // Neutralisation réussie
+          threatsDetected++;
+          updateStats(detectionTime, attackType, intensity);
+          showResults(detectionTime, intensity);
+
+          addLogEntry('✅ Menace neutralisée avec succès', 'success');
+          addLogEntry('Mise à jour des modèles IA...', 'info');
+
+          // Retour à l'animation normale
+          neurons.forEach(neuron => {
+            neuron.style.animation = 'neuronPulse 2s ease infinite';
+          });
+
+          isSimulating = false;
+        }, 500);
+      }, 300);
+    }, detectionTime * 1000);
+  }
+
+  function updateStats(detectionTime, attackType, intensity) {
+    document.getElementById('threats-detected').textContent = threatsDetected;
+    document.getElementById('response-time').textContent = detectionTime.toFixed(3) + 's';
+
+    // Taux de blocage légèrement variable selon l'intensité
+    const blockRate = Math.max(98, 100 - (intensity * 0.2));
+    document.getElementById('block-rate').textContent = blockRate.toFixed(1) + '%';
+  }
+
+  function showResults(detectionTime, intensity) {
+    const neutralizationTime = detectionTime + (Math.random() * 0.05 + 0.02);
+
+    document.getElementById('detection-time').textContent = detectionTime.toFixed(3) + 's';
+    document.getElementById('neutralization-time').textContent = neutralizationTime.toFixed(3) + 's';
+    document.getElementById('learning-update').textContent = '+' + Math.floor(intensity / 2 + 1);
+
+    document.getElementById('simulation-results').classList.remove('hidden');
+  }
+
+  function resetDemo() {
+    threatsDetected = 0;
+    document.getElementById('threats-detected').textContent = '0';
+    document.getElementById('response-time').textContent = '0.00s';
+    document.getElementById('block-rate').textContent = '100%';
+    document.getElementById('false-positives').textContent = '0';
+    document.getElementById('simulation-results').classList.add('hidden');
+
+    // Réinitialiser le log
+    const log = document.getElementById('activity-log');
+    log.innerHTML = `
+                <div class="text-green-400">[INIT] AI Guardian activé</div>
+                <div class="text-blue-400">[SCAN] Analyse du trafic réseau...</div>
+                <div class="text-green-400">[OK] Système prêt</div>
+            `;
+  }
+
+  // Variables globales pour les démos
+  let quantumKeys = 0;
+  let predictedThreats = 0;
+  let isQuantumEncrypting = false;
+  let isPredicting = false;
+
+  // Fonctions Quantum Shield
+  function openQuantumShieldDemo() {
+    document.getElementById('quantum-shield-modal').classList.remove('hidden');
+    startQuantumAnimation();
+  }
+
+  function closeQuantumShieldDemo() {
+    document.getElementById('quantum-shield-modal').classList.add('hidden');
+    stopQuantumAnimation();
+  }
+
+  function startQuantumAnimation() {
+    const particles = document.querySelectorAll('.quantum-particle');
+    particles.forEach(particle => {
+      particle.style.animation = 'quantumFloat 3s ease infinite';
+    });
+
+    const core = document.getElementById('quantum-core');
+    core.style.animation = 'quantumPulse 2s ease infinite';
+  }
+
+  function stopQuantumAnimation() {
+    const particles = document.querySelectorAll('.quantum-particle');
+    particles.forEach(particle => {
+      particle.style.animation = 'none';
+    });
+  }
+
+  function startQuantumEncryption() {
+    if (isQuantumEncrypting) return;
+
+    isQuantumEncrypting = true;
+    const message = document.getElementById('quantum-message').value;
+    const level = document.getElementById('quantum-level').value;
+
+    // Cacher les résultats précédents
+    document.getElementById('quantum-results').classList.add('hidden');
+
+    // Animation quantique intense
+    const core = document.getElementById('quantum-core');
+    core.style.animation = 'quantumEncryption 0.5s ease infinite';
+
+    // Simulation du chiffrement
+    const encryptionTime = Math.random() * 0.005 + 0.001; // 0.001-0.006s
+
+    setTimeout(() => {
+      // Générer des données chiffrées
+      const encryptedData = generateQuantumEncryption(message, level);
+      document.getElementById('encrypted-output').innerHTML = encryptedData;
+
+      // Mettre à jour les statistiques
+      quantumKeys++;
+      document.getElementById('quantum-keys').textContent = quantumKeys;
+
+      // Afficher les résultats
+      document.getElementById('encryption-time').textContent = encryptionTime.toFixed(3) + 's';
+      document.getElementById('key-strength').textContent = level + '-bit';
+      document.getElementById('security-level').textContent = level >= 1024 ? 'INVIOLABLE' : 'TRÈS ÉLEVÉ';
+
+      document.getElementById('quantum-results').classList.remove('hidden');
+
+      // Retour à l'animation normale
+      core.style.animation = 'quantumPulse 2s ease infinite';
+
+      isQuantumEncrypting = false;
+    }, encryptionTime * 1000);
+  }
+
+  function generateQuantumEncryption(message, level) {
+    const chars = '0123456789ABCDEF';
+    let encrypted = '<div class="text-purple-400 font-bold mb-2">🔐 Données Chiffrées (Quantum ' + level + '-bit):</div>';
+
+    for (let i = 0; i < Math.ceil(message.length * (level / 64)); i++) {
+      if (i % 64 === 0) encrypted += '<div class="text-green-400 text-xs mb-1">';
+      encrypted += chars.charAt(Math.floor(Math.random() * chars.length));
+      if ((i + 1) % 64 === 0) encrypted += '</div>';
+    }
+
+    encrypted += '<div class="text-blue-400 text-xs mt-2">✅ Chiffrement quantique inviolable activé</div>';
+    return encrypted;
+  }
+
+  function resetQuantumDemo() {
+    quantumKeys = 0;
+    document.getElementById('quantum-keys').textContent = '0';
+    document.getElementById('quantum-results').classList.add('hidden');
+    document.getElementById('encrypted-output').innerHTML = '<div class="text-gray-400">En attente du chiffrement quantique...</div>';
+    document.getElementById('quantum-message').value = 'Données confidentielles ultra-secrètes';
+  }
+
+  // Fonctions Neural Defense
+  function openNeuralDefenseDemo() {
+    document.getElementById('neural-defense-modal').classList.remove('hidden');
+    initializeNeuralNetwork();
+  }
+
+  function closeNeuralDefenseDemo() {
+    document.getElementById('neural-defense-modal').classList.add('hidden');
+  }
+
+  function initializeNeuralNetwork() {
+    const svg = document.querySelector('.neural-svg');
+    const connections = document.getElementById('neural-connections');
+    const nodes = document.getElementById('neural-nodes');
+
+    // Créer les connexions neuronales
+    connections.innerHTML = '';
+    nodes.innerHTML = '';
+
+    // Positions des couches
+    const layers = [
+      { x: 50, neurons: 5, color: '#3b82f6' },   // Input
+      { x: 150, neurons: 8, color: '#8b5cf6' },  // Hidden 1
+      { x: 250, neurons: 6, color: '#10b981' },  // Hidden 2
+      { x: 350, neurons: 3, color: '#f59e0b' }   // Output
+    ];
+
+    // Créer les neurones
+    layers.forEach((layer, layerIndex) => {
+      for (let i = 0; i < layer.neurons; i++) {
+        const y = 50 + (i * 30);
+        const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        circle.setAttribute('cx', layer.x);
+        circle.setAttribute('cy', y);
+        circle.setAttribute('r', '6');
+        circle.setAttribute('fill', layer.color);
+        circle.setAttribute('class', 'neural-node');
+        circle.style.animation = 'neuralPulse 2s ease infinite';
+        circle.style.animationDelay = (layerIndex * 0.2 + i * 0.1) + 's';
+        nodes.appendChild(circle);
+      }
+    });
+  }
+
+  function startPredictiveAnalysis() {
+    if (isPredicting) return;
+
+    isPredicting = true;
+    const period = document.getElementById('prediction-period').value;
+    const sector = document.getElementById('business-sector').value;
+
+    // Cacher les résultats précédents
+    document.getElementById('neural-results').classList.add('hidden');
+
+    // Vider la liste des prédictions
+    const predictionList = document.getElementById('prediction-list');
+    predictionList.innerHTML = '<div class="text-blue-400">🔍 Analyse en cours...</div>';
+
+    // Animation du réseau neuronal
+    const nodes = document.querySelectorAll('.neural-node');
+    nodes.forEach(node => {
+      node.style.animation = 'neuralAnalysis 0.5s ease infinite';
+    });
+
+    // Simulation de l'analyse prédictive
+    const analysisTime = Math.random() * 2 + 1; // 1-3s
+
+    setTimeout(() => {
+      // Générer des prédictions
+      generatePredictions(period, sector, predictionList);
+
+      // Mettre à jour les statistiques
+      const threatsCount = Math.floor(Math.random() * 10) + 3;
+      predictedThreats += threatsCount;
+      document.getElementById('predicted-threats').textContent = predictedThreats;
+
+      // Afficher les résultats
+      document.getElementById('threats-predicted').textContent = threatsCount;
+      document.getElementById('analysis-time').textContent = analysisTime.toFixed(1) + 's';
+      document.getElementById('neural-updates').textContent = '+' + Math.floor(threatsCount * 2.5);
+
+      document.getElementById('neural-results').classList.remove('hidden');
+
+      // Retour à l'animation normale
+      nodes.forEach(node => {
+        node.style.animation = 'neuralPulse 2s ease infinite';
+      });
+
+      isPredicting = false;
+    }, analysisTime * 1000);
+  }
+
+  function generatePredictions(period, sector, container) {
+    const threats = [
+      { type: '🎣 Phishing', probability: '87%', time: '14h', severity: 'ÉLEVÉ' },
+      { type: '🔒 Ransomware', probability: '23%', time: '48h', severity: 'CRITIQUE' },
+      { type: '⚡ DDoS', probability: '65%', time: '6h', severity: 'MOYEN' },
+      { type: '🦠 Malware', probability: '41%', time: '72h', severity: 'ÉLEVÉ' },
+      { type: '💥 Zero-Day', probability: '12%', time: '168h', severity: 'CRITIQUE' },
+      { type: '🕵️ APT', probability: '34%', time: '24h', severity: 'ÉLEVÉ' },
+      { type: '📱 Mobile Malware', probability: '56%', time: '36h', severity: 'MOYEN' }
+    ];
+
+    container.innerHTML = '';
+
+    const selectedThreats = threats.sort(() => 0.5 - Math.random()).slice(0, 5);
+
+    selectedThreats.forEach((threat, index) => {
+      setTimeout(() => {
+        const div = document.createElement('div');
+        div.className = 'bg-slate-800 p-3 rounded-lg border-l-4 border-red-400';
+        div.innerHTML = `
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold">${threat.type}</span>
+                            <span class="text-${threat.severity === 'CRITIQUE' ? 'red' : threat.severity === 'ÉLEVÉ' ? 'yellow' : 'blue'}-400 text-xs">${threat.severity}</span>
+                        </div>
+                        <div class="text-xs text-gray-400 mt-1">
+                            Probabilité: ${threat.probability} • Dans ${threat.time}
+                        </div>
+                    `;
+        container.appendChild(div);
+        container.scrollTop = container.scrollHeight;
+      }, index * 300);
+    });
+  }
+
+  function resetNeuralDemo() {
+    predictedThreats = 0;
+    document.getElementById('predicted-threats').textContent = '0';
+    document.getElementById('neural-results').classList.add('hidden');
+    document.getElementById('prediction-list').innerHTML = '<div class="text-gray-400">Aucune analyse en cours...</div>';
+  }
+
+  // Fonctions pour les secteurs d'application
+  function showAllSectors() {
+    alert('🌍 TechSpace protège plus de 50 secteurs d\'activité !\n\n' +
+            '✅ Secteurs actuellement couverts :\n' +
+            '• Finance & Banque (Priorité absolue)\n' +
+            '• Santé & Pharmaceutique (Critique)\n' +
+            '• Énergie & Utilities (Stratégique)\n' +
+            '• Gouvernement (Souverain)\n' +
+            '• Automobile & Transport (Innovation)\n' +
+            '• Industrie 4.0 (Transformation)\n' +
+            '• Éducation & Recherche (Futur)\n' +
+            '• E-commerce & Retail (Essentiel)\n' +
+            '• Télécommunications (Backbone)\n' +
+            '• Smart Cities (Avenir)\n' +
+            '• Aérospatial, Maritime, Gaming, Média...\n\n' +
+            '🚀 Et bien plus encore ! Contactez-nous pour découvrir comment TechSpace peut révolutionner la cybersécurité de votre secteur.');
+  }
+
+  function requestCustomSolution() {
+    const sector = prompt('🎨 Solution Sur Mesure TechSpace\n\n' +
+            'Dans quel secteur d\'activité évoluez-vous ?\n' +
+            '(Ex: Finance, Santé, Industrie, Tech, etc.)');
+
+    if (sector && sector.trim()) {
+      alert(`🎯 Excellente nouvelle !\n\n` +
+              `TechSpace peut créer une solution cybersécurité révolutionnaire spécialement adaptée au secteur "${sector.trim()}".\n\n` +
+              `✨ Votre solution personnalisée inclurait :\n` +
+              `• AI Guardian adapté à vos menaces spécifiques\n` +
+              `• Quantum Shield pour vos données critiques\n` +
+              `• Neural Defense calibré pour votre environnement\n` +
+              `• Conformité réglementaire automatique\n` +
+              `• Support 24/7 avec experts sectoriels\n\n` +
+              `📞 Notre équipe vous contactera sous 24h pour une démonstration personnalisée !`);
+    }
+  }
+
+  // Styles CSS pour les animations des neurones et particules quantiques
+  const style = document.createElement('style');
+  style.textContent = `
+            @keyframes neuronPulse {
+                0%, 100% {
+                    transform: scale(1);
+                    box-shadow: 0 0 10px currentColor;
+                }
+                50% {
+                    transform: scale(1.2);
+                    box-shadow: 0 0 20px currentColor;
+                }
+            }
+
+            @keyframes neuronAttack {
+                0%, 100% {
+                    transform: scale(1);
+                    box-shadow: 0 0 15px #ef4444;
+                }
+                50% {
+                    transform: scale(1.3);
+                    box-shadow: 0 0 30px #ef4444;
+                }
+            }
+
+            @keyframes neuralPulse {
+                0%, 100% {
+                    transform: scale(1);
+                    opacity: 0.8;
+                }
+                50% {
+                    transform: scale(1.2);
+                    opacity: 1;
+                }
+            }
+
+            @keyframes neuralAnalysis {
+                0%, 100% {
+                    transform: scale(1);
+                    opacity: 0.6;
+                }
+                50% {
+                    transform: scale(1.4);
+                    opacity: 1;
+                }
+            }
+
+            .quantum-particle {
+                position: absolute;
+                width: 8px;
+                height: 8px;
+                background: linear-gradient(45deg, #8b5cf6, #ec4899);
+                border-radius: 50%;
+                box-shadow: 0 0 10px currentColor;
+            }
+
+            @keyframes quantumFloat {
+                0%, 100% {
+                    transform: translateY(0px) rotate(0deg);
+                    opacity: 0.8;
+                }
+                50% {
+                    transform: translateY(-20px) rotate(180deg);
+                    opacity: 1;
+                }
+            }
+
+            .quantum-core {
+                box-shadow: 0 0 30px #8b5cf6;
+            }
+
+            @keyframes quantumPulse {
+                0%, 100% {
+                    transform: scale(1);
+                    box-shadow: 0 0 30px #8b5cf6;
+                }
+                50% {
+                    transform: scale(1.1);
+                    box-shadow: 0 0 50px #8b5cf6, 0 0 80px #ec4899;
+                }
+            }
+
+            @keyframes quantumEncryption {
+                0%, 100% {
+                    transform: scale(1) rotate(0deg);
+                    box-shadow: 0 0 30px #8b5cf6;
+                }
+                25% {
+                    transform: scale(1.2) rotate(90deg);
+                    box-shadow: 0 0 50px #ec4899;
+                }
+                50% {
+                    transform: scale(0.8) rotate(180deg);
+                    box-shadow: 0 0 70px #f59e0b;
+                }
+                75% {
+                    transform: scale(1.3) rotate(270deg);
+                    box-shadow: 0 0 60px #10b981;
+                }
+            }
+        `;
+  document.head.appendChild(style);
+</script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96447c59c36aed85',t:'MTc1MzM3MTMwOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
