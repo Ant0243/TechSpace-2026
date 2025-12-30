@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TechSpace - Accueil</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+    .tech-font { font-family: 'Inter', sans-serif; }
+
+    /* Fond bleu uni TechSpace */
+    .tech-bg {
+      background: #1e40af;
+    }
+
+    /* Grille TechSpace subtile */
+    .tech-grid {
+      background-image:
+              linear-gradient(rgba(59, 130, 246, 0.05) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(59, 130, 246, 0.05) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    /* Terminal glow TechSpace */
+    .terminal-glow {
+      box-shadow:
+              0 0 20px rgba(59, 130, 246, 0.5),
+              inset 0 0 20px rgba(59, 130, 246, 0.1),
+              0 0 40px rgba(59, 130, 246, 0.3);
+      border: 1px solid rgba(59, 130, 246, 0.6);
+      backdrop-filter: blur(10px);
+    }
+
+    /* Particules de données */
+    .data-stream {
+      position: fixed;
+      width: 2px;
+      height: 20px;
+      background: linear-gradient(to bottom, transparent, #3b82f6, transparent);
+      animation: dataFlow 3s linear infinite;
+    }
+
+    @keyframes dataFlow {
+      0% { transform: translateY(-100vh); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translateY(100vh); opacity: 0; }
+    }
+
+    /* Boutons TechSpace */
+    .tech-button {
+      background: linear-gradient(45deg, #3b82f6, #1d4ed8);
+      border: 2px solid #3b82f6;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .tech-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.5s;
+    }
+
+    .tech-button:hover::before {
+      left: 100%;
+    }
+
+    .tech-button:hover {
+      box-shadow: 0 0 30px rgba(59, 130, 246, 0.7);
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body class="tech-bg tech-grid min-h-screen text-white overflow-x-hidden">
+<!-- Flux de données -->
+<div id="dataStreams"></div>
+
+<!-- Navigation avec logo TechSpace centré -->
+<nav class="fixed top-0 left-0 right-0 z-50 bg-slate-900/95 backdrop-blur-sm border-b border-blue-500/30">
+  <div class="max-w-7xl mx-auto px-4 py-4">
+    <div class="flex items-center justify-center">
+      <div class="flex items-center space-x-4">
+        <div class="w-16 h-16 bg-gradient-to-r from-blue-500 via-purple-600 to-cyan-500 rounded-full flex items-center justify-center animate-pulse shadow-2xl">
+          <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+          </svg>
+        </div>
+        <div class="text-center">
+          <h1 class="text-3xl font-black tech-font">
+                            <span class="bg-gradient-to-r from-blue-500 via-purple-600 to-cyan-500 bg-clip-text text-transparent">
+                                TechSpace
+                            </span>
+          </h1>
+          <p class="text-sm text-slate-400">Security Lab Excellence</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="max-w-7xl mx-auto p-4 pt-32">
+  <!-- En-tête TechSpace -->
+  <div class="text-center mb-16">
+    <div class="inline-block p-12 rounded-3xl terminal-glow" style="background: rgba(15, 23, 42, 0.9);">
+      <h2 class="text-5xl font-black tech-font mb-6">
+                    <span class="bg-gradient-to-r from-blue-500 via-purple-600 to-cyan-500 bg-clip-text text-transparent">
+                        Bienvenue sur TechSpace
+                    </span>
+      </h2>
+      <p class="text-2xl text-slate-300 mb-8">Centre d'Excellence en Cybersécurité</p>
+
+      <div class="grid md:grid-cols-3 gap-6 text-center">
+        <div class="p-6 bg-slate-800/50 rounded-xl">
+          <div class="text-4xl font-bold text-blue-400 mb-3">🛡️</div>
+          <div class="text-xl font-semibold text-slate-200">Défense Avancée</div>
+          <div class="text-sm text-slate-400">Protection multicouche</div>
+        </div>
+        <div class="p-6 bg-slate-800/50 rounded-xl">
+          <div class="text-4xl font-bold text-purple-400 mb-3">🌐</div>
+          <div class="text-xl font-semibold text-slate-200">Réseau Sécurisé</div>
+          <div class="text-sm text-slate-400">Infrastructure robuste</div>
+        </div>
+        <div class="p-6 bg-slate-800/50 rounded-xl">
+          <div class="text-4xl font-bold text-cyan-400 mb-3">🚀</div>
+          <div class="text-xl font-semibold text-slate-200">Innovation</div>
+          <div class="text-sm text-slate-400">Technologies de pointe</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modules disponibles -->
+  <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+    <!-- Module Démonstration -->
+    <div class="terminal-glow rounded-2xl p-8 hover:scale-105 transition-all duration-300 cursor-pointer" style="background: rgba(15, 23, 42, 0.95);" onclick="goToDemo()">
+      <div class="flex items-center mb-6">
+        <div class="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center mr-4 shadow-lg">
+          <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 2L3 7v11c0 5.55 3.84 10 9 11 5.16-1 9-5.45 9-11V7l-7-5z"></path>
+          </svg>
+        </div>
+        <div>
+          <h3 class="text-2xl font-bold text-red-400 tech-font">DEMO LAB</h3>
+          <p class="text-slate-300">Simulations d'Attaques</p>
+        </div>
+      </div>
+      <p class="text-slate-400 mb-4">Laboratoire interactif pour démonstrations d'attaques réseau et tests de sécurité en environnement contrôlé.</p>
+      <div class="flex items-center text-red-400 font-semibold hover:text-red-300 transition-colors">
+        <span>Accéder au laboratoire</span>
+        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Module Formation -->
+    <div class="terminal-glow rounded-2xl p-8 hover:scale-105 transition-all duration-300 cursor-pointer" style="background: rgba(15, 23, 42, 0.95);">
+      <div class="flex items-center mb-6">
+        <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mr-4 shadow-lg">
+          <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"></path>
+          </svg>
+        </div>
+        <div>
+          <h3 class="text-2xl font-bold text-blue-400 tech-font">FORMATION</h3>
+          <p class="text-slate-300">Cours & Certifications</p>
+        </div>
+      </div>
+      <p class="text-slate-400 mb-4">Programmes de formation avancée en cybersécurité, certifications professionnelles et parcours d'apprentissage personnalisés.</p>
+      <div class="flex items-center text-blue-400 font-semibold">
+        <span>Disponible en 2025</span>
+        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Module Analyse -->
+    <div class="terminal-glow rounded-2xl p-8 hover:scale-105 transition-all duration-300 cursor-pointer" style="background: rgba(15, 23, 42, 0.95);">
+      <div class="flex items-center mb-6">
+        <div class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mr-4 shadow-lg">
+          <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path>
+            <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
+          </svg>
+        </div>
+        <div>
+          <h3 class="text-2xl font-bold text-purple-400 tech-font">ANALYSE</h3>
+          <p class="text-slate-300">Forensique Numérique</p>
+        </div>
+      </div>
+      <p class="text-slate-400 mb-4">Outils d'analyse forensique, investigation d'incidents de sécurité et reconstruction d'attaques informatiques.</p>
+      <div class="flex items-center text-purple-400 font-semibold">
+        <span>Disponible en 2026</span>
+        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Module Monitoring -->
+    <div class="terminal-glow rounded-2xl p-8 hover:scale-105 transition-all duration-300 cursor-pointer" style="background: rgba(15, 23, 42, 0.95);">
+      <div class="flex items-center mb-6">
+        <div class="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mr-4 shadow-lg">
+          <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+        </div>
+        <div>
+          <h3 class="text-2xl font-bold text-green-400 tech-font">MONITORING</h3>
+          <p class="text-slate-300">Surveillance Temps Réel</p>
+        </div>
+      </div>
+      <p class="text-slate-400 mb-4">Surveillance continue des infrastructures, détection d'anomalies et alertes de sécurité en temps réel.</p>
+      <div class="flex items-center text-green-400 font-semibold">
+        <span>Disponible en 2027</span>
+        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Module Threat Intel -->
+    <div class="terminal-glow rounded-2xl p-8 hover:scale-105 transition-all duration-300 cursor-pointer" style="background: rgba(15, 23, 42, 0.95);">
+      <div class="flex items-center mb-6">
+        <div class="w-16 h-16 bg-yellow-600 rounded-full flex items-center justify-center mr-4 shadow-lg">
+          <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"></path>
+          </svg>
+        </div>
+        <div>
+          <h3 class="text-2xl font-bold text-yellow-400 tech-font">THREAT INTEL</h3>
+          <p class="text-slate-300">Renseignement Menaces</p>
+        </div>
+      </div>
+      <p class="text-slate-400 mb-4">Collecte et analyse de renseignements sur les menaces, veille technologique et prédiction d'attaques.</p>
+      <div class="flex items-center text-yellow-400 font-semibold">
+        <span>Disponible en 2028</span>
+        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Module Red Team -->
+    <div class="terminal-glow rounded-2xl p-8 hover:scale-105 transition-all duration-300 cursor-pointer" style="background: rgba(15, 23, 42, 0.95);">
+      <div class="flex items-center mb-6">
+        <div class="w-16 h-16 bg-red-800 rounded-full flex items-center justify-center mr-4 shadow-lg">
+          <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path>
+          </svg>
+        </div>
+        <div>
+          <h3 class="text-2xl font-bold text-red-400 tech-font">RED TEAM</h3>
+          <p class="text-slate-300">Tests d'Intrusion</p>
+        </div>
+      </div>
+      <p class="text-slate-400 mb-4">Simulations d'attaques avancées, tests de pénétration et évaluation de la posture de sécurité organisationnelle.</p>
+      <div class="flex items-center text-red-400 font-semibold">
+        <span>Disponible en 2029</span>
+        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- Statistiques globales -->
+  <div class="terminal-glow rounded-2xl p-8 mb-8" style="background: rgba(15, 23, 42, 0.95);">
+    <h2 class="text-3xl font-bold tech-font text-center mb-8">
+                <span class="bg-gradient-to-r from-blue-500 via-purple-600 to-cyan-500 bg-clip-text text-transparent">
+                    STATISTIQUES TECHSPACE EN TEMPS RÉEL
+                </span>
+    </h2>
+
+    <div class="grid md:grid-cols-4 gap-6">
+      <div class="text-center p-6 bg-slate-800/50 rounded-xl border border-blue-500/20">
+        <div id="threatsBlocked" class="text-4xl font-bold text-blue-400 mb-2">1,247</div>
+        <div class="text-slate-300">Menaces Bloquées</div>
+        <div class="text-sm text-slate-500">Dernières 24h</div>
+      </div>
+      <div class="text-center p-6 bg-slate-800/50 rounded-xl border border-green-500/20">
+        <div class="text-4xl font-bold text-green-400 mb-2">99.8%</div>
+        <div class="text-slate-300">Disponibilité</div>
+        <div class="text-sm text-slate-500">Ce mois</div>
+      </div>
+      <div class="text-center p-6 bg-slate-800/50 rounded-xl border border-purple-500/20">
+        <div id="analysesCompleted" class="text-4xl font-bold text-purple-400 mb-2">156</div>
+        <div class="text-slate-300">Analyses Complétées</div>
+        <div class="text-sm text-slate-500">Cette semaine</div>
+      </div>
+      <div class="text-center p-6 bg-slate-800/50 rounded-xl border border-cyan-500/20">
+        <div class="text-4xl font-bold text-cyan-400 mb-2">0</div>
+        <div class="text-slate-300">Incidents Critiques</div>
+        <div class="text-sm text-slate-500">Actuellement</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="text-center text-slate-400 py-8">
+    <p class="mb-2">© 2024 TechSpace Security Lab - Centre d'Excellence en Cybersécurité</p>
+    <p class="text-sm">Plateforme de démonstration et formation en sécurité informatique</p>
+    <p class="text-xs mt-2 text-slate-500">Mission 2030 : Révolutionner la cybersécurité mondiale</p>
+  </div>
+</div>
+
+<script>
+  // Flux de données animés
+  function initializeDataStreams() {
+    const container = document.getElementById('dataStreams');
+
+    setInterval(() => {
+      const stream = document.createElement('div');
+      stream.className = 'data-stream';
+      stream.style.left = Math.random() * 100 + '%';
+      stream.style.animationDelay = '0s';
+      stream.style.animationDuration = (2 + Math.random() * 3) + 's';
+
+      // Couleurs bleues TechSpace
+      const colors = ['#3b82f6', '#1d4ed8', '#2563eb', '#1e40af', '#60a5fa'];
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      stream.style.background = `linear-gradient(to bottom, transparent, ${color}, transparent)`;
+
+      container.appendChild(stream);
+
+      setTimeout(() => {
+        if (stream.parentNode) {
+          stream.parentNode.removeChild(stream);
+        }
+      }, 5000);
+    }, 200);
+  }
+
+
+
+  // Mise à jour des statistiques en temps réel
+  function updateStats() {
+    const threatsElement = document.getElementById('threatsBlocked');
+    const analysesElement = document.getElementById('analysesCompleted');
+
+    if (threatsElement) {
+      const currentThreats = parseInt(threatsElement.textContent.replace(',', ''));
+      threatsElement.textContent = (currentThreats + Math.floor(Math.random() * 5) + 1).toLocaleString();
+    }
+
+    if (analysesElement) {
+      const currentAnalyses = parseInt(analysesElement.textContent);
+      if (Math.random() < 0.1) { // 10% de chance d'augmenter
+        analysesElement.textContent = currentAnalyses + 1;
+      }
+    }
+  }
+
+  // Fonction pour aller au laboratoire de démonstration
+  function goToDemo() {
+    alert('Redirection vers le laboratoire de démonstration...');
+    // Ici vous pourriez rediriger vers une autre page
+  }
+
+  // Initialisation
+  document.addEventListener('DOMContentLoaded', function() {
+    initializeDataStreams();
+    setInterval(updateStats, 5000); // Mise à jour des stats toutes les 5 secondes
+  });
+</script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96f016dd439f3cb7',t:'MTc1NTE3MDcwMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

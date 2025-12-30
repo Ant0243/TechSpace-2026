@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechSpace - Démonstration d'Attaques Réseau Avancées</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+        .tech-font { font-family: 'Inter', sans-serif; }
+
+        /* Fond bleu uni TechSpace */
+        .tech-bg {
+            background: #1e40af;
+        }
+
+        /* Grille TechSpace subtile */
+        .tech-grid {
+            background-image:
+                    linear-gradient(rgba(59, 130, 246, 0.05) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(59, 130, 246, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        /* Particules de données */
+        .data-stream {
+            position: fixed;
+            width: 2px;
+            height: 20px;
+            background: linear-gradient(to bottom, transparent, #3b82f6, transparent);
+            animation: dataFlow 3s linear infinite;
+        }
+
+        @keyframes dataFlow {
+            0% { transform: translateY(-100vh); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+
+        /* Effets de hack */
+        .hack-effect {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hack-effect::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 0, 0, 0.3), transparent);
+            animation: hackScan 2s infinite;
+        }
+
+        @keyframes hackScan {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        /* Terminal glow TechSpace */
+        .terminal-glow {
+            box-shadow:
+                    0 0 20px rgba(59, 130, 246, 0.5),
+                    inset 0 0 20px rgba(59, 130, 246, 0.1),
+                    0 0 40px rgba(59, 130, 246, 0.3);
+            border: 1px solid rgba(59, 130, 246, 0.6);
+            backdrop-filter: blur(10px);
+        }
+
+        /* Animations d'attaque */
+        .attack-pulse {
+            animation: attackPulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes attackPulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 40px rgba(255, 0, 0, 0.8);
+            }
+        }
+
+        /* Réseau visuel */
+        .network-node {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .network-node::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 255, 255, 0.8), transparent);
+            transform: translate(-50%, -50%);
+            transition: all 0.3s ease;
+        }
+
+        .network-node.active::before {
+            width: 100px;
+            height: 100px;
+        }
+
+        .network-node.compromised {
+            animation: compromisedNode 2s ease-in-out infinite;
+        }
+
+        @keyframes compromisedNode {
+            0%, 100% {
+                background: linear-gradient(45deg, #ff0000, #ff6600);
+                transform: scale(1);
+            }
+            50% {
+                background: linear-gradient(45deg, #ff6600, #ffff00);
+                transform: scale(1.1);
+            }
+        }
+
+        /* Texte glitch */
+        .glitch {
+            position: relative;
+            animation: glitch 2s infinite;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch::before {
+            animation: glitch-1 0.5s infinite;
+            color: #ff0000;
+            z-index: -1;
+        }
+
+        .glitch::after {
+            animation: glitch-2 0.5s infinite;
+            color: #00ffff;
+            z-index: -2;
+        }
+
+        @keyframes glitch {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+        }
+
+        @keyframes glitch-1 {
+            0%, 100% { transform: translate(0); }
+            10% { transform: translate(-2px, -2px); }
+            20% { transform: translate(2px, 2px); }
+        }
+
+        @keyframes glitch-2 {
+            0%, 100% { transform: translate(0); }
+            30% { transform: translate(2px, -2px); }
+            60% { transform: translate(-2px, 2px); }
+        }
+
+        /* Logs défilants */
+        .log-scroll {
+            animation: logScroll 20s linear infinite;
+        }
+
+        @keyframes logScroll {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100%); }
+        }
+
+        /* Boutons TechSpace */
+        .tech-button {
+            background: linear-gradient(45deg, #3b82f6, #1d4ed8);
+            border: 2px solid #3b82f6;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .tech-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .tech-button:hover::before {
+            left: 100%;
+        }
+
+        .tech-button:hover {
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.7);
+            transform: translateY(-2px);
+        }
+
+        /* Statistiques animées */
+        .stat-bar {
+            background: linear-gradient(90deg, #ff0000, #ff6600, #ffff00, #00ff00);
+            background-size: 200% 100%;
+            animation: statFlow 3s ease-in-out infinite;
+        }
+
+        @keyframes statFlow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* Alerte de sécurité */
+        .security-alert {
+            animation: securityBlink 1s ease-in-out infinite;
+        }
+
+        @keyframes securityBlink {
+            0%, 50% {
+                background: rgba(255, 0, 0, 0.2);
+                border-color: #ff0000;
+            }
+            51%, 100% {
+                background: rgba(255, 0, 0, 0.1);
+                border-color: #ff6600;
+            }
+        }
+    </style>
+</head>
+<body class="tech-bg tech-grid min-h-screen text-white overflow-x-hidden">
+<!-- Flux de données -->
+<div id="dataStreams"></div>
+
+<!-- Navigation TechSpace -->
+<nav class="fixed top-0 left-0 right-0 z-50 bg-slate-900/95 backdrop-blur-sm border-b border-blue-500/30">
+    <div class="max-w-7xl mx-auto px-4 py-3">
+        <div class="flex items-center justify-between">
+            <!-- Bouton retour -->
+            <button onclick="goToHome()" class="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-all duration-300 hover:scale-105">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                </svg>
+                <span class="font-semibold">Accueil TechSpace</span>
+            </button>
+
+            <!-- Logo et titre -->
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-gradient-to-r from-blue-500 via-purple-600 to-cyan-500 rounded-full flex items-center justify-center animate-pulse">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                    </svg>
+                </div>
+                <div class="text-right">
+                    <h1 class="text-xl font-black tech-font">
+                            <span class="bg-gradient-to-r from-blue-500 via-purple-600 to-cyan-500 bg-clip-text text-transparent">
+                                TechSpace
+                            </span>
+                    </h1>
+                    <p class="text-xs text-slate-400">Security Lab</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="max-w-7xl mx-auto p-4 relative z-10 pt-20">
+    <!-- En-tête TechSpace -->
+    <div class="text-center mb-8">
+        <div class="inline-block p-8 rounded-3xl terminal-glow" style="background: rgba(15, 23, 42, 0.9);">
+            <div class="flex items-center justify-center space-x-4 mb-4">
+                <div class="w-16 h-16 bg-gradient-to-r from-blue-500 via-purple-600 to-cyan-500 rounded-full flex items-center justify-center animate-pulse">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-5xl font-black tech-font mb-2">
+                            <span class="bg-gradient-to-r from-blue-500 via-purple-600 to-cyan-500 bg-clip-text text-transparent">
+                                TechSpace Security
+                            </span>
+                    </h1>
+                    <p class="text-xl text-slate-300">Laboratoire de Cybersécurité Avancée</p>
+                </div>
+            </div>
+            <p class="text-2xl tech-font text-blue-400 mb-4">Démonstration d'Attaques Réseau Interactives</p>
+            <div class="flex items-center justify-center space-x-6 text-sm">
+                <div class="flex items-center space-x-2">
+                    <div class="w-4 h-4 bg-red-500 rounded-full animate-pulse"></div>
+                    <span class="text-red-400 font-semibold">Menaces Détectées</span>
+                </div>
+                <div class="w-px h-4 bg-slate-600"></div>
+                <div class="flex items-center space-x-2">
+                    <div class="w-4 h-4 bg-yellow-500 rounded-full animate-bounce"></div>
+                    <span class="text-yellow-400 font-semibold">Simulation Active</span>
+                </div>
+                <div class="w-px h-4 bg-slate-600"></div>
+                <div class="flex items-center space-x-2">
+                    <div class="w-4 h-4 bg-blue-500 rounded-full animate-ping"></div>
+                    <span class="text-blue-400 font-semibold">Défenses TechSpace</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Panneau de contrôle principal -->
+    <div class="grid lg:grid-cols-3 gap-6 mb-8">
+        <!-- Contrôles d'attaque -->
+        <div class="lg:col-span-2 terminal-glow rounded-2xl p-6" style="background: rgba(15, 23, 42, 0.95);">
+            <h2 class="text-2xl font-bold tech-font text-blue-400 mb-6 flex items-center">
+                <svg class="w-8 h-8 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"></path>
+                </svg>
+                LABORATOIRE DE SIMULATION
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-4 mb-6">
+                <button onclick="launchDDoSAttack()" class="tech-button text-white font-bold py-4 px-6 rounded-xl tech-font">
+                    🚀 Simuler Attaque DDoS
+                </button>
+                <button onclick="launchSQLInjection()" class="tech-button text-white font-bold py-4 px-6 rounded-xl tech-font">
+                    💉 Test Injection SQL
+                </button>
+                <button onclick="launchPhishing()" class="tech-button text-white font-bold py-4 px-6 rounded-xl tech-font">
+                    🎣 Campagne Phishing
+                </button>
+                <button onclick="launchRansomware()" class="tech-button text-white font-bold py-4 px-6 rounded-xl tech-font">
+                    🔒 Simulation Ransomware
+                </button>
+                <button onclick="launchMITMAttack()" class="tech-button text-white font-bold py-4 px-6 rounded-xl tech-font">
+                    🕵️ Attaque MITM
+                </button>
+                <button onclick="launchBruteForce()" class="tech-button text-white font-bold py-4 px-6 rounded-xl tech-font">
+                    🔨 Force Brute
+                </button>
+            </div>
+
+            <!-- Réseau visuel -->
+            <div class="relative h-64 bg-slate-900 rounded-xl border border-blue-500 p-4 mb-4">
+                <h3 class="text-lg font-bold text-blue-400 mb-4 tech-font">ARCHITECTURE RÉSEAU TECHSPACE</h3>
+                <div class="absolute inset-4">
+                    <!-- Serveur principal -->
+                    <div id="mainServer" class="network-node absolute top-4 left-1/2 transform -translate-x-1/2 w-16 h-16 bg-blue-600 rounded-lg flex items-center justify-center cursor-pointer">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001 1v-6a1 1 0 00-1-1h-2z"></path>
+                        </svg>
+                    </div>
+
+                    <!-- Clients -->
+                    <div id="client1" class="network-node absolute bottom-4 left-8 w-12 h-12 bg-green-600 rounded-full flex items-center justify-center cursor-pointer">
+                        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6z"></path>
+                        </svg>
+                    </div>
+
+                    <div id="client2" class="network-node absolute bottom-4 right-8 w-12 h-12 bg-green-600 rounded-full flex items-center justify-center cursor-pointer">
+                        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6z"></path>
+                        </svg>
+                    </div>
+
+                    <div id="client3" class="network-node absolute top-1/2 left-8 w-12 h-12 bg-green-600 rounded-full flex items-center justify-center cursor-pointer">
+                        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6z"></path>
+                        </svg>
+                    </div>
+
+                    <!-- Attaquant -->
+                    <div id="attacker" class="network-node absolute top-1/2 right-8 w-12 h-12 bg-red-600 rounded-full flex items-center justify-center cursor-pointer">
+                        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 2L3 7v11c0 5.55 3.84 10 9 11 5.16-1 9-5.45 9-11V7l-7-5z"></path>
+                        </svg>
+                    </div>
+
+                    <!-- Lignes de connexion (seront ajoutées dynamiquement) -->
+                    <svg class="absolute inset-0 w-full h-full pointer-events-none" id="networkLines">
+                        <!-- Les lignes seront générées par JavaScript -->
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Boutons de défense -->
+            <div class="grid md:grid-cols-3 gap-3">
+                <button onclick="activateFirewall()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg cyber-font text-sm">
+                    🛡️ FIREWALL
+                </button>
+                <button onclick="activateIDS()" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-4 rounded-lg cyber-font text-sm">
+                    👁️ IDS/IPS
+                </button>
+                <button onclick="activateAntivirus()" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg cyber-font text-sm">
+                    🦠 ANTIVIRUS
+                </button>
+            </div>
+        </div>
+
+        <!-- Statistiques en temps réel -->
+        <div class="terminal-glow rounded-2xl p-6" style="background: rgba(15, 23, 42, 0.95);">
+            <h2 class="text-xl font-bold tech-font text-blue-400 mb-6">MÉTRIQUES DE SÉCURITÉ</h2>
+
+            <div class="space-y-4">
+                <div>
+                    <div class="flex justify-between text-sm mb-1">
+                        <span class="text-gray-300">Paquets malveillants</span>
+                        <span id="maliciousPackets" class="text-red-400 font-bold">0</span>
+                    </div>
+                    <div class="w-full bg-gray-700 rounded-full h-2">
+                        <div id="maliciousBar" class="stat-bar h-2 rounded-full" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="flex justify-between text-sm mb-1">
+                        <span class="text-gray-300">Tentatives d'intrusion</span>
+                        <span id="intrusionAttempts" class="text-yellow-400 font-bold">0</span>
+                    </div>
+                    <div class="w-full bg-gray-700 rounded-full h-2">
+                        <div id="intrusionBar" class="stat-bar h-2 rounded-full" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="flex justify-between text-sm mb-1">
+                        <span class="text-gray-300">Systèmes compromis</span>
+                        <span id="compromisedSystems" class="text-red-400 font-bold">0</span>
+                    </div>
+                    <div class="w-full bg-gray-700 rounded-full h-2">
+                        <div id="compromisedBar" class="stat-bar h-2 rounded-full" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="flex justify-between text-sm mb-1">
+                        <span class="text-gray-300">Défenses actives</span>
+                        <span id="activeDefenses" class="text-blue-400 font-bold">3</span>
+                    </div>
+                    <div class="w-full bg-gray-700 rounded-full h-2">
+                        <div id="defensesBar" class="bg-blue-500 h-2 rounded-full" style="width: 60%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Alertes de sécurité -->
+            <div class="mt-6">
+                <h3 class="text-lg font-bold tech-font text-yellow-400 mb-3">ALERTES SÉCURITÉ</h3>
+                <div id="securityAlerts" class="space-y-2 max-h-40 overflow-y-auto">
+                    <div class="security-alert p-3 rounded-lg border text-sm">
+                        <span class="text-blue-400 font-bold">[INFO]</span>
+                        <span class="text-slate-300">TechSpace Lab prêt pour simulation...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Logs en temps réel -->
+    <div class="grid lg:grid-cols-2 gap-6 mb-8">
+        <!-- Terminal de logs -->
+        <div class="terminal-glow rounded-2xl p-6" style="background: rgba(15, 23, 42, 0.95);">
+            <h2 class="text-xl font-bold tech-font text-blue-400 mb-4 flex items-center">
+                <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"></path>
+                </svg>
+                LOGS TECHSPACE
+            </h2>
+            <div class="bg-slate-900 rounded-lg p-4 h-80 overflow-hidden relative">
+                <div id="systemLogs" class="text-sm font-mono space-y-1 log-scroll">
+                    <div class="text-blue-400">[2024-01-15 14:30:15] TechSpace Lab initialisé</div>
+                    <div class="text-blue-500">[2024-01-15 14:30:16] Firewall TechSpace activé</div>
+                    <div class="text-cyan-400">[2024-01-15 14:30:17] IDS/IPS en ligne</div>
+                    <div class="text-blue-300">[2024-01-15 14:30:18] Surveillance réseau active</div>
+                    <div class="text-blue-600">[2024-01-15 14:30:19] Antivirus mis à jour</div>
+                    <div class="text-blue-400">[2024-01-15 14:30:20] Laboratoire prêt pour simulation</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analyse de trafic -->
+        <div class="terminal-glow rounded-2xl p-6" style="background: rgba(15, 23, 42, 0.95);">
+            <h2 class="text-xl font-bold tech-font text-cyan-400 mb-4">ANALYSE TRAFIC RÉSEAU</h2>
+
+            <div class="space-y-4">
+                <div class="flex items-center justify-between p-3 bg-gray-800 rounded-lg">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-3 h-3 bg-blue-500 rounded-full animate-pulse"></div>
+                        <span class="text-sm">Trafic légitime</span>
+                    </div>
+                    <span id="legitimateTraffic" class="text-blue-400 font-bold">98.2%</span>
+                </div>
+
+                <div class="flex items-center justify-between p-3 bg-gray-800 rounded-lg">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-3 h-3 bg-cyan-500 rounded-full animate-pulse"></div>
+                        <span class="text-sm">Trafic suspect</span>
+                    </div>
+                    <span id="suspiciousTraffic" class="text-cyan-400 font-bold">1.5%</span>
+                </div>
+
+                <div class="flex items-center justify-between p-3 bg-gray-800 rounded-lg">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
+                        <span class="text-sm">Trafic malveillant</span>
+                    </div>
+                    <span id="maliciousTraffic" class="text-red-400 font-bold">0.3%</span>
+                </div>
+            </div>
+
+            <!-- Graphique de trafic simulé -->
+            <div class="mt-6">
+                <h3 class="text-lg font-bold text-gray-300 mb-3">Flux réseau en temps réel</h3>
+                <div class="h-32 bg-black rounded-lg p-2 relative overflow-hidden">
+                    <canvas id="trafficChart" width="400" height="120" class="w-full h-full"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Types d'attaques détaillées -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        <!-- DDoS -->
+        <div class="terminal-glow rounded-2xl p-6 hack-effect" style="background: rgba(0, 0, 0, 0.9);">
+            <div class="flex items-center mb-4">
+                <div class="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center mr-4">
+                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 2L3 7v11c0 5.55 3.84 10 9 11 5.16-1 9-5.45 9-11V7l-7-5z"></path>
+                    </svg>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold cyber-font text-red-400">ATTAQUE DDoS</h3>
+                    <p class="text-sm text-gray-400">Déni de service distribué</p>
+                </div>
+            </div>
+            <div class="space-y-2 text-sm">
+                <div class="flex justify-between">
+                    <span>Bots actifs:</span>
+                    <span id="ddosBots" class="text-red-400 font-bold">0</span>
+                </div>
+                <div class="flex justify-between">
+                    <span>Req/sec:</span>
+                    <span id="ddosRequests" class="text-red-400 font-bold">0</span>
+                </div>
+                <div class="flex justify-between">
+                    <span>Bande passante:</span>
+                    <span id="ddosBandwidth" class="text-red-400 font-bold">0 Mbps</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- SQL Injection -->
+        <div class="terminal-glow rounded-2xl p-6 hack-effect" style="background: rgba(0, 0, 0, 0.9);">
+            <div class="flex items-center mb-4">
+                <div class="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center mr-4">
+                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7c0 2.21-3.582 4-8 4s-8-1.79-8-4z"></path>
+                    </svg>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold cyber-font text-purple-400">INJECTION SQL</h3>
+                    <p class="text-sm text-gray-400">Exploitation base de données</p>
+                </div>
+            </div>
+            <div class="space-y-2 text-sm">
+                <div class="flex justify-between">
+                    <span>Requêtes injectées:</span>
+                    <span id="sqlQueries" class="text-purple-400 font-bold">0</span>
+                </div>
+                <div class="flex justify-between">
+                    <span>Tables exposées:</span>
+                    <span id="sqlTables" class="text-purple-400 font-bold">0</span>
+                </div>
+                <div class="flex justify-between">
+                    <span>Données extraites:</span>
+                    <span id="sqlData" class="text-purple-400 font-bold">0 KB</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Phishing -->
+        <div class="terminal-glow rounded-2xl p-6 hack-effect" style="background: rgba(0, 0, 0, 0.9);">
+            <div class="flex items-center mb-4">
+                <div class="w-12 h-12 bg-yellow-600 rounded-full flex items-center justify-center mr-4">
+                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+                    </svg>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold cyber-font text-yellow-400">PHISHING</h3>
+                    <p class="text-sm text-gray-400">Ingénierie sociale</p>
+                </div>
+            </div>
+            <div class="space-y-2 text-sm">
+                <div class="flex justify-between">
+                    <span>Emails envoyés:</span>
+                    <span id="phishingEmails" class="text-yellow-400 font-bold">0</span>
+                </div>
+                <div class="flex justify-between">
+                    <span>Taux d'ouverture:</span>
+                    <span id="phishingRate" class="text-yellow-400 font-bold">0%</span>
+                </div>
+                <div class="flex justify-between">
+                    <span>Identifiants volés:</span>
+                    <span id="phishingCredentials" class="text-yellow-400 font-bold">0</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contrôles avancés -->
+    <div class="terminal-glow rounded-2xl p-6 mb-8" style="background: rgba(15, 23, 42, 0.95);">
+        <h2 class="text-2xl font-bold tech-font text-cyan-400 mb-6">CONTRÔLES LABORATOIRE</h2>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <button onclick="resetSimulation()" class="bg-slate-600 hover:bg-slate-700 text-white font-bold py-3 px-4 rounded-lg tech-font">
+                🔄 Réinitialiser
+            </button>
+            <button onclick="toggleAutoDefense()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg tech-font">
+                🤖 Auto-Défense
+            </button>
+            <button onclick="generateReport()" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg tech-font">
+                📊 Rapport Sécurité
+            </button>
+            <button onclick="exportLogs()" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-4 rounded-lg tech-font">
+                💾 Export Logs
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Variables globales
+    let attackStats = {
+        maliciousPackets: 0,
+        intrusionAttempts: 0,
+        compromisedSystems: 0,
+        activeDefenses: 3,
+        ddosBots: 0,
+        ddosRequests: 0,
+        ddosBandwidth: 0,
+        sqlQueries: 0,
+        sqlTables: 0,
+        sqlData: 0,
+        phishingEmails: 0,
+        phishingRate: 0,
+        phishingCredentials: 0
+    };
+
+    let isAutoDefenseActive = false;
+    let attackIntervals = {};
+    let logCounter = 0;
+
+    // Initialisation
+    document.addEventListener('DOMContentLoaded', function() {
+        initializeDataStreams();
+        initializeNetworkLines();
+        initializeTrafficChart();
+        startSystemMonitoring();
+    });
+
+    // Flux de données animés
+    function initializeDataStreams() {
+        const container = document.getElementById('dataStreams');
+
+        setInterval(() => {
+            const stream = document.createElement('div');
+            stream.className = 'data-stream';
+            stream.style.left = Math.random() * 100 + '%';
+            stream.style.animationDelay = '0s';
+            stream.style.animationDuration = (2 + Math.random() * 3) + 's';
+
+            // Couleurs bleues TechSpace
+            const colors = ['#3b82f6', '#1d4ed8', '#2563eb', '#1e40af', '#60a5fa'];
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            stream.style.background = `linear-gradient(to bottom, transparent, ${color}, transparent)`;
+
+            container.appendChild(stream);
+
+            setTimeout(() => {
+                if (stream.parentNode) {
+                    stream.parentNode.removeChild(stream);
+                }
+            }, 5000);
+        }, 200);
+    }
+
+    // Lignes de connexion réseau
+    function initializeNetworkLines() {
+        const svg = document.getElementById('networkLines');
+        const connections = [
+            ['mainServer', 'client1'],
+            ['mainServer', 'client2'],
+            ['mainServer', 'client3'],
+            ['attacker', 'mainServer']
+        ];
+
+        connections.forEach(([from, to]) => {
+            const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            line.setAttribute('stroke', '#3b82f6');
+            line.setAttribute('stroke-width', '2');
+            line.setAttribute('opacity', '0.6');
+            line.id = `line-${from}-${to}`;
+            svg.appendChild(line);
+        });
+
+        updateNetworkLines();
+    }
+
+    function updateNetworkLines() {
+        const svg = document.getElementById('networkLines');
+        const rect = svg.getBoundingClientRect();
+
+        const connections = [
+            ['mainServer', 'client1'],
+            ['mainServer', 'client2'],
+            ['mainServer', 'client3'],
+            ['attacker', 'mainServer']
+        ];
+
+        connections.forEach(([from, to]) => {
+            const fromEl = document.getElementById(from);
+            const toEl = document.getElementById(to);
+            const line = document.getElementById(`line-${from}-${to}`);
+
+            if (fromEl && toEl && line) {
+                const fromRect = fromEl.getBoundingClientRect();
+                const toRect = toEl.getBoundingClientRect();
+                const svgRect = svg.getBoundingClientRect();
+
+                const x1 = fromRect.left + fromRect.width/2 - svgRect.left;
+                const y1 = fromRect.top + fromRect.height/2 - svgRect.top;
+                const x2 = toRect.left + toRect.width/2 - svgRect.left;
+                const y2 = toRect.top + toRect.height/2 - svgRect.top;
+
+                line.setAttribute('x1', x1);
+                line.setAttribute('y1', y1);
+                line.setAttribute('x2', x2);
+                line.setAttribute('y2', y2);
+            }
+        });
+    }
+
+    // Graphique de trafic
+    function initializeTrafficChart() {
+        const canvas = document.getElementById('trafficChart');
+        const ctx = canvas.getContext('2d');
+        let dataPoints = [];
+
+        function drawChart() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Ajouter nouveau point de données
+            dataPoints.push({
+                legitimate: 80 + Math.random() * 15,
+                suspicious: 5 + Math.random() * 10,
+                malicious: Math.random() * 5
+            });
+
+            if (dataPoints.length > 50) {
+                dataPoints.shift();
+            }
+
+            // Dessiner les lignes
+            const width = canvas.width;
+            const height = canvas.height;
+            const stepX = width / (dataPoints.length - 1);
+
+            // Trafic légitime (bleu)
+            ctx.strokeStyle = '#3b82f6';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            dataPoints.forEach((point, index) => {
+                const x = index * stepX;
+                const y = height - (point.legitimate / 100 * height);
+                if (index === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            });
+            ctx.stroke();
+
+            // Trafic suspect (cyan)
+            ctx.strokeStyle = '#06b6d4';
+            ctx.beginPath();
+            dataPoints.forEach((point, index) => {
+                const x = index * stepX;
+                const y = height - (point.suspicious / 100 * height);
+                if (index === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            });
+            ctx.stroke();
+
+            // Trafic malveillant (rouge)
+            ctx.strokeStyle = '#ef4444';
+            ctx.beginPath();
+            dataPoints.forEach((point, index) => {
+                const x = index * stepX;
+                const y = height - (point.malicious / 100 * height);
+                if (index === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            });
+            ctx.stroke();
+        }
+
+        setInterval(drawChart, 500);
+    }
+
+    // Surveillance système
+    function startSystemMonitoring() {
+        setInterval(() => {
+            updateStats();
+            updateTrafficPercentages();
+        }, 1000);
+    }
+
+    function updateStats() {
+        document.getElementById('maliciousPackets').textContent = attackStats.maliciousPackets;
+        document.getElementById('intrusionAttempts').textContent = attackStats.intrusionAttempts;
+        document.getElementById('compromisedSystems').textContent = attackStats.compromisedSystems;
+        document.getElementById('activeDefenses').textContent = attackStats.activeDefenses;
+
+        // Barres de progression
+        document.getElementById('maliciousBar').style.width = Math.min(attackStats.maliciousPackets / 1000 * 100, 100) + '%';
+        document.getElementById('intrusionBar').style.width = Math.min(attackStats.intrusionAttempts / 100 * 100, 100) + '%';
+        document.getElementById('compromisedBar').style.width = Math.min(attackStats.compromisedSystems / 10 * 100, 100) + '%';
+
+        // Stats d'attaques spécifiques
+        document.getElementById('ddosBots').textContent = attackStats.ddosBots;
+        document.getElementById('ddosRequests').textContent = attackStats.ddosRequests;
+        document.getElementById('ddosBandwidth').textContent = attackStats.ddosBandwidth;
+        document.getElementById('sqlQueries').textContent = attackStats.sqlQueries;
+        document.getElementById('sqlTables').textContent = attackStats.sqlTables;
+        document.getElementById('sqlData').textContent = attackStats.sqlData;
+        document.getElementById('phishingEmails').textContent = attackStats.phishingEmails;
+        document.getElementById('phishingRate').textContent = attackStats.phishingRate + '%';
+        document.getElementById('phishingCredentials').textContent = attackStats.phishingCredentials;
+    }
+
+    function updateTrafficPercentages() {
+        const total = attackStats.maliciousPackets + 10000; // Base de trafic normal
+        const maliciousPercent = (attackStats.maliciousPackets / total * 100).toFixed(1);
+        const suspiciousPercent = (attackStats.intrusionAttempts / total * 100 * 10).toFixed(1);
+        const legitimatePercent = (100 - parseFloat(maliciousPercent) - parseFloat(suspiciousPercent)).toFixed(1);
+
+        document.getElementById('legitimateTraffic').textContent = legitimatePercent + '%';
+        document.getElementById('suspiciousTraffic').textContent = suspiciousPercent + '%';
+        document.getElementById('maliciousTraffic').textContent = maliciousPercent + '%';
+    }
+
+    // Fonctions d'attaque
+    function launchDDoSAttack() {
+        addLog('🚨 [ATTAQUE] Lancement attaque DDoS massive!', 'red');
+        addSecurityAlert('CRITIQUE', 'Attaque DDoS détectée - Trafic anormal');
+
+        // Animation du nœud attaquant
+        document.getElementById('attacker').classList.add('attack-pulse');
+
+        // Simulation de l'attaque
+        attackIntervals.ddos = setInterval(() => {
+            attackStats.ddosBots += Math.floor(Math.random() * 50) + 10;
+            attackStats.ddosRequests += Math.floor(Math.random() * 1000) + 500;
+            attackStats.ddosBandwidth += Math.floor(Math.random() * 100) + 50;
+            attackStats.maliciousPackets += Math.floor(Math.random() * 100) + 50;
+            attackStats.intrusionAttempts += Math.floor(Math.random() * 10) + 5;
+
+            addLog(`📊 DDoS: ${attackStats.ddosBots} bots, ${attackStats.ddosRequests} req/sec`, 'red');
+
+            if (attackStats.ddosBots > 1000) {
+                compromiseSystem('mainServer');
+            }
+        }, 1000);
+
+        // Auto-défense
+        if (isAutoDefenseActive) {
+            setTimeout(() => {
+                activateFirewall();
+                addLog('🛡️ [DÉFENSE] Firewall renforcé contre DDoS', 'blue');
+            }, 3000);
+        }
+    }
+
+    function launchSQLInjection() {
+        addLog('💉 [ATTAQUE] Injection SQL en cours...', 'purple');
+        addSecurityAlert('ÉLEVÉ', 'Tentative d\'injection SQL détectée');
+
+        attackIntervals.sql = setInterval(() => {
+            attackStats.sqlQueries += Math.floor(Math.random() * 10) + 1;
+            attackStats.sqlTables += Math.floor(Math.random() * 3);
+            attackStats.sqlData += Math.floor(Math.random() * 50) + 10;
+            attackStats.intrusionAttempts += Math.floor(Math.random() * 5) + 2;
+
+            const queries = [
+                "SELECT * FROM users WHERE '1'='1'",
+                "DROP TABLE sessions;",
+                "UNION SELECT password FROM admin",
+                "INSERT INTO users VALUES('hacker','admin')"
+            ];
+
+            const randomQuery = queries[Math.floor(Math.random() * queries.length)];
+            addLog(`💉 SQL: ${randomQuery}`, 'purple');
+
+            if (attackStats.sqlTables > 5) {
+                addLog('🚨 Base de données compromise!', 'red');
+                attackStats.compromisedSystems++;
+            }
+        }, 2000);
+    }
+
+    function launchPhishing() {
+        addLog('🎣 [ATTAQUE] Campagne de phishing lancée', 'yellow');
+        addSecurityAlert('MOYEN', 'Emails de phishing détectés');
+
+        attackIntervals.phishing = setInterval(() => {
+            attackStats.phishingEmails += Math.floor(Math.random() * 100) + 50;
+            attackStats.phishingRate = Math.min(attackStats.phishingRate + Math.random() * 5, 25);
+            attackStats.phishingCredentials += Math.floor(Math.random() * 3);
+
+            const targets = ['admin@company.com', 'user@company.com', 'ceo@company.com'];
+            const randomTarget = targets[Math.floor(Math.random() * targets.length)];
+            addLog(`🎣 Phishing envoyé à ${randomTarget}`, 'yellow');
+
+            if (attackStats.phishingCredentials > 10) {
+                addLog('🔑 Identifiants administrateur volés!', 'red');
+                attackStats.compromisedSystems++;
+            }
+        }, 3000);
+    }
+
+    function launchRansomware() {
+        addLog('🔒 [ATTAQUE] Déploiement ransomware...', 'red');
+        addSecurityAlert('CRITIQUE', 'Ransomware détecté - Chiffrement en cours');
+
+        const clients = ['client1', 'client2', 'client3'];
+        clients.forEach((client, index) => {
+            setTimeout(() => {
+                compromiseSystem(client);
+                addLog(`🔒 ${client} chiffré par ransomware`, 'red');
+                attackStats.compromisedSystems++;
+            }, index * 2000);
+        });
+    }
+
+    function launchMITMAttack() {
+        addLog('🕵️ [ATTAQUE] Man-in-the-Middle actif', 'orange');
+        addSecurityAlert('ÉLEVÉ', 'Interception de communications détectée');
+
+        attackIntervals.mitm = setInterval(() => {
+            const communications = [
+                'Interception login admin',
+                'Capture session cookies',
+                'Redirection DNS malveillante',
+                'Certificat SSL falsifié'
+            ];
+
+            const randomComm = communications[Math.floor(Math.random() * communications.length)];
+            addLog(`🕵️ MITM: ${randomComm}`, 'orange');
+            attackStats.intrusionAttempts += Math.floor(Math.random() * 3) + 1;
+        }, 2500);
+    }
+
+    function launchBruteForce() {
+        addLog('🔨 [ATTAQUE] Force brute sur authentification', 'red');
+        addSecurityAlert('ÉLEVÉ', 'Tentatives de force brute détectées');
+
+        attackIntervals.brute = setInterval(() => {
+            const attempts = Math.floor(Math.random() * 50) + 20;
+            attackStats.intrusionAttempts += attempts;
+
+            const usernames = ['admin', 'root', 'user', 'administrator'];
+            const randomUser = usernames[Math.floor(Math.random() * usernames.length)];
+            addLog(`🔨 Brute force: ${attempts} tentatives sur ${randomUser}`, 'red');
+
+            if (Math.random() < 0.1) {
+                addLog('🔓 Mot de passe cracké!', 'red');
+                attackStats.compromisedSystems++;
+            }
+        }, 1500);
+    }
+
+    // Fonctions de défense
+    function activateFirewall() {
+        addLog('🛡️ [DÉFENSE] Firewall activé', 'blue');
+        addSecurityAlert('INFO', 'Firewall renforcé - Filtrage actif');
+
+        // Réduire l'efficacité des attaques
+        Object.keys(attackIntervals).forEach(key => {
+            if (attackIntervals[key]) {
+                clearInterval(attackIntervals[key]);
+                attackIntervals[key] = null;
+            }
+        });
+
+        attackStats.activeDefenses = Math.min(attackStats.activeDefenses + 1, 5);
+    }
+
+    function activateIDS() {
+        addLog('👁️ [DÉFENSE] IDS/IPS en ligne', 'purple');
+        addSecurityAlert('INFO', 'Système de détection d\'intrusion activé');
+        attackStats.activeDefenses = Math.min(attackStats.activeDefenses + 1, 5);
+    }
+
+    function activateAntivirus() {
+        addLog('🦠 [DÉFENSE] Antivirus mis à jour', 'green');
+        addSecurityAlert('INFO', 'Définitions antivirus actualisées');
+        attackStats.activeDefenses = Math.min(attackStats.activeDefenses + 1, 5);
+
+        // Nettoyer les systèmes compromis
+        document.querySelectorAll('.compromised').forEach(node => {
+            node.classList.remove('compromised');
+        });
+        attackStats.compromisedSystems = Math.max(attackStats.compromisedSystems - 2, 0);
+    }
+
+    // Fonctions utilitaires
+    function compromiseSystem(systemId) {
+        const system = document.getElementById(systemId);
+        if (system) {
+            system.classList.add('compromised');
+        }
+    }
+
+    function addLog(message, color = 'green') {
+        const logsContainer = document.getElementById('systemLogs');
+        const timestamp = new Date().toLocaleTimeString();
+        const logEntry = document.createElement('div');
+        logEntry.className = `text-${color}-400`;
+        logEntry.textContent = `[${timestamp}] ${message}`;
+
+        logsContainer.appendChild(logEntry);
+
+        // Limiter le nombre de logs
+        while (logsContainer.children.length > 50) {
+            logsContainer.removeChild(logsContainer.firstChild);
+        }
+    }
+
+    function addSecurityAlert(level, message) {
+        const alertsContainer = document.getElementById('securityAlerts');
+        const alert = document.createElement('div');
+        alert.className = 'security-alert p-3 rounded-lg border text-sm';
+
+        const levelColors = {
+            'CRITIQUE': 'red',
+            'ÉLEVÉ': 'yellow',
+            'MOYEN': 'orange',
+            'INFO': 'blue'
+        };
+
+        const color = levelColors[level] || 'gray';
+        alert.innerHTML = `
+                <span class="text-${color}-400 font-bold">[${level}]</span>
+                <span class="text-gray-300">${message}</span>
+            `;
+
+        alertsContainer.insertBefore(alert, alertsContainer.firstChild);
+
+        // Limiter le nombre d'alertes
+        while (alertsContainer.children.length > 10) {
+            alertsContainer.removeChild(alertsContainer.lastChild);
+        }
+    }
+
+    function resetSimulation() {
+        addLog('🔄 [SYSTÈME] Réinitialisation complète', 'blue');
+
+        // Arrêter toutes les attaques
+        Object.keys(attackIntervals).forEach(key => {
+            if (attackIntervals[key]) {
+                clearInterval(attackIntervals[key]);
+                attackIntervals[key] = null;
+            }
+        });
+
+        // Reset des stats
+        attackStats = {
+            maliciousPackets: 0,
+            intrusionAttempts: 0,
+            compromisedSystems: 0,
+            activeDefenses: 3,
+            ddosBots: 0,
+            ddosRequests: 0,
+            ddosBandwidth: 0,
+            sqlQueries: 0,
+            sqlTables: 0,
+            sqlData: 0,
+            phishingEmails: 0,
+            phishingRate: 0,
+            phishingCredentials: 0
+        };
+
+        // Nettoyer l'interface
+        document.querySelectorAll('.compromised').forEach(node => {
+            node.classList.remove('compromised');
+        });
+        document.querySelectorAll('.attack-pulse').forEach(node => {
+            node.classList.remove('attack-pulse');
+        });
+
+        // Vider les alertes
+        document.getElementById('securityAlerts').innerHTML = `
+                <div class="security-alert p-3 rounded-lg border text-sm">
+                    <span class="text-green-400 font-bold">[INFO]</span>
+                    <span class="text-gray-300">Système réinitialisé - Prêt pour nouvelle démonstration</span>
+                </div>
+            `;
+    }
+
+    function toggleAutoDefense() {
+        isAutoDefenseActive = !isAutoDefenseActive;
+        const status = isAutoDefenseActive ? 'ACTIVÉE' : 'DÉSACTIVÉE';
+        const color = isAutoDefenseActive ? 'green' : 'red';
+        addLog(`🤖 [SYSTÈME] Auto-défense ${status}`, color);
+    }
+
+    function generateReport() {
+        addLog('📊 [SYSTÈME] Génération du rapport de sécurité', 'blue');
+
+        const report = `
+=== RAPPORT DE SÉCURITÉ CYBERSPACE ===
+Timestamp: ${new Date().toLocaleString()}
+
+STATISTIQUES D'ATTAQUE:
+- Paquets malveillants: ${attackStats.maliciousPackets}
+- Tentatives d'intrusion: ${attackStats.intrusionAttempts}
+- Systèmes compromis: ${attackStats.compromisedSystems}
+- Défenses actives: ${attackStats.activeDefenses}
+
+ATTAQUES DDoS:
+- Bots actifs: ${attackStats.ddosBots}
+- Requêtes/sec: ${attackStats.ddosRequests}
+- Bande passante: ${attackStats.ddosBandwidth} Mbps
+
+INJECTIONS SQL:
+- Requêtes injectées: ${attackStats.sqlQueries}
+- Tables exposées: ${attackStats.sqlTables}
+- Données extraites: ${attackStats.sqlData} KB
+
+PHISHING:
+- Emails envoyés: ${attackStats.phishingEmails}
+- Taux d'ouverture: ${attackStats.phishingRate}%
+- Identifiants volés: ${attackStats.phishingCredentials}
+
+=== FIN DU RAPPORT ===
+            `;
+
+        console.log(report);
+        alert('Rapport généré! Consultez la console pour les détails.');
+    }
+
+    function exportLogs() {
+        addLog('💾 [SYSTÈME] Export des logs en cours', 'blue');
+
+        const logs = Array.from(document.getElementById('systemLogs').children)
+            .map(log => log.textContent)
+            .join('\n');
+
+        const blob = new Blob([logs], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `cyberspace_logs_${new Date().getTime()}.txt`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+
+        addLog('💾 [SYSTÈME] Logs exportés avec succès', 'green');
+    }
+
+    // Fonction de navigation vers l'accueil
+    function goToHome() {
+        addLog('🏠 [NAVIGATION] Retour à l\'accueil TechSpace', 'blue');
+
+        // Créer la page d'accueil TechSpace
+        document.body.innerHTML = `
+                <div class="tech-bg tech-grid min-h-screen text-white">
+                    <!-- Navigation -->
+                    <nav class="fixed top-0 left-0 right-0 z-50 bg-slate-900/95 backdrop-blur-sm border-b border-blue-500/30">
+                        <div class="max-w-7xl mx-auto px-4 py-3">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 bg-gradient-to-r from-blue-500 via-purple-600 to-cyan-500 rounded-full flex items-center justify-center animate-pulse">
+                                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h1 class="text-xl font-black tech-font">
+                                            <span class="bg-gradient-to-r from-blue-500 via-purple-600 to-cyan-500 bg-clip-text text-transparent">
+                                                TechSpace
+                                            </span>
+                                        </h1>
+                                        <p class="text-xs text-slate-400">Security Lab</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center space-x-4">
+                                    <div class="flex items-center space-x-2">
+                                        <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                                        <span class="text-sm text-green-400">Système Opérationnel</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+
+                    <div class="max-w-7xl mx-auto p-4 pt-24">
+                        <!-- En-tête principal -->
+                        <div class="text-center mb-12">
+                            <div class="inline-block p-12 rounded-3xl terminal-glow" style="background: rgba(15, 23, 42, 0.9);">
+                                <div class="flex items-center justify-center space-x-6 mb-6">
+                                    <div class="w-24 h-24 bg-gradient-to-r from-blue-500 via-purple-600 to-cyan-500 rounded-full flex items-center justify-center animate-pulse">
+                                        <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                                        </svg>
+                                    </div>
+                                    <div class="text-left">
+                                        <h1 class="text-6xl font-black tech-font mb-3">
+                                            <span class="bg-gradient-to-r from-blue-500 via-purple-600 to-cyan-500 bg-clip-text text-transparent">
+                                                TechSpace
+                                            </span>
+                                        </h1>
+                                        <p class="text-2xl text-slate-300 mb-2">Laboratoire de Cybersécurité</p>
+                                        <p class="text-lg text-blue-400">Centre d'Excellence en Sécurité Informatique</p>
+                                    </div>
+                                </div>
+
+                                <div class="grid md:grid-cols-3 gap-6 text-center">
+                                    <div class="p-4 bg-slate-800/50 rounded-xl">
+                                        <div class="text-3xl font-bold text-blue-400">24/7</div>
+                                        <div class="text-sm text-slate-300">Surveillance Continue</div>
+                                    </div>
+                                    <div class="p-4 bg-slate-800/50 rounded-xl">
+                                        <div class="text-3xl font-bold text-purple-400">99.9%</div>
+                                        <div class="text-sm text-slate-300">Taux de Détection</div>
+                                    </div>
+                                    <div class="p-4 bg-slate-800/50 rounded-xl">
+                                        <div class="text-3xl font-bold text-cyan-400">0-Day</div>
+                                        <div class="text-sm text-slate-300">Protection Avancée</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Modules disponibles -->
+                        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                            <!-- Module Démonstration -->
+                            <div class="terminal-glow rounded-2xl p-8 hover:scale-105 transition-all duration-300 cursor-pointer" style="background: rgba(15, 23, 42, 0.95);" onclick="goToDemo()">
+                                <div class="flex items-center mb-6">
+                                    <div class="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center mr-4">
+                                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M10 2L3 7v11c0 5.55 3.84 10 9 11 5.16-1 9-5.45 9-11V7l-7-5z"></path>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-2xl font-bold text-red-400 tech-font">DEMO LAB</h3>
+                                        <p class="text-slate-300">Simulations d'Attaques</p>
+                                    </div>
+                                </div>
+                                <p class="text-slate-400 mb-4">Laboratoire interactif pour démonstrations d'attaques réseau et tests de sécurité en environnement contrôlé.</p>
+                                <div class="flex items-center text-red-400 font-semibold">
+                                    <span>Accéder au laboratoire</span>
+                                    <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <!-- Module Formation -->
+                            <div class="terminal-glow rounded-2xl p-8 hover:scale-105 transition-all duration-300 cursor-pointer" style="background: rgba(15, 23, 42, 0.95);">
+                                <div class="flex items-center mb-6">
+                                    <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mr-4">
+                                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"></path>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-2xl font-bold text-blue-400 tech-font">FORMATION</h3>
+                                        <p class="text-slate-300">Cours & Certifications</p>
+                                    </div>
+                                </div>
+                                <p class="text-slate-400 mb-4">Programmes de formation avancée en cybersécurité, certifications professionnelles et parcours d'apprentissage personnalisés.</p>
+                                <div class="flex items-center text-blue-400 font-semibold">
+                                    <span>Bientôt disponible</span>
+                                    <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <!-- Module Analyse -->
+                            <div class="terminal-glow rounded-2xl p-8 hover:scale-105 transition-all duration-300 cursor-pointer" style="background: rgba(15, 23, 42, 0.95);">
+                                <div class="flex items-center mb-6">
+                                    <div class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mr-4">
+                                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path>
+                                            <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-2xl font-bold text-purple-400 tech-font">ANALYSE</h3>
+                                        <p class="text-slate-300">Forensique Numérique</p>
+                                    </div>
+                                </div>
+                                <p class="text-slate-400 mb-4">Outils d'analyse forensique, investigation d'incidents de sécurité et reconstruction d'attaques informatiques.</p>
+                                <div class="flex items-center text-purple-400 font-semibold">
+                                    <span>Bientôt disponible</span>
+                                    <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <!-- Module Monitoring -->
+                            <div class="terminal-glow rounded-2xl p-8 hover:scale-105 transition-all duration-300 cursor-pointer" style="background: rgba(15, 23, 42, 0.95);">
+                                <div class="flex items-center mb-6">
+                                    <div class="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mr-4">
+                                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-2xl font-bold text-green-400 tech-font">MONITORING</h3>
+                                        <p class="text-slate-300">Surveillance Temps Réel</p>
+                                    </div>
+                                </div>
+                                <p class="text-slate-400 mb-4">Surveillance continue des infrastructures, détection d'anomalies et alertes de sécurité en temps réel.</p>
+                                <div class="flex items-center text-green-400 font-semibold">
+                                    <span>Bientôt disponible</span>
+                                    <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <!-- Module Threat Intel -->
+                            <div class="terminal-glow rounded-2xl p-8 hover:scale-105 transition-all duration-300 cursor-pointer" style="background: rgba(15, 23, 42, 0.95);">
+                                <div class="flex items-center mb-6">
+                                    <div class="w-16 h-16 bg-yellow-600 rounded-full flex items-center justify-center mr-4">
+                                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"></path>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-2xl font-bold text-yellow-400 tech-font">THREAT INTEL</h3>
+                                        <p class="text-slate-300">Renseignement Menaces</p>
+                                    </div>
+                                </div>
+                                <p class="text-slate-400 mb-4">Collecte et analyse de renseignements sur les menaces, veille technologique et prédiction d'attaques.</p>
+                                <div class="flex items-center text-yellow-400 font-semibold">
+                                    <span>Bientôt disponible</span>
+                                    <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <!-- Module Red Team -->
+                            <div class="terminal-glow rounded-2xl p-8 hover:scale-105 transition-all duration-300 cursor-pointer" style="background: rgba(15, 23, 42, 0.95);">
+                                <div class="flex items-center mb-6">
+                                    <div class="w-16 h-16 bg-red-800 rounded-full flex items-center justify-center mr-4">
+                                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-2xl font-bold text-red-400 tech-font">RED TEAM</h3>
+                                        <p class="text-slate-300">Tests d'Intrusion</p>
+                                    </div>
+                                </div>
+                                <p class="text-slate-400 mb-4">Simulations d'attaques avancées, tests de pénétration et évaluation de la posture de sécurité organisationnelle.</p>
+                                <div class="flex items-center text-red-400 font-semibold">
+                                    <span>Bientôt disponible</span>
+                                    <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Statistiques globales -->
+                        <div class="terminal-glow rounded-2xl p-8 mb-8" style="background: rgba(15, 23, 42, 0.95);">
+                            <h2 class="text-3xl font-bold tech-font text-center mb-8">
+                                <span class="bg-gradient-to-r from-blue-500 via-purple-600 to-cyan-500 bg-clip-text text-transparent">
+                                    STATISTIQUES TECHSPACE
+                                </span>
+                            </h2>
+
+                            <div class="grid md:grid-cols-4 gap-6">
+                                <div class="text-center p-6 bg-slate-800/50 rounded-xl">
+                                    <div class="text-4xl font-bold text-blue-400 mb-2">1,247</div>
+                                    <div class="text-slate-300">Menaces Bloquées</div>
+                                    <div class="text-sm text-slate-500">Dernières 24h</div>
+                                </div>
+                                <div class="text-center p-6 bg-slate-800/50 rounded-xl">
+                                    <div class="text-4xl font-bold text-green-400 mb-2">99.8%</div>
+                                    <div class="text-slate-300">Disponibilité</div>
+                                    <div class="text-sm text-slate-500">Ce mois</div>
+                                </div>
+                                <div class="text-center p-6 bg-slate-800/50 rounded-xl">
+                                    <div class="text-4xl font-bold text-purple-400 mb-2">156</div>
+                                    <div class="text-slate-300">Analyses Complétées</div>
+                                    <div class="text-sm text-slate-500">Cette semaine</div>
+                                </div>
+                                <div class="text-center p-6 bg-slate-800/50 rounded-xl">
+                                    <div class="text-4xl font-bold text-cyan-400 mb-2">0</div>
+                                    <div class="text-slate-300">Incidents Critiques</div>
+                                    <div class="text-sm text-slate-500">Actuellement</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Footer -->
+                        <div class="text-center text-slate-400 py-8">
+                            <p class="mb-2">© 2024 TechSpace Security Lab - Centre d'Excellence en Cybersécurité</p>
+                            <p class="text-sm">Plateforme de démonstration et formation en sécurité informatique</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+    }
+
+    // Fonction pour retourner au laboratoire de démonstration
+    function goToDemo() {
+        location.reload(); // Recharge la page pour revenir au laboratoire
+    }
+
+    // Mise à jour des lignes réseau au redimensionnement
+    window.addEventListener('resize', updateNetworkLines);
+</script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96effedb378c06b2',t:'MTc1NTE2OTcxOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

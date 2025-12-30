@@ -12,232 +12,102 @@
     .gradient-bg {
       background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 20%, #1d4ed8 40%, #2563eb 60%, #3b82f6 80%, #60a5fa 100%);
       animation: gradientShift 15s ease infinite;
+      background-size: 200% 200%;
     }
-
     @keyframes gradientShift {
       0%, 100% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
     }
 
     /* Animations avancées */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(50px);
-      animation: fadeInUp 1s ease forwards;
-    }
-
+    .fade-in { opacity: 0; transform: translateY(50px); animation: fadeInUp 1s ease forwards; }
     .fade-in-delay-1 { animation-delay: 0.2s; }
     .fade-in-delay-2 { animation-delay: 0.4s; }
     .fade-in-delay-3 { animation-delay: 0.6s; }
     .fade-in-delay-4 { animation-delay: 0.8s; }
     .fade-in-delay-5 { animation-delay: 1.0s; }
     .fade-in-delay-6 { animation-delay: 1.2s; }
+    @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+    .pulse-glow { animation: pulseGlow 3s infinite; }
+    @keyframes pulseGlow { 0%,100%{box-shadow:0 0 20px rgba(59,130,246,.3)} 50%{box-shadow:0 0 40px rgba(59,130,246,.7)} }
 
-    .pulse-glow {
-      animation: pulseGlow 3s infinite;
-    }
-
-    @keyframes pulseGlow {
-      0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.3); }
-      50% { box-shadow: 0 0 40px rgba(59, 130, 246, 0.7); }
-    }
-
-    .floating {
-      animation: floating 6s ease-in-out infinite;
-    }
-
+    .floating { animation: floating 6s ease-in-out infinite; }
     @keyframes floating {
-      0%, 100% { transform: translateY(0px) rotate(0deg); }
-      25% { transform: translateY(-15px) rotate(1deg); }
-      50% { transform: translateY(-30px) rotate(0deg); }
-      75% { transform: translateY(-15px) rotate(-1deg); }
+      0%,100%{transform:translateY(0) rotate(0)}
+      25%{transform:translateY(-15px) rotate(1deg)}
+      50%{transform:translateY(-30px) rotate(0)}
+      75%{transform:translateY(-15px) rotate(-1deg)}
     }
 
     .hero-text {
       background: linear-gradient(45deg, #3b82f6, #2563eb, #1d4ed8, #1e40af);
       background-size: 400% 400%;
       animation: textGlow 4s ease infinite;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
-
-    @keyframes textGlow {
-      0%, 100% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-    }
+    @keyframes textGlow { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
 
     .coming-soon {
       background: linear-gradient(45deg, #f59e0b, #f97316, #ef4444, #dc2626);
       background-size: 400% 400%;
       animation: comingSoonGlow 3s ease infinite;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
-
-    @keyframes comingSoonGlow {
-      0%, 100% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-    }
+    @keyframes comingSoonGlow { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
 
     .countdown-box {
       background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
       border: 2px solid #3b82f6;
-      box-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
+      box-shadow: 0 0 30px rgba(59,130,246,.3);
       animation: countdownPulse 2s ease infinite;
     }
+    @keyframes countdownPulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.05)} }
 
-    @keyframes countdownPulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-    }
-
-    .nav-link {
-      position: relative;
-      transition: all 0.3s ease;
-    }
-
-    .nav-link::after {
-      content: '';
-      position: absolute;
-      bottom: -5px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: linear-gradient(45deg, #3b82f6, #2563eb);
-      transition: width 0.3s ease;
-    }
-
-    .nav-link:hover::after {
-      width: 100%;
-    }
+    .nav-link { position:relative; transition:all .3s ease; }
+    .nav-link::after { content:''; position:absolute; bottom:-5px; left:0; width:0; height:2px; background:linear-gradient(45deg,#3b82f6,#2563eb); transition:width .3s ease; }
+    .nav-link:hover::after { width:100%; }
 
     .page-card {
       background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-      border: 1px solid #475569;
-      transition: all 0.4s ease;
-      position: relative;
-      overflow: hidden;
+      border: 1px solid #475569; transition: all .4s ease; position:relative; overflow:hidden;
     }
-
     .page-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
-      transition: left 0.5s ease;
+      content:''; position:absolute; top:0; left:-100%; width:100%; height:100%;
+      background:linear-gradient(90deg,transparent,rgba(59,130,246,.1),transparent); transition:left .5s ease;
     }
+    .page-card:hover::before { left:100%; }
+    .page-card:hover { border-color:#3b82f6; transform:translateY(-10px); box-shadow:0 25px 50px rgba(59,130,246,.3); }
 
-    .page-card:hover::before {
-      left: 100%;
-    }
+    .feature-card { background:linear-gradient(135deg,#1e293b 0%,#334155 100%); border:1px solid #475569; transition:all .4s ease; }
+    .feature-card:hover { border-color:#3b82f6; transform:translateY(-5px); box-shadow:0 20px 40px rgba(59,130,246,.2); }
 
-    .page-card:hover {
-      border-color: #3b82f6;
-      transform: translateY(-10px);
-      box-shadow: 0 25px 50px rgba(59, 130, 246, 0.3);
-    }
+    .roadmap-item { background:linear-gradient(135deg,#1e293b 0%,#334155 100%); border-left:4px solid #3b82f6; transition:all .3s ease; }
+    .roadmap-item:hover { border-left-color:#60a5fa; transform:translateX(10px); }
 
-    .feature-card {
-      background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-      border: 1px solid #475569;
-      transition: all 0.4s ease;
-    }
+    .testimonial-card { background:linear-gradient(135deg,#1e293b 0%,#334155 100%); border:1px solid #475569; transition:all .4s ease; }
+    .testimonial-card:hover { border-color:#10b981; transform:translateY(-5px); box-shadow:0 20px 40px rgba(16,185,129,.2); }
 
-    .feature-card:hover {
-      border-color: #3b82f6;
-      transform: translateY(-5px);
-      box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
-    }
+    .cta-button { background:linear-gradient(45deg,#3b82f6,#2563eb); transition:all .3s ease; position:relative; overflow:hidden; }
+    .cta-button::before { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%;
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent); transition:left .5s ease; }
+    .cta-button:hover::before { left:100%; }
+    .cta-button:hover { transform:translateY(-3px); box-shadow:0 15px 30px rgba(59,130,246,.4); }
 
-    .roadmap-item {
-      background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-      border-left: 4px solid #3b82f6;
-      transition: all 0.3s ease;
-    }
+    .notification-badge { background:linear-gradient(45deg,#dc2626,#ef4444); animation:pulse 2s infinite; }
+    .stats-number { font-size:3rem; font-weight:900; background:linear-gradient(45deg,#3b82f6,#2563eb); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
 
-    .roadmap-item:hover {
-      border-left-color: #60a5fa;
-      transform: translateX(10px);
-    }
+    .parallax { transform: translateZ(0); transition: transform .1s ease-out; }
+    .mobile-menu { transform: translateX(-100%); transition: transform .3s ease; }
+    .mobile-menu.open { transform: translateX(0); }
 
-    .testimonial-card {
-      background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-      border: 1px solid #475569;
-      transition: all 0.4s ease;
+    /* NEW — conteneur du bouton central */
+    .center-cta-wrapper{
+      position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+      pointer-events:none; /* laisse cliquer éléments dessous */
     }
-
-    .testimonial-card:hover {
-      border-color: #10b981;
-      transform: translateY(-5px);
-      box-shadow: 0 20px 40px rgba(16, 185, 129, 0.2);
-    }
-
-    .cta-button {
-      background: linear-gradient(45deg, #3b82f6, #2563eb);
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .cta-button::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-      transition: left 0.5s ease;
-    }
-
-    .cta-button:hover::before {
-      left: 100%;
-    }
-
-    .cta-button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 15px 30px rgba(59, 130, 246, 0.4);
-    }
-
-    .notification-badge {
-      background: linear-gradient(45deg, #dc2626, #ef4444);
-      animation: pulse 2s infinite;
-    }
-
-    .stats-number {
-      font-size: 3rem;
-      font-weight: 900;
-      background: linear-gradient(45deg, #3b82f6, #2563eb);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .parallax {
-      transform: translateZ(0);
-      transition: transform 0.1s ease-out;
-    }
-
-    .mobile-menu {
-      transform: translateX(-100%);
-      transition: transform 0.3s ease;
-    }
-
-    .mobile-menu.open {
-      transform: translateX(0);
-    }
+    /* NEW — le bouton reste cliquable */
+    .center-cta-wrapper .center-cta-btn{ pointer-events:auto; }
   </style>
 </head>
 <body class="gradient-bg text-white min-h-screen overflow-x-hidden">
@@ -273,7 +143,7 @@
       </div>
 
       <!-- Menu Mobile Button -->
-      <button class="lg:hidden text-white" onclick="toggleMobileMenu()">
+      <button class="lg:hidden text-white" onclick="toggleMobileMenu()" aria-label="Ouvrir le menu">
         <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
         </svg>
@@ -286,11 +156,10 @@
     <div class="p-6">
       <div class="flex items-center justify-between mb-8">
         <span class="text-xl font-bold text-blue-400">TechSpace</span>
-        <button onclick="toggleMobileMenu()" class="text-white">✕</button>
+        <button onclick="toggleMobileMenu()" class="text-white" aria-label="Fermer le menu">✕</button>
       </div>
       <nav class="space-y-4">
         <a href="#accueil" class="block text-gray-300 hover:text-white font-medium">🏠 Accueil</a>
-        </button>
       </nav>
     </div>
   </div>
@@ -299,6 +168,18 @@
 <!-- Hero Section -->
 <section id="accueil" class="pt-32 pb-20 relative overflow-hidden">
   <div class="absolute inset-0 bg-gradient-to-r from-blue-600/15 to-purple-600/15"></div>
+  <!-- NEW — Bouton central animé -->
+
+  <div class="center-cta-wrapper">
+    <a href="Laboratoire/Accueil.html"
+       class="center-cta-btn cta-button pulse-glow floating fade-in fade-in-delay-1 px-8 py-4 rounded-2xl text-xl font-extrabold shadow-lg ring-1 ring-white/10"
+       aria-label="Pré-inscription TechSpace">
+      ⭐ Rejoindre la Liste d'Attente
+    </a>
+  </div>
+
+  <!-- /NEW -->
+
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
     <!-- Coming Soon Badge -->
     <div class="inline-block bg-gradient-to-r from-orange-500 to-red-500 px-6 py-2 rounded-full mb-8 fade-in">
@@ -344,17 +225,14 @@
       </div>
     </div>
 
-    <!-- CTA Buttons -->
-    <div class="flex flex-col sm:flex-row gap-6 justify-center fade-in fade-in-delay-5">
-      <button class="cta-button px-10 py-4 rounded-xl font-bold text-xl text-white" onclick="openPreRegistration()">
+    <!-- CTA Buttons (j'ai corrigé la balise invalide button/href) -->
+    <div class="fade-in fade-in-delay-5">
+      <button
+              class="cta-button px-6 py-3 rounded-xl font-bold"
+              onclick="openPreRegistration()">
         ⭐ Rejoindre la Liste d'Attente
       </button>
     </div>
-    <a href="page/demo.html" class="inline-block">
-      <div class="bg-transparent border-2 border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-white px-10 py-4 rounded-xl font-bold text-xl transition-all duration-300 texte center">
-        🎥 Voir la Démo
-      </div>
-    </a>
 
     <!-- Stats Preview -->
     <div class="grid md:grid-cols-4 gap-8 mt-16 fade-in fade-in-delay-6">
@@ -395,26 +273,14 @@
           Détection prédictive, réponse automatique et sécurité adaptative.
         </p>
         <div class="space-y-3 mb-6">
-          <div class="flex items-center space-x-3">
-            <span class="text-green-400">✅</span>
-            <span class="text-gray-300">IA Prédictive Anti-Menaces</span>
-          </div>
-          <div class="flex items-center space-x-3">
-            <span class="text-green-400">✅</span>
-            <span class="text-gray-300">Sécurité Cloud Hybride</span>
-          </div>
-          <div class="flex items-center space-x-3">
-            <span class="text-green-400">✅</span>
-            <span class="text-gray-300">Formation IA Personnalisée</span>
-          </div>
+          <div class="flex items-center space-x-3"><span class="text-green-400">✅</span><span class="text-gray-300">IA Prédictive Anti-Menaces</span></div>
+          <div class="flex items-center space-x-3"><span class="text-green-400">✅</span><span class="text-gray-300">Sécurité Cloud Hybride</span></div>
+          <div class="flex items-center space-x-3"><span class="text-green-400">✅</span><span class="text-gray-300">Formation IA Personnalisée</span></div>
         </div>
         <a href="page/solutions.html" class="inline-block w-full">
-          <div class="bg-blue-600 hover:bg-blue-700 py-3 rounded-xl font-bold text-white text-center transition-colors">
-            🚀 Explorer les Solutions
-          </div>
+          <div class="bg-blue-600 hover:bg-blue-700 py-3 rounded-xl font-bold text-white text-center transition-colors">🚀 Explorer les Solutions</div>
         </a>
       </div>
-
 
       <!-- Ressources -->
       <div class="page-card p-8 rounded-2xl fade-in fade-in-delay-1 flex flex-col justify-between" id="ressources">
@@ -426,29 +292,17 @@
             pour maîtriser la cybersécurité de demain.
           </p>
           <div class="space-y-3 mb-6">
-            <div class="flex items-center space-x-3">
-              <span class="text-green-400">📖</span>
-              <span class="text-gray-300">150+ Guides Pratiques</span>
-            </div>
-            <div class="flex items-center space-x-3">
-              <span class="text-green-400">🛠️</span>
-              <span class="text-gray-300">25 Outils Gratuits</span>
-            </div>
-            <div class="flex items-center space-x-3">
-              <span class="text-green-400">🎥</span>
-              <span class="text-gray-300">Webinaires Hebdomadaires</span>
-            </div>
+            <div class="flex items-center space-x-3"><span class="text-green-400">📖</span><span class="text-gray-300">150+ Guides Pratiques</span></div>
+            <div class="flex items-center space-x-3"><span class="text-green-400">🛠️</span><span class="text-gray-300">25 Outils Gratuits</span></div>
+            <div class="flex items-center space-x-3"><span class="text-green-400">🎥</span><span class="text-gray-300">Webinaires Hebdomadaires</span></div>
           </div>
         </div>
-
-        <!-- Bouton unique et bien aligné -->
         <a href="page/resources.html" class="mt-4 w-full">
-          <div class="bg-green-600 hover:bg-green-700 py-3 rounded-xl font-bold text-white text-center transition-colors">
-            📚 Accéder aux Ressources
-          </div>
+          <div class="bg-green-600 hover:bg-green-700 py-3 rounded-xl font-bold text-white text-center transition-colors">📚 Accéder aux Ressources</div>
         </a>
       </div>
 
+      <!-- Bêta -->
       <div class="page-card p-8 rounded-2xl fade-in fade-in-delay-2 flex flex-col justify-between" id="beta">
         <div>
           <div class="text-5xl mb-6 text-center">🚀</div>
@@ -458,30 +312,17 @@
             les fonctionnalités révolutionnaires de TechSpace.
           </p>
           <div class="space-y-3 mb-6">
-            <div class="flex items-center space-x-3">
-              <span class="text-purple-400">🎯</span>
-              <span class="text-gray-300">Accès Prioritaire 2028</span>
-            </div>
-            <div class="flex items-center space-x-3">
-              <span class="text-purple-400">💎</span>
-              <span class="text-gray-300">Fonctionnalités Exclusives</span>
-            </div>
-            <div class="flex items-center space-x-3">
-              <span class="text-purple-400">🏆</span>
-              <span class="text-gray-300">Support Premium</span>
-            </div>
+            <div class="flex items-center space-x-3"><span class="text-purple-400">🎯</span><span class="text-gray-300">Accès Prioritaire 2028</span></div>
+            <div class="flex items-center space-x-3"><span class="text-purple-400">💎</span><span class="text-gray-300">Fonctionnalités Exclusives</span></div>
+            <div class="flex items-center space-x-3"><span class="text-purple-400">🏆</span><span class="text-gray-300">Support Premium</span></div>
           </div>
         </div>
-
-        <!-- Bouton cliquable et bien positionné -->
         <a href="page/beta2028.html" class="mt-4 w-full">
-          <div class="bg-purple-600 hover:bg-purple-700 py-3 rounded-xl font-bold text-white text-center transition-colors">
-            🎯 Rejoindre la Bêta
-          </div>
+          <div class="bg-purple-600 hover:bg-purple-700 py-3 rounded-xl font-bold text-white text-center transition-colors">🎯 Rejoindre la Bêta</div>
         </a>
       </div>
 
-
+      <!-- À propos -->
       <div class="page-card p-8 rounded-2xl fade-in fade-in-delay-3 flex flex-col justify-between" id="about">
         <div>
           <div class="text-5xl mb-6 text-center">🏢</div>
@@ -490,28 +331,17 @@
             Chez TechSpace nous sommes partis d’un constat simple : trop d’entreprises restent vulnérables, faute d’outils accessibles pour se défendre face aux cybermenaces.
           </p>
           <div class="space-y-3 mb-6">
-            <div class="flex items-center space-x-3">
-              <span class="text-orange-400">📖</span>
-              <span class="text-gray-300">Notre Histoire</span>
-            </div>
-            <div class="flex items-center space-x-3">
-              <span class="text-orange-400">💆‍♂️</span>
-              <span class="text-gray-300">Par un pasionné</span>
-            </div>
-            <div class="flex items-center space-x-3">
-              <span class="text-orange-400">💡</span>
-              <span class="text-gray-300">Innovation Continue</span>
-            </div>
+            <div class="flex items-center space-x-3"><span class="text-orange-400">📖</span><span class="text-gray-300">Notre Histoire</span></div>
+            <div class="flex items-center space-x-3"><span class="text-orange-400">💆‍♂️</span><span class="text-gray-300">Par un pasionné</span></div>
+            <div class="flex items-center space-x-3"><span class="text-orange-400">💡</span><span class="text-gray-300">Innovation Continue</span></div>
           </div>
         </div>
         <a href="Page/about.html" class="mt-4 w-full">
-          <div class="bg-orange-600 hover:bg-orange-700 py-3 rounded-xl font-bold text-white text-center transition-colors">
-            🖱️ Découvrir notre Histoire
-          </div>
+          <div class="bg-orange-600 hover:bg-orange-700 py-3 rounded-xl font-bold text-white text-center transition-colors">🖱️ Découvrir notre Histoire</div>
         </a>
       </div>
 
-
+      <!-- Contact -->
       <div class="page-card p-8 rounded-2xl fade-in fade-in-delay-4 flex flex-col justify-between" id="contact">
         <div>
           <div class="text-5xl mb-6 text-center">📞</div>
@@ -521,28 +351,17 @@
             pour vous accompagner dans votre projet cybersécurité.
           </p>
           <div class="space-y-3 mb-6">
-            <div class="flex items-center space-x-3">
-              <span class="text-cyan-400">📧</span>
-              <span class="text-gray-300">contact@techspace.fr</span>
-            </div>
-            <div class="flex items-center space-x-3">
-              <span class="text-cyan-400">💬</span>
-              <span class="text-gray-300">Chat 24/7 Disponible</span>
-            </div>
-            <div class="flex items-center space-x-3">
-              <span class="text-cyan-400">🤝</span>
-              <span class="text-gray-300">Partenariats Ouverts</span>
-            </div>
+            <div class="flex items-center space-x-3"><span class="text-cyan-400">📧</span><span class="text-gray-300">contact@techspace.fr</span></div>
+            <div class="flex items-center space-x-3"><span class="text-cyan-400">💬</span><span class="text-gray-300">Chat 24/7 Disponible</span></div>
+            <div class="flex items-center space-x-3"><span class="text-cyan-400">🤝</span><span class="text-gray-300">Partenariats Ouverts</span></div>
           </div>
         </div>
         <a href="page/contact.html" class="mt-4 w-full">
-          <div class="bg-cyan-600 hover:bg-cyan-700 py-3 rounded-xl font-bold text-white text-center transition-colors">
-            📞 Nous Contacter
-          </div>
+          <div class="bg-cyan-600 hover:bg-cyan-700 py-3 rounded-xl font-bold text-white text-center transition-colors">📞 Nous Contacter</div>
         </a>
       </div>
 
-
+      <!-- Actualités -->
       <div class="page-card p-8 rounded-2xl fade-in fade-in-delay-5 flex flex-col justify-between" id="actualites">
         <div>
           <div class="text-5xl mb-6 text-center">📰</div>
@@ -552,34 +371,18 @@
             et nos analyses d'experts en temps réel.
           </p>
           <div class="space-y-3 mb-6">
-            <div class="flex items-center space-x-3">
-              <span class="text-pink-400">🔥</span>
-              <span class="text-gray-300">Alertes Sécurité</span>
-            </div>
-            <div class="flex items-center space-x-3">
-              <span class="text-pink-400">📊</span>
-              <span class="text-gray-300">Analyses Menaces</span>
-            </div>
-            <div class="flex items-center space-x-3">
-              <span class="text-pink-400">🚀</span>
-              <span class="text-gray-300">Mises à Jour Produit</span>
-            </div>
+            <div class="flex items-center space-x-3"><span class="text-pink-400">🔥</span><span class="text-gray-300">Alertes Sécurité</span></div>
+            <div class="flex items-center space-x-3"><span class="text-pink-400">📊</span><span class="text-gray-300">Analyses Menaces</span></div>
+            <div class="flex items-center space-x-3"><span class="text-pink-400">🚀</span><span class="text-gray-300">Mises à Jour Produit</span></div>
           </div>
         </div>
         <a href="page/actualités.html" class="mt-4 w-full">
-          <div class="bg-pink-600 hover:bg-pink-700 py-3 rounded-xl font-bold text-white text-center transition-colors">
-            📰 Lire les Actualités
-          </div>
+          <div class="bg-pink-600 hover:bg-pink-700 py-3 rounded-xl font-bold text-white text-center transition-colors">📰 Lire les Actualités</div>
         </a>
-      </div>
-
-      </button>
       </div>
     </div>
   </div>
 </section>
-
-
 
 <!-- Roadmap 2025-2030 -->
 <section class="py-20">
@@ -650,52 +453,37 @@
     <div class="grid lg:grid-cols-3 gap-8">
       <div class="testimonial-card p-8 rounded-2xl fade-in">
         <div class="flex items-center mb-6">
-          <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-2xl font-bold">
-            M.D
-          </div>
+          <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-2xl font-bold">M.D</div>
           <div class="ml-4">
             <h4 class="font-bold text-white">Marie Dubois</h4>
             <p class="text-gray-400">RSSI, TechCorp</p>
           </div>
         </div>
-        <p class="text-gray-300 italic mb-4">
-          "Enfin une solution qui anticipe les menaces ! L'IA de TechSpace a détecté
-          des attaques que nos outils traditionnels n'auraient jamais vues."
-        </p>
+        <p class="text-gray-300 italic mb-4">"Enfin une solution qui anticipe les menaces ! L'IA de TechSpace a détecté des attaques que nos outils traditionnels n'auraient jamais vues."</p>
         <div class="text-yellow-400">⭐⭐⭐⭐⭐</div>
       </div>
 
       <div class="testimonial-card p-8 rounded-2xl fade-in fade-in-delay-1">
         <div class="flex items-center mb-6">
-          <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex items-center justify-center text-2xl font-bold">
-            J.M
-          </div>
+          <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex items-center justify-center text-2xl font-bold">J.M</div>
           <div class="ml-4">
             <h4 class="font-bold text-white">Jean Martin</h4>
             <p class="text-gray-400">CEO, StartupTech</p>
           </div>
         </div>
-        <p class="text-gray-300 italic mb-4">
-          "TechSpace nous a permis de sécuriser notre croissance sans compromettre
-          l'innovation. Une protection invisible mais totalement efficace."
-        </p>
+        <p class="text-gray-300 italic mb-4">"TechSpace nous a permis de sécuriser notre croissance sans compromettre l'innovation. Une protection invisible mais totalement efficace."</p>
         <div class="text-yellow-400">⭐⭐⭐⭐⭐</div>
       </div>
 
       <div class="testimonial-card p-8 rounded-2xl fade-in fade-in-delay-2">
         <div class="flex items-center mb-6">
-          <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-2xl font-bold">
-            S.L
-          </div>
+          <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-2xl font-bold">S.L</div>
           <div class="ml-4">
             <h4 class="font-bold text-white">Sophie Laurent</h4>
             <p class="text-gray-400">CTO, FinanceSecure</p>
           </div>
         </div>
-        <p class="text-gray-300 italic mb-4">
-          "La formation IA personnalisée a transformé notre équipe. Nos employés
-          sont maintenant nos meilleurs remparts contre les cyberattaques."
-        </p>
+        <p class="text-gray-300 italic mb-4">"La formation IA personnalisée a transformé notre équipe. Nos employés sont maintenant nos meilleurs remparts contre les cyberattaques."</p>
         <div class="text-yellow-400">⭐⭐⭐⭐⭐</div>
       </div>
     </div>
@@ -784,7 +572,6 @@
   </div>
 </section>
 
-<!-- Footer -->
 <footer class="bg-slate-900 py-12">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="grid lg:grid-cols-4 gap-8">
@@ -836,8 +623,8 @@
         <h3 class="text-lg font-bold mb-4">Contact</h3>
         <ul class="space-y-2 text-gray-400">
           <li>📧 contact@techspace.fr</li>
-          <li>📞 +33 1 23 45 67 89</li>
-          <li>📍 Paris, France</li>
+          <li>📞 +33 6 51 38 79 42</li>
+          <li>📍 Bourgoin Jallieu, France</li>
           <li>💬 Chat 24/7</li>
         </ul>
       </div>
@@ -848,25 +635,23 @@
           <p class="text-blue-300 font-bold mb-2">🔔 Notifications</p>
           <p class="text-gray-300 text-sm">Recevez les mises à jour sur notre progression vers 2030</p>
         </div>
-        <button class="w-full bg-blue-600 hover:bg-blue-700 py-2 rounded-lg font-medium transition-colors">
-          📧 S'abonner
-        </button>
+        <form action="subscribe.php" method="POST" class="space-y-2">
+          <input type="email" name="email" placeholder="Votre email" required
+                 class="w-full px-4 py-2 rounded-lg text-slate-900 focus:outline-none" />
+          <button type="submit"
+                  class="w-full bg-blue-600 hover:bg-blue-700 py-2 rounded-lg font-medium text-white transition-colors">
+            📧 S'abonner
+          </button>
+        </form>
       </div>
     </div>
 
     <div class="border-t border-slate-700 mt-8 pt-8 text-center text-gray-400">
-      <p>&copy; 2024 TechSpace. Tous droits réservés. | Lancement prévu en 2030</p>
+      <p>&copy; 2025 TechSpace. Tous droits réservés. | Lancement prévu en 2030</p>
     </div>
   </div>
 </footer>
 
-<!-- Modal Pré-inscription -->
-<div id="preRegistrationModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden items-center justify-center">
-  <div class="bg-slate-800 rounded-2xl p-8 max-w-md w-full mx-4 border border-blue-500">
-    <div class="text-center mb-6">
-      <h3 class="text-3xl font-bold text-blue-400 mb-2">🚀 Pré-inscription</h3>
-      <p class="text-gray-300">Rejoignez la liste d'attente pour TechSpace 2030</p>
-    </div>
 
     <form class="space-y-4">
       <input type="text" placeholder="Nom complet" class="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-gray-400 focus:border-blue-400 focus:outline-none">
@@ -890,9 +675,7 @@
       </button>
     </form>
 
-    <button onclick="closePreRegistration()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl">
-      ✕
-    </button>
+    <button onclick="closePreRegistration()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl" aria-label="Fermer la fenêtre">✕</button>
   </div>
 </div>
 
@@ -913,28 +696,15 @@
     document.getElementById('hours').textContent = hours;
     document.getElementById('minutes').textContent = minutes;
   }
-
-  // Mettre à jour le compte à rebours chaque minute
   updateCountdown();
   setInterval(updateCountdown, 60000);
 
   // Animation des éléments au scroll
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-  };
-
+  const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.style.animationPlayState = 'running';
-      }
-    });
+    entries.forEach(entry => { if (entry.isIntersecting) { entry.target.style.animationPlayState = 'running'; } });
   }, observerOptions);
-
-  document.querySelectorAll('.fade-in').forEach(el => {
-    observer.observe(el);
-  });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
   // Menu mobile
   function toggleMobileMenu() {
@@ -944,85 +714,63 @@
 
   // Modal pré-inscription
   function openPreRegistration() {
-    document.getElementById('preRegistrationModal').classList.remove('hidden');
-    document.getElementById('preRegistrationModal').classList.add('flex');
+    const m = document.getElementById('preRegistrationModal');
+    m.classList.remove('hidden'); m.classList.add('flex');
   }
-
   function closePreRegistration() {
-    document.getElementById('preRegistrationModal').classList.add('hidden');
-    document.getElementById('preRegistrationModal').classList.remove('flex');
+    const m = document.getElementById('preRegistrationModal');
+    m.classList.add('hidden'); m.classList.remove('flex');
   }
 
   // FAQ Toggle
   function toggleFAQ(button) {
     const content = button.nextElementSibling;
     const icon = button.querySelector('span');
-
-    if (content.classList.contains('hidden')) {
-      content.classList.remove('hidden');
-      icon.textContent = '−';
-    } else {
-      content.classList.add('hidden');
-      icon.textContent = '+';
-    }
+    if (content.classList.contains('hidden')) { content.classList.remove('hidden'); icon.textContent = '−'; }
+    else { content.classList.add('hidden'); icon.textContent = '+'; }
   }
 
-  // Smooth scroll pour les liens d'ancrage
+  // Smooth scroll
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
       e.preventDefault();
       const target = document.querySelector(this.getAttribute('href'));
-      if (target) {
-        target.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        });
-      }
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   });
 
   // Effet parallaxe subtil
   window.addEventListener('scroll', () => {
     const scrolled = window.pageYOffset;
-    const parallaxElements = document.querySelectorAll('.parallax');
-
-    parallaxElements.forEach(element => {
-      const speed = 0.5;
-      element.style.transform = `translateY(${scrolled * speed}px)`;
-    });
+    document.querySelectorAll('.parallax').forEach(el => { el.style.transform = `translateY(${scrolled * 0.5}px)`; });
   });
 
-  // Animation des stats au chargement
+  // Animation des stats
   function animateStats() {
     const stats = document.querySelectorAll('.stats-number');
     stats.forEach(stat => {
       const finalValue = stat.textContent;
       let currentValue = 0;
       const increment = finalValue.includes('%') ? 1 : 0.1;
-
       const timer = setInterval(() => {
         currentValue += increment;
         if (currentValue >= parseFloat(finalValue)) {
-          stat.textContent = finalValue;
-          clearInterval(timer);
+          stat.textContent = finalValue; clearInterval(timer);
         } else {
           stat.textContent = currentValue.toFixed(1) + (finalValue.includes('%') ? '%' : finalValue.includes('s') ? 's' : '');
         }
       }, 50);
     });
   }
-
-  // Démarrer les animations au chargement
-  window.addEventListener('load', () => {
-    setTimeout(animateStats, 2000);
-  });
+  window.addEventListener('load', () => { setTimeout(animateStats, 2000); });
 
   // Fermer le modal en cliquant à l'extérieur
   document.getElementById('preRegistrationModal').addEventListener('click', function(e) {
-    if (e.target === this) {
-      closePreRegistration();
-    }
+    if (e.target === this) closePreRegistration();
   });
 </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96425ad024eff18c',t:'MTc1MzM0ODk2NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+
+<!-- (Conservé tel quel) -->
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96425ad024eff18c',t:'MTc1MzM0ODk2NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+</body>
 </html>

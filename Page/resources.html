@@ -316,7 +316,7 @@
           <span class="bg-blue-600/20 text-blue-300 px-3 py-1 rounded-full text-sm">PDF - 45 pages</span>
           <span class="text-gray-400 text-sm">⬇️ 2,847 téléchargements</span>
         </div>
-        <button class="download-btn w-full py-3 rounded-xl font-bold text-white" onclick="downloadResource('rgpd-guide')">
+        <button class="download-btn w-full py-3 rounded-xl font-bold text-white" onclick="downloadResource('RGPD')">
           📥 Télécharger Gratuitement
         </button>
       </div>
@@ -902,17 +902,35 @@
 
   // Fonction de téléchargement
   function downloadResource(resourceId) {
-    // Simulation du téléchargement
-    const button = event.target;
-    const originalText = button.innerHTML;
+    let fileUrl = '';
 
-    button.innerHTML = '⏳ Téléchargement...';
-    button.disabled = true;
+    // Associe chaque ID à son fichier réel
+    if (resourceId === 'RGPD') {
+      fileUrl = 'docs/RGPD.pdf';
+    } else if (resourceId === 'pme-checklist') {
+      fileUrl = 'docs/Checklist-Securite-PME.pdf';
+    } else if (resourceId === 'incident-plan') {
+      fileUrl = 'docs/Plan-Reponse-Incidents.pdf';
+    } else if (resourceId === 'audit-diy') {
+      fileUrl = 'docs/Audit-Securite-DIY.pdf';
+    } else if (resourceId === 'cloud-security') {
+      fileUrl = 'docs/Securite-Cloud-AWS-Azure.pdf';
+    } else if (resourceId === 'training-kit') {
+      fileUrl = 'docs/Kit-Formation-Utilisateurs.zip';
+    }
 
-    setTimeout(() => {
-      button.innerHTML = '✅ Téléchargé !';
+    if (fileUrl) {
+      const link = document.createElement('a');
+      link.href = fileUrl;
+      link.download = fileUrl.split('/').pop();
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  }
 
-      // Incrémenter le compteur de téléchargements
+
+  // Incrémenter le compteur de téléchargements
       const counterElement = button.closest('.resource-card').querySelector('[class*="téléchargements"]');
       if (counterElement) {
         const currentCount = parseInt(counterElement.textContent.match(/\d+/)[0]);
